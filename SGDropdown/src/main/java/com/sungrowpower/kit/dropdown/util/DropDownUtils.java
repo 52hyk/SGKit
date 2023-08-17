@@ -661,11 +661,20 @@ public class DropDownUtils {
         return rect;
     }
 
+    /**
+     * 判断是否横屏显示
+     * @param context
+     * @return
+     */
     public static boolean isLandscape(Context context){
         return context.getResources().getConfiguration().orientation
                 == Configuration.ORIENTATION_LANDSCAPE;
     }
 
+    /**
+     * 判断是否是平板
+     * @return
+     */
     public static boolean isTablet() {
         return (Resources.getSystem().getConfiguration().screenLayout
                 & Configuration.SCREENLAYOUT_SIZE_MASK)

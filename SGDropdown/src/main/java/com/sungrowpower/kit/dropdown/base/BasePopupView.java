@@ -264,14 +264,6 @@ public abstract class BasePopupView extends FrameLayout implements LifecycleObse
                 focusAndProcessBackPress();
             //}
 
-            //由于部分弹窗有个位置设置过程，需要在位置设置完毕自己开启动画
-            if (!(BasePopupView.this instanceof PartShadowPopupView)) {
-                initAnimator();
-
-                doShowAnimation();
-
-                doAfterShow();
-            }
         }
     };
 

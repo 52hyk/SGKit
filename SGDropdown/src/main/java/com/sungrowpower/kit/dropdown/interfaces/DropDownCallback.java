@@ -4,7 +4,7 @@ package com.sungrowpower.kit.dropdown.interfaces;
 import com.sungrowpower.kit.dropdown.base.BasePopupView;
 
 /**
- * Description: XPopup显示和隐藏的回调接口，如果你不想重写3个方法，则可以使用SimpleCallback，
+ * Description: dropdown显示和隐藏的回调接口，如果你不想重写3个方法，则可以使用SimpleCallback，
  * 它是一个默认实现类
  *  Create by hyk
  */
