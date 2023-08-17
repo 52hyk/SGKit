@@ -11,7 +11,7 @@ import com.sungrowpower.kit.dropdown.enums.PopupAnimation;
 
 /**
  * Description: 像系统的PopupMenu那样的动画
- * Create by lxj, at 2018/12/12
+ * Create by hyk
  */
 public class ScrollScaleAnimator extends PopupAnimator{
 

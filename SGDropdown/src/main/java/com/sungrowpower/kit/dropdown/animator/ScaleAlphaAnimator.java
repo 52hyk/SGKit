@@ -10,7 +10,7 @@ import com.sungrowpower.kit.dropdown.enums.PopupAnimation;
 
 /**
  * Description: 缩放透明
- * Create by dance, at 2018/12/9
+ * Create by hyk
  */
 public class ScaleAlphaAnimator extends PopupAnimator {
     public ScaleAlphaAnimator(View target, int animationDuration, PopupAnimation popupAnimation) {

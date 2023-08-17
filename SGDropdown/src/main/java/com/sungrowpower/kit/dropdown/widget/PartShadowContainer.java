@@ -17,7 +17,7 @@ import com.sungrowpower.kit.dropdown.util.XPopupUtils;
 
 /**
  * Description:
- * Create by dance, at 2019/1/10
+ * Create by hyk
  */
 public class PartShadowContainer extends FrameLayout {
     public boolean isDismissOnTouchOutside = true;

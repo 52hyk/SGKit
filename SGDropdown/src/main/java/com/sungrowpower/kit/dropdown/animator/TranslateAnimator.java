@@ -10,7 +10,7 @@ import com.sungrowpower.kit.dropdown.enums.PopupAnimation;
 
 /**
  * Description: 平移动画，不带渐变
- * Create by dance, at 2018/12/9
+ * Create by hyk
  */
 public class TranslateAnimator extends PopupAnimator {
     private float startTranslationX, startTranslationY;

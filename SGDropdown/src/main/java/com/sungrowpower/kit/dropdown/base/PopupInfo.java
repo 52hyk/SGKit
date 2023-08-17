@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 /**
  * Description: Popup的属性封装
- * Create by dance, at 2018/12/8
+ * Create by hyk
  */
 public class PopupInfo {
     public PopupType popupType = null; //窗体的类型

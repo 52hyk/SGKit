@@ -2,7 +2,7 @@ package com.sungrowpower.kit.dropdown.enums;
 
 /**
  * Description: Popup显示和隐藏状态
- * Create by dance, at 2018/12/9
+ * Create by hyk
  */
 public enum PopupStatus {
     Show, // 显示

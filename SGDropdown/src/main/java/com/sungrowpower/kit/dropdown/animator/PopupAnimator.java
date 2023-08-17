@@ -11,7 +11,7 @@ import com.sungrowpower.kit.dropdown.enums.PopupAnimation;
 
 /**
  * Description: 弹窗动画执行器
- * Create by dance, at 2018/12/9
+ * Create by hyk
  */
 public abstract class PopupAnimator {
     protected boolean animating = false;

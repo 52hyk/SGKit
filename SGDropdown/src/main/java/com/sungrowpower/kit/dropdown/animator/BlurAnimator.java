@@ -11,7 +11,7 @@ import com.sungrowpower.kit.dropdown.util.XPopupUtils;
 
 /**
  * Description: 背景模糊动画器
- * Create by dance, at 2018/12/9
+ * Create by hyk
  */
 public class BlurAnimator extends PopupAnimator {
 

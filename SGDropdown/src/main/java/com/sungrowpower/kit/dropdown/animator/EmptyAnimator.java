@@ -4,7 +4,7 @@ import android.view.View;
 
 /**
  * Description: 没有动画效果的动画器
- * Create by dance, at 2019/6/6
+ * Create by hyk
  */
 public class EmptyAnimator extends PopupAnimator {
     public EmptyAnimator(View target, int animationDuration){

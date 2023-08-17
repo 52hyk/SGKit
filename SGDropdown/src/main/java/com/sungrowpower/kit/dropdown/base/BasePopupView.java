@@ -52,7 +52,7 @@ import java.util.List;
 
 /**
  * Description: 弹窗基类
- * Create by lxj, at 2018/12/7
+ * Create by hyk
  */
 public abstract class BasePopupView extends FrameLayout implements LifecycleObserver, LifecycleOwner,
         ViewCompat.OnUnhandledKeyEventListenerCompat{

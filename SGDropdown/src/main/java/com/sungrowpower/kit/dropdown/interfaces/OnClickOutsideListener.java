@@ -2,7 +2,7 @@ package com.sungrowpower.kit.dropdown.interfaces;
 
 /**
  * Description:
- * Create by dance, at 2019/1/10
+ * Create by hyk
  */
 public interface OnClickOutsideListener {
     void onClickOutside();

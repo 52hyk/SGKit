@@ -2,7 +2,7 @@ package com.sungrowpower.kit.dropdown.enums;
 
 /**
  * Description: 窗体显示的位置类型
- * Create by lxj, at 2018/12/7
+ * Create by hyk
  */
 public enum PopupType {
     Center, // 中间显示类型

@@ -23,7 +23,7 @@ import com.sungrowpower.kit.dropdown.widget.PartShadowContainer;
 
 /**
  * Description: 局部阴影的弹窗，类似于淘宝商品列表的下拉筛选弹窗
- * Create by dance, at 2018/12/21
+ * Create by hyk
  */
 public abstract class PartShadowPopupView extends BasePopupView {
     protected PartShadowContainer attachPopupContainer;

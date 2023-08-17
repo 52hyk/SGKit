@@ -2,7 +2,7 @@ package com.sungrowpower.kit.dropdown.enums;
 
 /**
  * Description:
- * Create by dance, at 2018/12/9
+ * Create by hyk
  */
 public enum PopupAnimation {
     // 缩放 + 透明渐变

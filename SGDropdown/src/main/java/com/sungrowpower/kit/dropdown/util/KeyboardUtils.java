@@ -23,7 +23,7 @@ import com.sungrowpower.kit.dropdown.base.BasePopupView;
 
 /**
  * Description:
- * Create by dance, at 2018/12/17
+ * Create by hyk
  */
 public final class KeyboardUtils {
     public static int sDecorViewInvisibleHeightPre;
