@@ -16,8 +16,8 @@ import com.sungrowpower.kit.dropdown.animator.TranslateAnimator;
 import com.sungrowpower.kit.dropdown.base.BasePopupView;
 import com.sungrowpower.kit.dropdown.enums.PopupAnimation;
 import com.sungrowpower.kit.dropdown.enums.PopupPosition;
-import com.sungrowpower.kit.dropdown.interfaces.OnClickOutsideListener;
-import com.sungrowpower.kit.dropdown.util.DropDownUtils;
+import com.sungrowpower.kit.dropdown.interfaces.SGOnClickOutsideListener;
+import com.sungrowpower.kit.dropdown.util.SGDropDownUtils;
 import com.sungrowpower.kit.dropdown.widget.PartShadowContainer;
 
 
@@ -54,7 +54,7 @@ public abstract class PartShadowPopupView extends BasePopupView {
         getPopupImplView().setTranslationX(popupInfo.offsetX);
         getPopupImplView().setTranslationY(0f);
         getPopupImplView().setVisibility(INVISIBLE);
-        DropDownUtils.applyPopupSize((ViewGroup) getPopupContentView(), getMaxWidth(), getMaxHeight(),
+        SGDropDownUtils.applyPopupSize((ViewGroup) getPopupContentView(), getMaxWidth(), getMaxHeight(),
                 getPopupWidth(), getPopupHeight(), new Runnable() {
             @Override
             public void run() {
@@ -139,7 +139,7 @@ public abstract class PartShadowPopupView extends BasePopupView {
                 return false;
             }
         });
-        attachPopupContainer.setOnClickOutsideListener(new OnClickOutsideListener() {
+        attachPopupContainer.setOnClickOutsideListener(new SGOnClickOutsideListener() {
             @Override
             public void onClickOutside() {
                 if (popupInfo.isDismissOnTouchOutside) {
@@ -156,6 +156,6 @@ public abstract class PartShadowPopupView extends BasePopupView {
 
     @Override
     protected int getMaxWidth() {
-        return DropDownUtils.getAppWidth(getContext());
+        return SGDropDownUtils.getAppWidth(getContext());
     }
 }

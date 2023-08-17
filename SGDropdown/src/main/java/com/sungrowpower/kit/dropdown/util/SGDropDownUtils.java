@@ -58,7 +58,7 @@ import java.util.Locale;
  * Description:
  * Create by hyk
  */
-public class DropDownUtils {
+public class SGDropDownUtils {
 
     //应用界面可见高度，可能不包含导航和状态栏，看Rom实现
     public static int getAppHeight(Context context) {

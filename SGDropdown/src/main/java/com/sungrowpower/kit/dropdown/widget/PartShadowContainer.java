@@ -11,8 +11,8 @@ import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.sungrowpower.kit.dropdown.interfaces.OnClickOutsideListener;
-import com.sungrowpower.kit.dropdown.util.DropDownUtils;
+import com.sungrowpower.kit.dropdown.interfaces.SGOnClickOutsideListener;
+import com.sungrowpower.kit.dropdown.util.SGDropDownUtils;
 
 
 /**
@@ -43,7 +43,7 @@ public class PartShadowContainer extends FrameLayout {
         implView.getLocationInWindow(location);
         Rect implViewRect = new Rect(location[0], location[1], location[0] + implView.getMeasuredWidth(),
                 location[1] + implView.getMeasuredHeight());
-        if (!DropDownUtils.isInRect(event.getRawX(), event.getRawY(), implViewRect)) {
+        if (!SGDropDownUtils.isInRect(event.getRawX(), event.getRawY(), implViewRect)) {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     x = event.getX();
@@ -68,9 +68,9 @@ public class PartShadowContainer extends FrameLayout {
         return true;
     }
 
-    private OnClickOutsideListener listener;
+    private SGOnClickOutsideListener listener;
 
-    public void setOnClickOutsideListener(OnClickOutsideListener listener) {
+    public void setOnClickOutsideListener(SGOnClickOutsideListener listener) {
         this.listener = listener;
     }
 }

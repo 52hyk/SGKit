@@ -16,7 +16,7 @@ import androidx.annotation.NonNull;
 import com.sungrowpower.kit.R;
 import com.sungrowpower.kit.dropdown.SGDropdown;
 import com.sungrowpower.kit.dropdown.util.FuckRomUtils;
-import com.sungrowpower.kit.dropdown.util.DropDownUtils;
+import com.sungrowpower.kit.dropdown.util.SGDropDownUtils;
 
 
 /**
@@ -88,9 +88,9 @@ public class FullScreenDialog extends Dialog {
         boolean isPortrait = getContext().getResources().getConfiguration().orientation
                 == Configuration.ORIENTATION_PORTRAIT;
         if(isFuckVIVORoom() && isPortrait){
-            getWindow().setLayout(DropDownUtils.getAppWidth(getContext()), Math.max(DropDownUtils.getAppHeight(getContext()),
-                    DropDownUtils.getScreenHeight(getContext())));
-            getWindow().getDecorView().setTranslationY(-DropDownUtils.getStatusBarHeight());
+            getWindow().setLayout(SGDropDownUtils.getAppWidth(getContext()), Math.max(SGDropDownUtils.getAppHeight(getContext()),
+                    SGDropDownUtils.getScreenHeight(getContext())));
+            getWindow().getDecorView().setTranslationY(-SGDropDownUtils.getStatusBarHeight());
         }
         ViewGroup.LayoutParams layoutParams = contentView.getLayoutParams();
         layoutParams.height = getWindow().getAttributes().height;
@@ -195,7 +195,7 @@ public class FullScreenDialog extends Dialog {
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
         if(isFuckVIVORoom()){ //VIVO的部分机型需要做特殊处理，Fuck
-            event.setLocation(event.getX(), event.getY()+ DropDownUtils.getStatusBarHeight());
+            event.setLocation(event.getX(), event.getY()+ SGDropDownUtils.getStatusBarHeight());
         }
         return super.dispatchTouchEvent(event);
     }

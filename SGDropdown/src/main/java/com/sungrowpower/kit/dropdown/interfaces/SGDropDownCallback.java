@@ -8,7 +8,7 @@ import com.sungrowpower.kit.dropdown.base.BasePopupView;
  * 它是一个默认实现类
  *  Create by hyk
  */
-public interface DropDownCallback {
+public interface SGDropDownCallback {
     /**
      * 弹窗的onCreate方法执行完调用
      */

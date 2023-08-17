@@ -25,10 +25,10 @@ import com.sungrowpower.kit.dropdown.base.BasePopupView;
  * Description:
  * Create by hyk
  */
-public final class KeyboardUtils {
+public final class SGKeyboardUtils {
     public static int sDecorViewInvisibleHeightPre;
     private static final SparseArray<ViewTreeObserver.OnGlobalLayoutListener> listenerArray = new SparseArray<>();
-    private KeyboardUtils() {
+    private SGKeyboardUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
@@ -41,7 +41,7 @@ public final class KeyboardUtils {
         Log.d("KeyboardUtils", "getDecorViewInvisibleHeight: "
                 + (decorView.getBottom() - outRect.bottom));
         int delta = Math.abs(decorView.getBottom() - outRect.bottom);
-        if (delta <= DropDownUtils.getNavBarHeight() + DropDownUtils.getStatusBarHeight()) {
+        if (delta <= SGDropDownUtils.getNavBarHeight() + SGDropDownUtils.getStatusBarHeight()) {
             sDecorViewDelta = delta;
             return 0;
         }

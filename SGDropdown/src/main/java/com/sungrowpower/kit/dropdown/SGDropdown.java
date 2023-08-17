@@ -16,8 +16,8 @@ import com.sungrowpower.kit.dropdown.base.PopupInfo;
 import com.sungrowpower.kit.dropdown.enums.PopupAnimation;
 import com.sungrowpower.kit.dropdown.enums.PopupPosition;
 import com.sungrowpower.kit.dropdown.enums.PopupType;
-import com.sungrowpower.kit.dropdown.interfaces.DropDownCallback;
-import com.sungrowpower.kit.dropdown.util.DropDownUtils;
+import com.sungrowpower.kit.dropdown.interfaces.SGDropDownCallback;
+import com.sungrowpower.kit.dropdown.util.SGDropDownUtils;
 
 import java.util.ArrayList;
 
@@ -628,7 +628,7 @@ public class SGDropdown {
             if(this.popupInfo.notDismissWhenTouchInArea==null){
                 this.popupInfo.notDismissWhenTouchInArea = new ArrayList<>();
             }
-            this.popupInfo.notDismissWhenTouchInArea.add(DropDownUtils.getViewRect(view));
+            this.popupInfo.notDismissWhenTouchInArea.add(SGDropDownUtils.getViewRect(view));
             return this;
         }
 
@@ -646,11 +646,11 @@ public class SGDropdown {
         /**
          * 设置弹窗显示和隐藏的回调监听
          *
-         * @param dropDownCallback
+         * @param SGDropDownCallback
          * @return
          */
-        public Builder setPopupCallback(DropDownCallback dropDownCallback) {
-            this.popupInfo.dropDownCallback = dropDownCallback;
+        public Builder setPopupCallback(SGDropDownCallback SGDropDownCallback) {
+            this.popupInfo.SGDropDownCallback = SGDropDownCallback;
             return this;
         }
 

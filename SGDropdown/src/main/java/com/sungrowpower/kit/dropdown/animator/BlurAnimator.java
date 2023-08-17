@@ -6,7 +6,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.view.View;
 
-import com.sungrowpower.kit.dropdown.util.DropDownUtils;
+import com.sungrowpower.kit.dropdown.util.SGDropDownUtils;
 
 
 /**
@@ -27,7 +27,7 @@ public class BlurAnimator extends PopupAnimator {
     public BlurAnimator() {}
     @Override
     public void initAnimator() {
-        Bitmap blurBmp = DropDownUtils.renderScriptBlur(targetView.getContext(), decorBitmap,  25, true);
+        Bitmap blurBmp = SGDropDownUtils.renderScriptBlur(targetView.getContext(), decorBitmap,  25, true);
         BitmapDrawable drawable = new BitmapDrawable(targetView.getResources(), blurBmp);
         if(hasShadowBg) {
             drawable.setColorFilter(shadowColor, PorterDuff.Mode.SRC_OVER);
