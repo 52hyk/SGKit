@@ -19,7 +19,7 @@ import java.util.ArrayList;
  * Description: Popup的属性封装
  * Create by hyk
  */
-public class PopupInfo {
+public class DropDownInfo {
     public PopupType popupType = null; //窗体的类型
     public Boolean isDismissOnBackPressed = true;  //按返回键是否消失
     public Boolean isDismissOnTouchOutside = true; //点击外部消失
