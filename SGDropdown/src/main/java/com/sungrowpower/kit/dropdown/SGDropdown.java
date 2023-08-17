@@ -1,5 +1,6 @@
 package com.sungrowpower.kit.dropdown;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PointF;
@@ -122,6 +123,7 @@ public class SGDropdown {
     public static PointF longClickPoint = null;
     public static void fixLongClick(View v){
         v.setOnTouchListener(new View.OnTouchListener() {
+            @SuppressLint("ClickableViewAccessibility")
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction()==MotionEvent.ACTION_DOWN){

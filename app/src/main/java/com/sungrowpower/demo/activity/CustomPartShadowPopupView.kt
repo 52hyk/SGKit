@@ -12,7 +12,7 @@ import com.sungrowpower.kit.dropdown.impl.PartShadowPopupView
  * Create by dance, at 2018/12/21
  */
 class CustomPartShadowPopupView(context: Context) : PartShadowPopupView(context) {
-    private val mData= mutableListOf<String>("张三","李四")
+    private val mData= mutableListOf<String>("Options1","Options2","Options3","Options4")
     private val adapter by lazy {
         MyAdapter(mData)
     }

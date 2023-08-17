@@ -34,15 +34,9 @@ class MainActivity : Activity() {
             decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
         findViewById<View>(R.id.tv_click).setOnClickListener { v ->
-           /* XPopup.Builder(this@MainActivity)
-                .atView(v)
-                .popupPosition(com.kuaimin.dropdown.enums.PopupPosition.Bottom)
-               .asCustom(CustomPartShadowPopupView(this@MainActivity))
-               // .popupView()
-                .show()*/
-
             SGDropdown.Builder(this@MainActivity)
                 .atView(v)
+                .isViewMode(true)
                 .popupPosition(PopupPosition.Bottom)
                 .asCustom(CustomPartShadowPopupView(this@MainActivity))
                 //.popupView()

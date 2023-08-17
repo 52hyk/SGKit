@@ -687,7 +687,9 @@ public abstract class BasePopupView extends FrameLayout implements LifecycleObse
     }
 
     public void delayDismiss(long delay) {
-        if (delay < 0) delay = 0;
+        if (delay < 0) {
+            delay = 0;
+        }
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {

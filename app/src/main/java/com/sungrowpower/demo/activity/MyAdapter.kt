@@ -13,7 +13,7 @@ import com.kuaimin.dropdown.R
  */
 class MyAdapter(mData:MutableList<String>):BaseQuickAdapter<String, QuickViewHolder>(mData) {
     override fun onBindViewHolder(holder: QuickViewHolder, position: Int, item: String?) {
-
+        holder.setText(R.id.tv_name,item)
     }
 
     override fun onCreateViewHolder(
