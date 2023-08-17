@@ -17,7 +17,7 @@ import com.sungrowpower.kit.dropdown.base.BasePopupView;
 import com.sungrowpower.kit.dropdown.enums.PopupAnimation;
 import com.sungrowpower.kit.dropdown.enums.PopupPosition;
 import com.sungrowpower.kit.dropdown.interfaces.OnClickOutsideListener;
-import com.sungrowpower.kit.dropdown.util.XPopupUtils;
+import com.sungrowpower.kit.dropdown.util.DropDownUtils;
 import com.sungrowpower.kit.dropdown.widget.PartShadowContainer;
 
 
@@ -54,7 +54,7 @@ public abstract class PartShadowPopupView extends BasePopupView {
         getPopupImplView().setTranslationX(popupInfo.offsetX);
         getPopupImplView().setTranslationY(0f);
         getPopupImplView().setVisibility(INVISIBLE);
-        XPopupUtils.applyPopupSize((ViewGroup) getPopupContentView(), getMaxWidth(), getMaxHeight(),
+        DropDownUtils.applyPopupSize((ViewGroup) getPopupContentView(), getMaxWidth(), getMaxHeight(),
                 getPopupWidth(), getPopupHeight(), new Runnable() {
             @Override
             public void run() {
@@ -156,6 +156,6 @@ public abstract class PartShadowPopupView extends BasePopupView {
 
     @Override
     protected int getMaxWidth() {
-        return XPopupUtils.getAppWidth(getContext());
+        return DropDownUtils.getAppWidth(getContext());
     }
 }

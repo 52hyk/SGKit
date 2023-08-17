@@ -41,7 +41,7 @@ public final class KeyboardUtils {
         Log.d("KeyboardUtils", "getDecorViewInvisibleHeight: "
                 + (decorView.getBottom() - outRect.bottom));
         int delta = Math.abs(decorView.getBottom() - outRect.bottom);
-        if (delta <= XPopupUtils.getNavBarHeight() + XPopupUtils.getStatusBarHeight()) {
+        if (delta <= DropDownUtils.getNavBarHeight() + DropDownUtils.getStatusBarHeight()) {
             sDecorViewDelta = delta;
             return 0;
         }

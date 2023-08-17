@@ -11,7 +11,7 @@ import com.sungrowpower.kit.dropdown.animator.PopupAnimator;
 import com.sungrowpower.kit.dropdown.enums.PopupAnimation;
 import com.sungrowpower.kit.dropdown.enums.PopupPosition;
 import com.sungrowpower.kit.dropdown.enums.PopupType;
-import com.sungrowpower.kit.dropdown.interfaces.XPopupCallback;
+import com.sungrowpower.kit.dropdown.interfaces.DropDownCallback;
 
 import java.util.ArrayList;
 
@@ -36,7 +36,7 @@ public class PopupInfo {
     public int popupWidth, popupHeight; // 指定弹窗的宽高，受max的宽高限制
     public float borderRadius = 15; // 圆角
     public Boolean autoOpenSoftInput = false;//是否自动打开输入法
-    public XPopupCallback xPopupCallback;
+    public DropDownCallback dropDownCallback;
 
     public Boolean isMoveUpToKeyboard = true; //是否移动到软键盘上面，默认弹窗会移到软键盘上面
     public PopupPosition popupPosition = null; //弹窗出现在目标的什么位置

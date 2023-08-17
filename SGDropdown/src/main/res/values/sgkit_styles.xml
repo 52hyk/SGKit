@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SGFontIcon">
+        <attr name="sgkit_isHtml" format="boolean" />
+    </declare-styleable>
+</resources>

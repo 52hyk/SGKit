@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.sungrowpower.kit.dropdown.interfaces.OnClickOutsideListener;
-import com.sungrowpower.kit.dropdown.util.XPopupUtils;
+import com.sungrowpower.kit.dropdown.util.DropDownUtils;
 
 
 /**
@@ -43,7 +43,7 @@ public class PartShadowContainer extends FrameLayout {
         implView.getLocationInWindow(location);
         Rect implViewRect = new Rect(location[0], location[1], location[0] + implView.getMeasuredWidth(),
                 location[1] + implView.getMeasuredHeight());
-        if (!XPopupUtils.isInRect(event.getRawX(), event.getRawY(), implViewRect)) {
+        if (!DropDownUtils.isInRect(event.getRawX(), event.getRawY(), implViewRect)) {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     x = event.getX();
