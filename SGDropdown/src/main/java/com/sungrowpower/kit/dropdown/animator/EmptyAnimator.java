@@ -6,7 +6,7 @@ import android.view.View;
  * Description: 没有动画效果的动画器
  * Create by hyk
  */
-public class EmptyAnimator extends PopupAnimator {
+public class EmptyAnimator extends DropDownAnimator {
     public EmptyAnimator(View target, int animationDuration){
         super(target, animationDuration);
     }

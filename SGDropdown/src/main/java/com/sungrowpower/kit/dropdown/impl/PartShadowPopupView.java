@@ -11,11 +11,11 @@ import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
 
 import com.sungrowpower.kit.R;
-import com.sungrowpower.kit.dropdown.animator.PopupAnimator;
+import com.sungrowpower.kit.dropdown.animator.DropDownAnimator;
 import com.sungrowpower.kit.dropdown.animator.TranslateAnimator;
 import com.sungrowpower.kit.dropdown.base.BasePopupView;
-import com.sungrowpower.kit.dropdown.enums.PopupAnimation;
-import com.sungrowpower.kit.dropdown.enums.PopupPosition;
+import com.sungrowpower.kit.dropdown.enums.SGDropDownAnimation;
+import com.sungrowpower.kit.dropdown.enums.DropDownPosition;
 import com.sungrowpower.kit.dropdown.interfaces.SGOnClickOutsideListener;
 import com.sungrowpower.kit.dropdown.util.SGDropDownUtils;
 import com.sungrowpower.kit.dropdown.widget.PartShadowContainer;
@@ -47,11 +47,11 @@ public abstract class PartShadowPopupView extends BasePopupView {
             addInnerContent();
         }
         // 指定阴影动画的目标View
-        if (dropDownInfo.hasShadowBg) {
+        if (SGDropDownInfo.hasShadowBg) {
             shadowBgAnimator.targetView = getPopupContentView();
         }
-        getPopupContentView().setTranslationY(dropDownInfo.offsetY);
-        getPopupImplView().setTranslationX(dropDownInfo.offsetX);
+        getPopupContentView().setTranslationY(SGDropDownInfo.offsetY);
+        getPopupImplView().setTranslationX(SGDropDownInfo.offsetX);
         getPopupImplView().setTranslationY(0f);
         getPopupImplView().setVisibility(INVISIBLE);
         SGDropDownUtils.applyPopupSize((ViewGroup) getPopupContentView(), getMaxWidth(), getMaxHeight(),
@@ -71,7 +71,7 @@ public abstract class PartShadowPopupView extends BasePopupView {
 
     public boolean isShowUp;
     public void doAttach() {
-        if (dropDownInfo.atView == null) {
+        if (SGDropDownInfo.atView == null) {
             throw new IllegalArgumentException("atView must not be null for PartShadowPopupView！");
         }
 
@@ -81,18 +81,18 @@ public abstract class PartShadowPopupView extends BasePopupView {
 
 
         //1. 获取atView在屏幕上的位置
-        Rect rect = dropDownInfo.getAtViewRect();
+        Rect rect = SGDropDownInfo.getAtViewRect();
         rect.left -= getActivityContentLeft();
         rect.right -= getActivityContentLeft();
 
         //水平居中
-        if (dropDownInfo.isCenterHorizontal && getPopupImplView() != null) {
+        if (SGDropDownInfo.isCenterHorizontal && getPopupImplView() != null) {
 //            getPopupImplView().setTranslationX(XPopupUtils.getAppWidth(getContext()) / 2f - getPopupContentView().getMeasuredWidth() / 2f);
             //参考目标View居中，而不是屏幕居中
             int tx = (rect.left + rect.right)/2 - getPopupImplView().getMeasuredWidth()/2;
             getPopupImplView().setTranslationX(tx);
         }else {
-            int tx = rect.left + dropDownInfo.offsetX;
+            int tx = rect.left + SGDropDownInfo.offsetX;
             int realWidth = getActivityContentView().getMeasuredWidth();
             if(tx + getPopupImplView().getMeasuredWidth() > realWidth){
                 tx -= (tx + getPopupImplView().getMeasuredWidth() - realWidth);
@@ -103,7 +103,7 @@ public abstract class PartShadowPopupView extends BasePopupView {
         int centerY = rect.top + rect.height() / 2;
         View implView = getPopupImplView();
         FrameLayout.LayoutParams implParams = (FrameLayout.LayoutParams) implView.getLayoutParams();
-        if ((centerY > getMeasuredHeight() / 2 || dropDownInfo.popupPosition == PopupPosition.Top) && dropDownInfo.popupPosition != PopupPosition.Bottom) {
+        if ((centerY > getMeasuredHeight() / 2 || SGDropDownInfo.dropDownPosition == DropDownPosition.Top) && SGDropDownInfo.dropDownPosition != DropDownPosition.Bottom) {
             // 说明atView在Window下半部分，PartShadow应该显示在它上方，计算atView之上的高度
             params.height = rect.top;
             isShowUp = true;
@@ -133,7 +133,7 @@ public abstract class PartShadowPopupView extends BasePopupView {
         attachPopupContainer.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                if (dropDownInfo.isDismissOnTouchOutside) {
+                if (SGDropDownInfo.isDismissOnTouchOutside) {
                     dismiss();
                 }
                 return false;
@@ -142,16 +142,16 @@ public abstract class PartShadowPopupView extends BasePopupView {
         attachPopupContainer.setOnClickOutsideListener(new SGOnClickOutsideListener() {
             @Override
             public void onClickOutside() {
-                if (dropDownInfo.isDismissOnTouchOutside) {
+                if (SGDropDownInfo.isDismissOnTouchOutside) {
                     dismiss();
                 }
             }
         });
     }
     @Override
-    protected PopupAnimator getPopupAnimator() {
+    protected DropDownAnimator getPopupAnimator() {
         return new TranslateAnimator(getPopupImplView(), getAnimationDuration(), isShowUp ?
-                PopupAnimation.TranslateFromBottom : PopupAnimation.TranslateFromTop);
+                SGDropDownAnimation.TranslateFromBottom : SGDropDownAnimation.TranslateFromTop);
     }
 
     @Override

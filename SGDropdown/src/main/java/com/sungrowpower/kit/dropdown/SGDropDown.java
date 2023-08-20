@@ -10,12 +10,12 @@ import android.view.View;
 import androidx.lifecycle.Lifecycle;
 
 
-import com.sungrowpower.kit.dropdown.animator.PopupAnimator;
+import com.sungrowpower.kit.dropdown.animator.DropDownAnimator;
 import com.sungrowpower.kit.dropdown.base.BasePopupView;
-import com.sungrowpower.kit.dropdown.base.DropDownInfo;
-import com.sungrowpower.kit.dropdown.enums.PopupAnimation;
-import com.sungrowpower.kit.dropdown.enums.PopupPosition;
-import com.sungrowpower.kit.dropdown.enums.PopupType;
+import com.sungrowpower.kit.dropdown.base.SGDropDownInfo;
+import com.sungrowpower.kit.dropdown.enums.SGDropDownAnimation;
+import com.sungrowpower.kit.dropdown.enums.DropDownPosition;
+import com.sungrowpower.kit.dropdown.enums.SGDropDownType;
 import com.sungrowpower.kit.dropdown.interfaces.SGDropDownCallback;
 import com.sungrowpower.kit.dropdown.util.SGDropDownUtils;
 
@@ -122,15 +122,15 @@ public class SGDropDown {
     }
 
     public static class Builder {
-        private final DropDownInfo dropDownInfo = new DropDownInfo();
+        private final SGDropDownInfo SGDropDownInfo = new SGDropDownInfo();
         private Context context;
 
         public Builder(Context context) {
             this.context = context;
         }
 
-        public Builder popupType(PopupType popupType) {
-            this.dropDownInfo.popupType = popupType;
+        public Builder popupType(SGDropDownType SGDropDownType) {
+            this.SGDropDownInfo.SGDropDownType = SGDropDownType;
             return this;
         }
 
@@ -141,7 +141,7 @@ public class SGDropDown {
          * @return
          */
         public Builder dismissOnBackPressed(Boolean isDismissOnBackPressed) {
-            this.dropDownInfo.isDismissOnBackPressed = isDismissOnBackPressed;
+            this.SGDropDownInfo.isDismissOnBackPressed = isDismissOnBackPressed;
             return this;
         }
 
@@ -152,7 +152,7 @@ public class SGDropDown {
          * @return
          */
         public Builder dismissOnTouchOutside(Boolean isDismissOnTouchOutside) {
-            this.dropDownInfo.isDismissOnTouchOutside = isDismissOnTouchOutside;
+            this.SGDropDownInfo.isDismissOnTouchOutside = isDismissOnTouchOutside;
             return this;
         }
 
@@ -163,7 +163,7 @@ public class SGDropDown {
          * @return
          */
         public Builder autoDismiss(Boolean autoDismiss) {
-            this.dropDownInfo.autoDismiss = autoDismiss;
+            this.SGDropDownInfo.autoDismiss = autoDismiss;
             return this;
         }
 
@@ -174,7 +174,7 @@ public class SGDropDown {
          * @return
          */
         public Builder hasShadowBg(Boolean hasShadowBg) {
-            this.dropDownInfo.hasShadowBg = hasShadowBg;
+            this.SGDropDownInfo.hasShadowBg = hasShadowBg;
             return this;
         }
 
@@ -185,7 +185,7 @@ public class SGDropDown {
          * @return
          */
         public Builder hasBlurBg(boolean hasBlurBg) {
-            this.dropDownInfo.hasBlurBg = hasBlurBg;
+            this.SGDropDownInfo.hasBlurBg = hasBlurBg;
             return this;
         }
 
@@ -196,7 +196,7 @@ public class SGDropDown {
          * @return
          */
         public Builder atView(View atView) {
-            dropDownInfo.atView = atView;
+            SGDropDownInfo.atView = atView;
             return this;
         }
 
@@ -211,7 +211,7 @@ public class SGDropDown {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
                     if (event.getAction() == MotionEvent.ACTION_DOWN){
-                        dropDownInfo.touchPoint = new PointF(event.getRawX(), event.getRawY());
+                        SGDropDownInfo.touchPoint = new PointF(event.getRawX(), event.getRawY());
                     }
                     return false;
                 }
@@ -222,11 +222,11 @@ public class SGDropDown {
         /**
          * 为弹窗设置内置的动画器，默认情况下，已经为每种弹窗设置了效果最佳的动画器；如果你不喜欢，仍然可以修改。
          *
-         * @param popupAnimation
+         * @param SGDropDownAnimation
          * @return
          */
-        public Builder popupAnimation(PopupAnimation popupAnimation) {
-            this.dropDownInfo.popupAnimation = popupAnimation;
+        public Builder popupAnimation(SGDropDownAnimation SGDropDownAnimation) {
+            this.SGDropDownInfo.SGDropDownAnimation = SGDropDownAnimation;
             return this;
         }
 
@@ -236,8 +236,8 @@ public class SGDropDown {
          * @param customAnimator
          * @return
          */
-        public Builder customAnimator(PopupAnimator customAnimator) {
-            this.dropDownInfo.customAnimator = customAnimator;
+        public Builder customAnimator(DropDownAnimator customAnimator) {
+            this.SGDropDownInfo.customAnimator = customAnimator;
             return this;
         }
 
@@ -248,7 +248,7 @@ public class SGDropDown {
          * @return
          */
         public Builder popupHeight(int height) {
-            this.dropDownInfo.popupHeight = height;
+            this.SGDropDownInfo.popupHeight = height;
             return this;
         }
 
@@ -259,7 +259,7 @@ public class SGDropDown {
          * @return
          */
         public Builder popupWidth(int width) {
-            this.dropDownInfo.popupWidth = width;
+            this.SGDropDownInfo.popupWidth = width;
             return this;
         }
 
@@ -270,7 +270,7 @@ public class SGDropDown {
          * @return
          */
         public Builder maxWidth(int maxWidth) {
-            this.dropDownInfo.maxWidth = maxWidth;
+            this.SGDropDownInfo.maxWidth = maxWidth;
             return this;
         }
 
@@ -281,7 +281,7 @@ public class SGDropDown {
          * @return
          */
         public Builder maxHeight(int maxHeight) {
-            this.dropDownInfo.maxHeight = maxHeight;
+            this.SGDropDownInfo.maxHeight = maxHeight;
             return this;
         }
 
@@ -293,7 +293,7 @@ public class SGDropDown {
          * @return
          */
         public Builder autoOpenSoftInput(Boolean autoOpenSoftInput) {
-            this.dropDownInfo.autoOpenSoftInput = autoOpenSoftInput;
+            this.SGDropDownInfo.autoOpenSoftInput = autoOpenSoftInput;
             return this;
         }
 
@@ -304,7 +304,7 @@ public class SGDropDown {
          * @return
          */
         public Builder moveUpToKeyboard(Boolean isMoveUpToKeyboard) {
-            this.dropDownInfo.isMoveUpToKeyboard = isMoveUpToKeyboard;
+            this.SGDropDownInfo.isMoveUpToKeyboard = isMoveUpToKeyboard;
             return this;
         }
 
@@ -312,11 +312,11 @@ public class SGDropDown {
          * 设置弹窗出现在目标的什么位置，有四种取值：Left，Right，Top，Bottom。这种手动设置位置的行为
          * 只对Attach弹窗和Drawer弹窗生效。
          *
-         * @param popupPosition
+         * @param dropDownPosition
          * @return
          */
-        public Builder popupPosition(PopupPosition popupPosition) {
-            this.dropDownInfo.popupPosition = popupPosition;
+        public Builder popupPosition(DropDownPosition dropDownPosition) {
+            this.SGDropDownInfo.dropDownPosition = dropDownPosition;
             return this;
         }
 
@@ -327,7 +327,7 @@ public class SGDropDown {
          * @return
          */
         public Builder hasStatusBarShadow(boolean hasStatusBarShadow) {
-            this.dropDownInfo.hasStatusBarShadow = hasStatusBarShadow;
+            this.SGDropDownInfo.hasStatusBarShadow = hasStatusBarShadow;
             return this;
         }
 
@@ -338,7 +338,7 @@ public class SGDropDown {
          * @return
          */
         public Builder hasStatusBar(boolean hasStatusBar) {
-            this.dropDownInfo.hasStatusBar = hasStatusBar;
+            this.SGDropDownInfo.hasStatusBar = hasStatusBar;
             return this;
         }
 
@@ -349,7 +349,7 @@ public class SGDropDown {
          * @return
          */
         public Builder hasNavigationBar(boolean hasNavigationBar) {
-            this.dropDownInfo.hasNavigationBar = hasNavigationBar;
+            this.SGDropDownInfo.hasNavigationBar = hasNavigationBar;
             return this;
         }
 
@@ -360,7 +360,7 @@ public class SGDropDown {
          * @return
          */
         public Builder navigationBarColor(int navigationBarColor) {
-            this.dropDownInfo.navigationBarColor = navigationBarColor;
+            this.SGDropDownInfo.navigationBarColor = navigationBarColor;
             return this;
         }
 
@@ -371,7 +371,7 @@ public class SGDropDown {
          * @return
          */
         public Builder isLightNavigationBar(boolean isLightNavigationBar) {
-            this.dropDownInfo.isLightNavigationBar = isLightNavigationBar ? 1 : -1;
+            this.SGDropDownInfo.isLightNavigationBar = isLightNavigationBar ? 1 : -1;
             return this;
         }
 
@@ -382,7 +382,7 @@ public class SGDropDown {
          * @return
          */
         public Builder isLightStatusBar(boolean isLightStatusBar) {
-            this.dropDownInfo.isLightStatusBar = isLightStatusBar ? 1 : -1;
+            this.SGDropDownInfo.isLightStatusBar = isLightStatusBar ? 1 : -1;
             return this;
         }
 
@@ -393,7 +393,7 @@ public class SGDropDown {
          * @return
          */
         public Builder statusBarBgColor(int statusBarBgColor) {
-            this.dropDownInfo.statusBarBgColor = statusBarBgColor;
+            this.SGDropDownInfo.statusBarBgColor = statusBarBgColor;
             return this;
         }
 
@@ -404,7 +404,7 @@ public class SGDropDown {
          * @return
          */
         public Builder offsetX(int offsetX) {
-            this.dropDownInfo.offsetX = offsetX;
+            this.SGDropDownInfo.offsetX = offsetX;
             return this;
         }
 
@@ -415,7 +415,7 @@ public class SGDropDown {
          * @return
          */
         public Builder offsetY(int offsetY) {
-            this.dropDownInfo.offsetY = offsetY;
+            this.SGDropDownInfo.offsetY = offsetY;
             return this;
         }
 
@@ -426,7 +426,7 @@ public class SGDropDown {
          * @return
          */
         public Builder enableDrag(boolean enableDrag) {
-            this.dropDownInfo.enableDrag = enableDrag;
+            this.SGDropDownInfo.enableDrag = enableDrag;
             return this;
         }
 
@@ -437,7 +437,7 @@ public class SGDropDown {
          * @return
          */
         public Builder isCenterHorizontal(boolean isCenterHorizontal) {
-            this.dropDownInfo.isCenterHorizontal = isCenterHorizontal;
+            this.SGDropDownInfo.isCenterHorizontal = isCenterHorizontal;
             return this;
         }
 
@@ -448,7 +448,7 @@ public class SGDropDown {
          * @return
          */
         public Builder isRequestFocus(boolean isRequestFocus) {
-            this.dropDownInfo.isRequestFocus = isRequestFocus;
+            this.SGDropDownInfo.isRequestFocus = isRequestFocus;
             return this;
         }
 
@@ -459,7 +459,7 @@ public class SGDropDown {
          * @return
          */
         public Builder autoFocusEditText(boolean autoFocusEditText) {
-            this.dropDownInfo.autoFocusEditText = autoFocusEditText;
+            this.SGDropDownInfo.autoFocusEditText = autoFocusEditText;
             return this;
         }
 
@@ -470,7 +470,7 @@ public class SGDropDown {
          * @return
          */
         public Builder isDarkTheme(boolean isDarkTheme) {
-            this.dropDownInfo.isDarkTheme = isDarkTheme;
+            this.SGDropDownInfo.isDarkTheme = isDarkTheme;
             return this;
         }
 
@@ -482,7 +482,7 @@ public class SGDropDown {
          * @return
          */
         public Builder isClickThrough(boolean isClickThrough) {
-            this.dropDownInfo.isClickThrough = isClickThrough;
+            this.SGDropDownInfo.isClickThrough = isClickThrough;
             return this;
         }
 
@@ -493,7 +493,7 @@ public class SGDropDown {
          * @return
          */
         public Builder enableShowWhenAppBackground(boolean enableShowWhenAppBackground) {
-            this.dropDownInfo.enableShowWhenAppBackground = enableShowWhenAppBackground;
+            this.SGDropDownInfo.enableShowWhenAppBackground = enableShowWhenAppBackground;
             return this;
         }
 
@@ -504,7 +504,7 @@ public class SGDropDown {
          * @return
          */
         public Builder isThreeDrag(boolean isThreeDrag) {
-            this.dropDownInfo.isThreeDrag = isThreeDrag;
+            this.SGDropDownInfo.isThreeDrag = isThreeDrag;
             return this;
         }
 
@@ -516,7 +516,7 @@ public class SGDropDown {
          * @return
          */
         public Builder isDestroyOnDismiss(boolean isDestroyOnDismiss) {
-            this.dropDownInfo.isDestroyOnDismiss = isDestroyOnDismiss;
+            this.SGDropDownInfo.isDestroyOnDismiss = isDestroyOnDismiss;
             return this;
         }
 
@@ -527,7 +527,7 @@ public class SGDropDown {
          * @return
          */
         public Builder borderRadius(float borderRadius) {
-            this.dropDownInfo.borderRadius = borderRadius;
+            this.SGDropDownInfo.borderRadius = borderRadius;
             return this;
         }
 
@@ -542,7 +542,7 @@ public class SGDropDown {
          * @return
          */
         public Builder positionByWindowCenter(boolean positionByWindowCenter) {
-            this.dropDownInfo.positionByWindowCenter = positionByWindowCenter;
+            this.SGDropDownInfo.positionByWindowCenter = positionByWindowCenter;
             return this;
         }
 
@@ -561,7 +561,7 @@ public class SGDropDown {
          * @return
          */
         public Builder isViewMode(boolean viewMode) {
-            this.dropDownInfo.isViewMode = viewMode;
+            this.SGDropDownInfo.isViewMode = viewMode;
             return this;
         }
 
@@ -571,7 +571,7 @@ public class SGDropDown {
          * @return
          */
         public Builder shadowBgColor(int shadowBgColor) {
-            this.dropDownInfo.shadowBgColor = shadowBgColor;
+            this.SGDropDownInfo.shadowBgColor = shadowBgColor;
             return this;
         }
 
@@ -581,7 +581,7 @@ public class SGDropDown {
          * @return
          */
         public Builder animationDuration(int animationDuration) {
-            this.dropDownInfo.animationDuration = animationDuration;
+            this.SGDropDownInfo.animationDuration = animationDuration;
             return this;
         }
 
@@ -591,7 +591,7 @@ public class SGDropDown {
          * @return
          */
         public Builder keepScreenOn(boolean keepScreenOn) {
-            this.dropDownInfo.keepScreenOn = keepScreenOn;
+            this.SGDropDownInfo.keepScreenOn = keepScreenOn;
             return this;
         }
 
@@ -602,10 +602,10 @@ public class SGDropDown {
          * @return
          */
         public Builder notDismissWhenTouchInView(View view) {
-            if(this.dropDownInfo.notDismissWhenTouchInArea==null){
-                this.dropDownInfo.notDismissWhenTouchInArea = new ArrayList<>();
+            if(this.SGDropDownInfo.notDismissWhenTouchInArea==null){
+                this.SGDropDownInfo.notDismissWhenTouchInArea = new ArrayList<>();
             }
-            this.dropDownInfo.notDismissWhenTouchInArea.add(SGDropDownUtils.getViewRect(view));
+            this.SGDropDownInfo.notDismissWhenTouchInArea.add(SGDropDownUtils.getViewRect(view));
             return this;
         }
 
@@ -616,7 +616,7 @@ public class SGDropDown {
          * @return
          */
         public Builder customHostLifecycle(Lifecycle lifecycle) {
-            this.dropDownInfo.hostLifecycle = lifecycle;
+            this.SGDropDownInfo.hostLifecycle = lifecycle;
             return this;
         }
 
@@ -627,7 +627,7 @@ public class SGDropDown {
          * @return
          */
         public Builder setPopupCallback(SGDropDownCallback SGDropDownCallback) {
-            this.dropDownInfo.SGDropDownCallback = SGDropDownCallback;
+            this.SGDropDownInfo.SGDropDownCallback = SGDropDownCallback;
             return this;
         }
 
@@ -648,7 +648,7 @@ public class SGDropDown {
 //            } else if (popupView instanceof PositionPopupView) {
 //                popupType(PopupType.Position);
 //            }
-            popupView.dropDownInfo = this.dropDownInfo;
+            popupView.SGDropDownInfo = this.SGDropDownInfo;
             return popupView;
         }
 

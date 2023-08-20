@@ -4,19 +4,19 @@ import android.view.View;
 
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
 
-import com.sungrowpower.kit.dropdown.enums.PopupAnimation;
+import com.sungrowpower.kit.dropdown.enums.SGDropDownAnimation;
 
 
 /**
  * Description: 平移动画
  * Create by hyk
  */
-public class TranslateAlphaAnimator extends PopupAnimator {
+public class TranslateAlphaAnimator extends DropDownAnimator {
     //动画起始坐标
     private float startTranslationX, startTranslationY;
     private float defTranslationX, defTranslationY;
-    public TranslateAlphaAnimator(View target, int animationDuration, PopupAnimation popupAnimation) {
-        super(target, animationDuration, popupAnimation);
+    public TranslateAlphaAnimator(View target, int animationDuration, SGDropDownAnimation SGDropDownAnimation) {
+        super(target, animationDuration, SGDropDownAnimation);
     }
 
     @Override
@@ -32,7 +32,7 @@ public class TranslateAlphaAnimator extends PopupAnimator {
     }
 
     private void applyTranslation() {
-        switch (popupAnimation){
+        switch (SGDropDownAnimation){
             case TranslateAlphaFromLeft:
                 targetView.setTranslationX(-(targetView.getMeasuredWidth()/* + halfWidthOffset*/));
                 break;

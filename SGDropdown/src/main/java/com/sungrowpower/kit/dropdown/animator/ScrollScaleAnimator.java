@@ -6,14 +6,14 @@ import android.view.View;
 
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
 
-import com.sungrowpower.kit.dropdown.enums.PopupAnimation;
+import com.sungrowpower.kit.dropdown.enums.SGDropDownAnimation;
 
 
 /**
  * Description: 像系统的PopupMenu那样的动画
  * Create by hyk
  */
-public class ScrollScaleAnimator extends PopupAnimator{
+public class ScrollScaleAnimator extends DropDownAnimator {
 
     private IntEvaluator intEvaluator = new IntEvaluator();
     private int startScrollX, startScrollY;
@@ -21,8 +21,8 @@ public class ScrollScaleAnimator extends PopupAnimator{
     private float startScale = 0f;
 
     public boolean isOnlyScaleX = false;
-    public ScrollScaleAnimator(View target, int animationDuration, PopupAnimation popupAnimation) {
-        super(target, animationDuration, popupAnimation);
+    public ScrollScaleAnimator(View target, int animationDuration, SGDropDownAnimation SGDropDownAnimation) {
+        super(target, animationDuration, SGDropDownAnimation);
     }
 
     @Override
@@ -44,7 +44,7 @@ public class ScrollScaleAnimator extends PopupAnimator{
     }
 
     private void applyPivot(){
-        switch (popupAnimation){
+        switch (SGDropDownAnimation){
             case ScrollAlphaFromLeft:
                 targetView.setPivotX(0f);
                 targetView.setPivotY(targetView.getMeasuredHeight()/2);

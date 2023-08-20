@@ -6,27 +6,27 @@ import android.animation.ValueAnimator;
 import android.view.View;
 import android.view.ViewPropertyAnimator;
 
-import com.sungrowpower.kit.dropdown.enums.PopupAnimation;
+import com.sungrowpower.kit.dropdown.enums.SGDropDownAnimation;
 
 
 /**
  * Description: 弹窗动画执行器
  * Create by hyk
  */
-public abstract class PopupAnimator {
+public abstract class DropDownAnimator {
     protected boolean animating = false;
     public View targetView;
     public int animationDuration = 0;
-    public PopupAnimation popupAnimation; // 内置的动画
-    public PopupAnimator(){}
-    public PopupAnimator(View target, int animationDuration){
+    public SGDropDownAnimation SGDropDownAnimation; // 内置的动画
+    public DropDownAnimator(){}
+    public DropDownAnimator(View target, int animationDuration){
         this(target, animationDuration, null);
     }
 
-    public PopupAnimator(View target, int animationDuration, PopupAnimation popupAnimation){
+    public DropDownAnimator(View target, int animationDuration, SGDropDownAnimation SGDropDownAnimation){
         this.targetView = target;
         this.animationDuration = animationDuration;
-        this.popupAnimation = popupAnimation;
+        this.SGDropDownAnimation = SGDropDownAnimation;
     }
 
     public abstract void initAnimator();

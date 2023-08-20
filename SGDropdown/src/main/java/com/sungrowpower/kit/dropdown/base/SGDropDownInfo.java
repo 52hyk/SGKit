@@ -7,10 +7,10 @@ import android.view.View;
 import androidx.lifecycle.Lifecycle;
 
 
-import com.sungrowpower.kit.dropdown.animator.PopupAnimator;
-import com.sungrowpower.kit.dropdown.enums.PopupAnimation;
-import com.sungrowpower.kit.dropdown.enums.PopupPosition;
-import com.sungrowpower.kit.dropdown.enums.PopupType;
+import com.sungrowpower.kit.dropdown.animator.DropDownAnimator;
+import com.sungrowpower.kit.dropdown.enums.SGDropDownAnimation;
+import com.sungrowpower.kit.dropdown.enums.DropDownPosition;
+import com.sungrowpower.kit.dropdown.enums.SGDropDownType;
 import com.sungrowpower.kit.dropdown.interfaces.SGDropDownCallback;
 
 import java.util.ArrayList;
@@ -19,8 +19,8 @@ import java.util.ArrayList;
  * Description: Popup的属性封装
  * Create by hyk
  */
-public class DropDownInfo {
-    public PopupType popupType = null; //窗体的类型
+public class SGDropDownInfo {
+    public SGDropDownType SGDropDownType = null; //窗体的类型
     public Boolean isDismissOnBackPressed = true;  //按返回键是否消失
     public Boolean isDismissOnTouchOutside = true; //点击外部消失
     public Boolean autoDismiss = true; //操作完毕后是否自动关闭
@@ -28,8 +28,8 @@ public class DropDownInfo {
     public Boolean hasBlurBg = false; // 是否有高斯模糊背景
     public View atView = null; // 依附于那个View
     // 动画执行器，如果不指定，则会根据窗体类型popupType字段生成默认合适的动画执行器
-    public PopupAnimation popupAnimation = null;
-    public PopupAnimator customAnimator = null;
+    public SGDropDownAnimation SGDropDownAnimation = null;
+    public DropDownAnimator customAnimator = null;
     public PointF touchPoint = null; // 触摸的点
     public int maxWidth; // 最大宽度
     public int maxHeight; // 最大高度
@@ -39,7 +39,7 @@ public class DropDownInfo {
     public SGDropDownCallback SGDropDownCallback;
 
     public Boolean isMoveUpToKeyboard = true; //是否移动到软键盘上面，默认弹窗会移到软键盘上面
-    public PopupPosition popupPosition = null; //弹窗出现在目标的什么位置
+    public DropDownPosition dropDownPosition = null; //弹窗出现在目标的什么位置
     public Boolean hasStatusBarShadow = false; //是否显示状态栏阴影
     public Boolean hasStatusBar = true; //是否显示状态栏
     public Boolean hasNavigationBar = true; //是否显示导航栏

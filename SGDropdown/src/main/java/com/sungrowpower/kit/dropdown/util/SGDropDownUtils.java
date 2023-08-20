@@ -243,7 +243,7 @@ public class SGDropDownUtils {
     }
 
     private static void moveUpToKeyboardInternal(int keyboardHeight, BasePopupView pv) {
-        if (pv.dropDownInfo == null || !pv.dropDownInfo.isMoveUpToKeyboard) {
+        if (pv.SGDropDownInfo == null || !pv.SGDropDownInfo.isMoveUpToKeyboard) {
             return;
         }
         //暂时忽略PartShadow弹窗和AttachPopupView

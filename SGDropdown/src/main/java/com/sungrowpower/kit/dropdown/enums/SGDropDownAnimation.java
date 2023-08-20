@@ -4,7 +4,7 @@ package com.sungrowpower.kit.dropdown.enums;
  * Description:
  * Create by hyk
  */
-public enum PopupAnimation {
+public enum SGDropDownAnimation {
     // 缩放 + 透明渐变
     ScaleAlphaFromCenter, // 从中心进行缩放+透明渐变
     ScaleAlphaFromLeftTop, //从左上角进行缩放+透明渐变

@@ -4,7 +4,7 @@ package com.sungrowpower.kit.dropdown.enums;
  * Description: 窗体显示的位置类型
  * Create by hyk
  */
-public enum PopupType {
+public enum SGDropDownType {
     Center, // 中间显示类型
     Bottom, // 底部弹出的类型
     AttachView,  // 依附于指定View或者指定Point的类型

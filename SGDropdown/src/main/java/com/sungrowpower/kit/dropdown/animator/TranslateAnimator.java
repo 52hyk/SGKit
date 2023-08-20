@@ -5,19 +5,19 @@ import android.view.ViewPropertyAnimator;
 
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
 
-import com.sungrowpower.kit.dropdown.enums.PopupAnimation;
+import com.sungrowpower.kit.dropdown.enums.SGDropDownAnimation;
 
 
 /**
  * Description: 平移动画，不带渐变
  * Create by hyk
  */
-public class TranslateAnimator extends PopupAnimator {
+public class TranslateAnimator extends DropDownAnimator {
     private float startTranslationX, startTranslationY;
     private float endTranslationX, endTranslationY;
 
-    public TranslateAnimator(View target, int animationDuration, PopupAnimation popupAnimation) {
-        super(target, animationDuration, popupAnimation);
+    public TranslateAnimator(View target, int animationDuration, SGDropDownAnimation SGDropDownAnimation) {
+        super(target, animationDuration, SGDropDownAnimation);
     }
 
     @Override
@@ -31,7 +31,7 @@ public class TranslateAnimator extends PopupAnimator {
     }
 
     private void applyTranslation() {
-        switch (popupAnimation) {
+        switch (SGDropDownAnimation) {
             case TranslateFromLeft:
                 targetView.setTranslationX(-targetView.getRight());
                 break;
@@ -50,7 +50,7 @@ public class TranslateAnimator extends PopupAnimator {
     @Override
     public void animateShow() {
         ViewPropertyAnimator animator = null;
-        switch (popupAnimation) {
+        switch (SGDropDownAnimation) {
             case TranslateFromLeft:
             case TranslateFromRight:
                 animator = targetView.animate().translationX(endTranslationX);
@@ -74,7 +74,7 @@ public class TranslateAnimator extends PopupAnimator {
             return;
         }
         ViewPropertyAnimator animator = null;
-        switch (popupAnimation) {
+        switch (SGDropDownAnimation) {
             case TranslateFromLeft:
                 startTranslationX = -targetView.getRight();
                 animator = targetView.animate().translationX(startTranslationX);

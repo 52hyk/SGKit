@@ -11,7 +11,7 @@ import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
  * Description: 背景Shadow动画器，负责执行半透明的渐入渐出动画
  * Create by hyk
  */
-public class ShadowBgAnimator extends PopupAnimator {
+public class ShadowBgAnimator extends DropDownAnimator {
     public ArgbEvaluator argbEvaluator = new ArgbEvaluator();
     public int startColor = Color.TRANSPARENT;
     public boolean isZeroDuration = false;

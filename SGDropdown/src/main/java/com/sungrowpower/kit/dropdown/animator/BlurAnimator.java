@@ -13,7 +13,7 @@ import com.sungrowpower.kit.dropdown.util.SGDropDownUtils;
  * Description: 背景模糊动画器
  * Create by hyk
  */
-public class BlurAnimator extends PopupAnimator {
+public class BlurAnimator extends DropDownAnimator {
 
     private FloatEvaluator evaluate = new FloatEvaluator();
     public int shadowColor;

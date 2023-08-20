@@ -5,16 +5,16 @@ import android.view.animation.OvershootInterpolator;
 
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
 
-import com.sungrowpower.kit.dropdown.enums.PopupAnimation;
+import com.sungrowpower.kit.dropdown.enums.SGDropDownAnimation;
 
 
 /**
  * Description: 缩放透明
  * Create by hyk
  */
-public class ScaleAlphaAnimator extends PopupAnimator {
-    public ScaleAlphaAnimator(View target, int animationDuration, PopupAnimation popupAnimation) {
-        super(target, animationDuration, popupAnimation);
+public class ScaleAlphaAnimator extends DropDownAnimator {
+    public ScaleAlphaAnimator(View target, int animationDuration, SGDropDownAnimation SGDropDownAnimation) {
+        super(target, animationDuration, SGDropDownAnimation);
     }
 
     float startScale = .85f;
@@ -37,7 +37,7 @@ public class ScaleAlphaAnimator extends PopupAnimator {
      * 根据不同的PopupAnimation来设定对应的pivot
      */
     private void applyPivot() {
-        switch (popupAnimation) {
+        switch (SGDropDownAnimation) {
             case ScaleAlphaFromCenter:
                 targetView.setPivotX(targetView.getMeasuredWidth() / 2f);
                 targetView.setPivotY(targetView.getMeasuredHeight() / 2f);

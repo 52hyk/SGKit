@@ -2,7 +2,7 @@ package com.sungrowpower.kit.dropdown.base;
 
 
 
-import static com.sungrowpower.kit.dropdown.enums.PopupAnimation.NoAnimation;
+import static com.sungrowpower.kit.dropdown.enums.SGDropDownAnimation.NoAnimation;
 
 import android.app.Activity;
 import android.app.Application;
@@ -36,13 +36,13 @@ import androidx.lifecycle.OnLifecycleEvent;
 import com.sungrowpower.kit.dropdown.SGDropDown;
 import com.sungrowpower.kit.dropdown.animator.BlurAnimator;
 import com.sungrowpower.kit.dropdown.animator.EmptyAnimator;
-import com.sungrowpower.kit.dropdown.animator.PopupAnimator;
+import com.sungrowpower.kit.dropdown.animator.DropDownAnimator;
 import com.sungrowpower.kit.dropdown.animator.ScaleAlphaAnimator;
 import com.sungrowpower.kit.dropdown.animator.ScrollScaleAnimator;
 import com.sungrowpower.kit.dropdown.animator.ShadowBgAnimator;
 import com.sungrowpower.kit.dropdown.animator.TranslateAlphaAnimator;
 import com.sungrowpower.kit.dropdown.animator.TranslateAnimator;
-import com.sungrowpower.kit.dropdown.enums.PopupStatus;
+import com.sungrowpower.kit.dropdown.enums.DropDownStatus;
 import com.sungrowpower.kit.dropdown.impl.PartShadowPopupView;
 import com.sungrowpower.kit.dropdown.util.SGKeyboardUtils;
 import com.sungrowpower.kit.dropdown.util.SGDropDownUtils;
@@ -56,12 +56,12 @@ import java.util.List;
  */
 public abstract class BasePopupView extends FrameLayout implements LifecycleObserver, LifecycleOwner,
         ViewCompat.OnUnhandledKeyEventListenerCompat{
-    public DropDownInfo dropDownInfo;
-    protected PopupAnimator popupContentAnimator;
+    public SGDropDownInfo SGDropDownInfo;
+    protected DropDownAnimator popupContentAnimator;
     protected ShadowBgAnimator shadowBgAnimator;
     protected BlurAnimator blurAnimator;
     private final int touchSlop;
-    public PopupStatus popupStatus = PopupStatus.Dismiss;
+    public DropDownStatus dropDownStatus = DropDownStatus.Dismiss;
     protected boolean isCreated = false;
     private boolean hasModifySoftMode = false;
     private int preSoftMode = -1;
@@ -91,17 +91,17 @@ public abstract class BasePopupView extends FrameLayout implements LifecycleObse
 
     public BasePopupView show() {
         Activity activity = SGDropDownUtils.context2Activity(this);
-        if (activity == null || activity.isFinishing() || dropDownInfo == null) {
+        if (activity == null || activity.isFinishing() || SGDropDownInfo == null) {
             return this;
         }
-        if (popupStatus == PopupStatus.Showing || popupStatus == PopupStatus.Dismissing) {
+        if (dropDownStatus == DropDownStatus.Showing || dropDownStatus == DropDownStatus.Dismissing) {
             return this;
         }
-        popupStatus = PopupStatus.Showing;
-        if (dropDownInfo.isRequestFocus) {
+        dropDownStatus = DropDownStatus.Showing;
+        if (SGDropDownInfo.isRequestFocus) {
             SGKeyboardUtils.hideSoftInput(activity.getWindow());
         }
-        if (!dropDownInfo.isViewMode && dialog != null && dialog.isShowing()) {
+        if (!SGDropDownInfo.isViewMode && dialog != null && dialog.isShowing()) {
             return BasePopupView.this;
         }
         getActivityContentView().post(attachTask);
@@ -118,8 +118,8 @@ public abstract class BasePopupView extends FrameLayout implements LifecycleObse
                 @Override
                 public void onSoftInputChanged(int height) {
                     onKeyboardHeightChange(height);
-                    if (dropDownInfo != null && dropDownInfo.SGDropDownCallback != null) {
-                        dropDownInfo.SGDropDownCallback.onKeyBoardStateChanged(BasePopupView.this, height);
+                    if (SGDropDownInfo != null && SGDropDownInfo.SGDropDownCallback != null) {
+                        SGDropDownInfo.SGDropDownCallback.onKeyBoardStateChanged(BasePopupView.this, height);
                     }
                     if (height == 0) { // 说明输入法隐藏
                         SGDropDownUtils.moveDown(BasePopupView.this);
@@ -127,7 +127,7 @@ public abstract class BasePopupView extends FrameLayout implements LifecycleObse
                     } else {
 //                        if (hasMoveUp) return;
                         //when show keyboard, move up
-                        if (BasePopupView.this instanceof PartShadowPopupView && popupStatus == PopupStatus.Showing) {
+                        if (BasePopupView.this instanceof PartShadowPopupView && dropDownStatus == DropDownStatus.Showing) {
                             return;
                         }
                         SGDropDownUtils.moveUpToKeyboard(height, BasePopupView.this);
@@ -144,11 +144,11 @@ public abstract class BasePopupView extends FrameLayout implements LifecycleObse
     public FullScreenDialog dialog;
 
     private void attachToHost() {
-        if (dropDownInfo == null) {
+        if (SGDropDownInfo == null) {
             throw new IllegalArgumentException("如果弹窗对象是复用的，则不要设置isDestroyOnDismiss(true)");
         }
-        if(dropDownInfo.hostLifecycle!=null){
-            dropDownInfo.hostLifecycle.addObserver(this);
+        if(SGDropDownInfo.hostLifecycle!=null){
+            SGDropDownInfo.hostLifecycle.addObserver(this);
         }else {
             if (getContext() instanceof FragmentActivity) {
                 ((FragmentActivity) getContext()).getLifecycle().addObserver(this);
@@ -180,7 +180,7 @@ public abstract class BasePopupView extends FrameLayout implements LifecycleObse
             setLayoutParams(params);
         }
 
-        if (dropDownInfo.isViewMode) {
+        if (SGDropDownInfo.isViewMode) {
             //view实现
             ViewGroup decorView = (ViewGroup) ((Activity) getContext()).getWindow().getDecorView();
             if(getParent()!=null) {
@@ -226,9 +226,9 @@ public abstract class BasePopupView extends FrameLayout implements LifecycleObse
         if (shadowBgAnimator == null) {
             shadowBgAnimator = new ShadowBgAnimator(this, getAnimationDuration(), getShadowBgColor());
         }
-        if (dropDownInfo.hasBlurBg) {
+        if (SGDropDownInfo.hasBlurBg) {
             blurAnimator = new BlurAnimator(this, getShadowBgColor());
-            blurAnimator.hasShadowBg = dropDownInfo.hasShadowBg;
+            blurAnimator.hasShadowBg = SGDropDownInfo.hasShadowBg;
             blurAnimator.decorBitmap = SGDropDownUtils.view2Bitmap((SGDropDownUtils.context2Activity(this)).getWindow().getDecorView());
         }
 
@@ -242,8 +242,8 @@ public abstract class BasePopupView extends FrameLayout implements LifecycleObse
             isCreated = true;
             onCreate();
             lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_CREATE);
-            if (dropDownInfo.SGDropDownCallback != null) {
-                dropDownInfo.SGDropDownCallback.onCreated(this);
+            if (SGDropDownInfo.SGDropDownCallback != null) {
+                SGDropDownInfo.SGDropDownCallback.onCreated(this);
             }
         }
         handler.postDelayed(initTask, 10);
@@ -255,8 +255,8 @@ public abstract class BasePopupView extends FrameLayout implements LifecycleObse
             if (getHostWindow() == null) {
                 return;
             }
-            if (dropDownInfo.SGDropDownCallback != null) {
-                dropDownInfo.SGDropDownCallback.beforeShow(BasePopupView.this);
+            if (SGDropDownInfo.SGDropDownCallback != null) {
+                SGDropDownInfo.SGDropDownCallback.beforeShow(BasePopupView.this);
             }
             beforeShow();
             lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_START);
@@ -270,8 +270,8 @@ public abstract class BasePopupView extends FrameLayout implements LifecycleObse
     protected void initAnimator() {
         getPopupContentView().setAlpha(1f);
         // 优先使用自定义的动画器
-        if (dropDownInfo.customAnimator != null) {
-            popupContentAnimator = dropDownInfo.customAnimator;
+        if (SGDropDownInfo.customAnimator != null) {
+            popupContentAnimator = SGDropDownInfo.customAnimator;
             popupContentAnimator.targetView = getPopupContentView();
         } else {
             // 根据PopupInfo的popupAnimation字段来生成对应的动画执行器，如果popupAnimation字段为null，则返回null
@@ -282,10 +282,10 @@ public abstract class BasePopupView extends FrameLayout implements LifecycleObse
         }
 
         //3. 初始化动画执行器
-        if (dropDownInfo.hasShadowBg) {
+        if (SGDropDownInfo.hasShadowBg) {
             shadowBgAnimator.initAnimator();
         }
-        if (dropDownInfo.hasBlurBg && blurAnimator != null) {
+        if (SGDropDownInfo.hasBlurBg && blurAnimator != null) {
             blurAnimator.initAnimator();
         }
         if (popupContentAnimator != null) {
@@ -294,7 +294,7 @@ public abstract class BasePopupView extends FrameLayout implements LifecycleObse
     }
 
     private void detachFromHost() {
-        if (dropDownInfo != null && dropDownInfo.isViewMode) {
+        if (SGDropDownInfo != null && SGDropDownInfo.isViewMode) {
             ViewGroup decorView = (ViewGroup) getParent();
             if (decorView != null) {
                 decorView.removeView(this);
@@ -307,7 +307,7 @@ public abstract class BasePopupView extends FrameLayout implements LifecycleObse
     }
 
     public Window getHostWindow() {
-        if (dropDownInfo != null && dropDownInfo.isViewMode) {
+        if (SGDropDownInfo != null && SGDropDownInfo.isViewMode) {
             return ((Activity) getContext()).getWindow();
         }
         return dialog == null ? null : dialog.getWindow();
@@ -321,14 +321,14 @@ public abstract class BasePopupView extends FrameLayout implements LifecycleObse
     protected Runnable doAfterShowTask = new Runnable() {
         @Override
         public void run() {
-            popupStatus = PopupStatus.Show;
+            dropDownStatus = DropDownStatus.Show;
             lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_RESUME);
             onShow();
             //if (BasePopupView.this instanceof FullScreenPopupView) {
                 focusAndProcessBackPress();
            //}
-            if (dropDownInfo != null && dropDownInfo.SGDropDownCallback != null) {
-                dropDownInfo.SGDropDownCallback.onShow(BasePopupView.this);
+            if (SGDropDownInfo != null && SGDropDownInfo.SGDropDownCallback != null) {
+                SGDropDownInfo.SGDropDownCallback.onShow(BasePopupView.this);
             }
             //再次检测移动距离
             if (getHostWindow() != null && SGDropDownUtils.getDecorViewInvisibleHeight(getHostWindow()) > 0 && !hasMoveUp) {
@@ -339,8 +339,8 @@ public abstract class BasePopupView extends FrameLayout implements LifecycleObse
 
     private ShowSoftInputTask showSoftInputTask;
     public void focusAndProcessBackPress() {
-        if (dropDownInfo != null && dropDownInfo.isRequestFocus) {
-            if(dropDownInfo.isViewMode){
+        if (SGDropDownInfo != null && SGDropDownInfo.isRequestFocus) {
+            if(SGDropDownInfo.isViewMode){
                 setFocusableInTouchMode(true);
                 setFocusable(true);
 //                requestFocus();
@@ -358,7 +358,7 @@ public abstract class BasePopupView extends FrameLayout implements LifecycleObse
             SGDropDownUtils.findAllEditText(list, (ViewGroup) getPopupContentView());
             if (list.size() > 0) {
                 preSoftMode = getHostWindow().getAttributes().softInputMode;
-                if (dropDownInfo.isViewMode) {
+                if (SGDropDownInfo.isViewMode) {
                     getHostWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
                     hasModifySoftMode = true;
                 }
@@ -372,22 +372,22 @@ public abstract class BasePopupView extends FrameLayout implements LifecycleObse
 //                        if(!hasSetKeyListener) et.setOnKeyListener(new BackPressListener());
 //                    }
                     if (i == 0) {
-                        if (dropDownInfo.autoFocusEditText) {
+                        if (SGDropDownInfo.autoFocusEditText) {
                             et.setFocusable(true);
                             et.setFocusableInTouchMode(true);
                             et.requestFocus();
-                            if (dropDownInfo.autoOpenSoftInput) {
+                            if (SGDropDownInfo.autoOpenSoftInput) {
                                 showSoftInput(et);
                             }
                         } else {
-                            if (dropDownInfo.autoOpenSoftInput) {
+                            if (SGDropDownInfo.autoOpenSoftInput) {
                                 showSoftInput(this);
                             }
                         }
                     }
                 }
             } else {
-                if (dropDownInfo.autoOpenSoftInput) {
+                if (SGDropDownInfo.autoOpenSoftInput) {
                     showSoftInput(this);
                 }
             }
@@ -405,7 +405,7 @@ public abstract class BasePopupView extends FrameLayout implements LifecycleObse
     }
 
     protected void showSoftInput(View focusView) {
-        if (dropDownInfo != null) {
+        if (SGDropDownInfo != null) {
             if (showSoftInputTask == null) {
                 showSoftInputTask = new ShowSoftInputTask(focusView);
             } else {
@@ -439,9 +439,9 @@ public abstract class BasePopupView extends FrameLayout implements LifecycleObse
     }
 
     protected boolean processKeyEvent(int keyCode, KeyEvent event){
-        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP && dropDownInfo != null) {
-            if (dropDownInfo.isDismissOnBackPressed &&
-                    (dropDownInfo.SGDropDownCallback == null || !dropDownInfo.SGDropDownCallback.onBackPressed(BasePopupView.this))) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP && SGDropDownInfo != null) {
+            if (SGDropDownInfo.isDismissOnBackPressed &&
+                    (SGDropDownInfo.SGDropDownCallback == null || !SGDropDownInfo.SGDropDownCallback.onBackPressed(BasePopupView.this))) {
                 dismissOrHideSoftInput();
             }
             return true;
@@ -459,29 +459,29 @@ public abstract class BasePopupView extends FrameLayout implements LifecycleObse
     /**
      * 根据PopupInfo的popupAnimation字段来生成对应的内置的动画执行器
      */
-    protected PopupAnimator genAnimatorByPopupType() {
-        if (dropDownInfo == null || dropDownInfo.popupAnimation == null) {
+    protected DropDownAnimator genAnimatorByPopupType() {
+        if (SGDropDownInfo == null || SGDropDownInfo.SGDropDownAnimation == null) {
             return null;
         }
-        switch (dropDownInfo.popupAnimation) {
+        switch (SGDropDownInfo.SGDropDownAnimation) {
             case ScaleAlphaFromCenter:
             case ScaleAlphaFromLeftTop:
             case ScaleAlphaFromRightTop:
             case ScaleAlphaFromLeftBottom:
             case ScaleAlphaFromRightBottom:
-                return new ScaleAlphaAnimator(getPopupContentView(), getAnimationDuration(), dropDownInfo.popupAnimation);
+                return new ScaleAlphaAnimator(getPopupContentView(), getAnimationDuration(), SGDropDownInfo.SGDropDownAnimation);
 
             case TranslateAlphaFromLeft:
             case TranslateAlphaFromTop:
             case TranslateAlphaFromRight:
             case TranslateAlphaFromBottom:
-                return new TranslateAlphaAnimator(getPopupContentView(), getAnimationDuration(), dropDownInfo.popupAnimation);
+                return new TranslateAlphaAnimator(getPopupContentView(), getAnimationDuration(), SGDropDownInfo.SGDropDownAnimation);
 
             case TranslateFromLeft:
             case TranslateFromTop:
             case TranslateFromRight:
             case TranslateFromBottom:
-                return new TranslateAnimator(getPopupContentView(), getAnimationDuration(), dropDownInfo.popupAnimation);
+                return new TranslateAnimator(getPopupContentView(), getAnimationDuration(), SGDropDownInfo.SGDropDownAnimation);
 
             case ScrollAlphaFromLeft:
             case ScrollAlphaFromLeftTop:
@@ -491,7 +491,7 @@ public abstract class BasePopupView extends FrameLayout implements LifecycleObse
             case ScrollAlphaFromRightBottom:
             case ScrollAlphaFromBottom:
             case ScrollAlphaFromLeftBottom:
-                return new ScrollScaleAnimator(getPopupContentView(), getAnimationDuration(), dropDownInfo.popupAnimation);
+                return new ScrollScaleAnimator(getPopupContentView(), getAnimationDuration(), SGDropDownInfo.SGDropDownAnimation);
 
             case NoAnimation:
                 return new EmptyAnimator(getPopupContentView(), getAnimationDuration());
@@ -519,7 +519,7 @@ public abstract class BasePopupView extends FrameLayout implements LifecycleObse
      *
      * @return
      */
-    protected PopupAnimator getPopupAnimator() {
+    protected DropDownAnimator getPopupAnimator() {
         return null;
     }
 
@@ -542,12 +542,12 @@ public abstract class BasePopupView extends FrameLayout implements LifecycleObse
      * 背景动画由父类实现，Content由子类实现
      */
     protected void doShowAnimation() {
-        if (dropDownInfo == null) {
+        if (SGDropDownInfo == null) {
             return;
         }
-        if (dropDownInfo.hasShadowBg && !dropDownInfo.hasBlurBg && shadowBgAnimator!=null) {
+        if (SGDropDownInfo.hasShadowBg && !SGDropDownInfo.hasBlurBg && shadowBgAnimator!=null) {
             shadowBgAnimator.animateShow();
-        } else if (dropDownInfo.hasBlurBg && blurAnimator != null) {
+        } else if (SGDropDownInfo.hasBlurBg && blurAnimator != null) {
             blurAnimator.animateShow();
         }
         if (popupContentAnimator != null) {
@@ -560,12 +560,12 @@ public abstract class BasePopupView extends FrameLayout implements LifecycleObse
      * 背景动画由父类实现，Content由子类实现
      */
     protected void doDismissAnimation() {
-        if (dropDownInfo == null) {
+        if (SGDropDownInfo == null) {
             return;
         }
-        if (dropDownInfo.hasShadowBg && !dropDownInfo.hasBlurBg && shadowBgAnimator!=null) {
+        if (SGDropDownInfo.hasShadowBg && !SGDropDownInfo.hasBlurBg && shadowBgAnimator!=null) {
             shadowBgAnimator.animateDismiss();
-        } else if (dropDownInfo.hasBlurBg && blurAnimator != null) {
+        } else if (SGDropDownInfo.hasBlurBg && blurAnimator != null) {
             blurAnimator.animateDismiss();
         }
 
@@ -589,17 +589,17 @@ public abstract class BasePopupView extends FrameLayout implements LifecycleObse
     }
 
     public int getAnimationDuration() {
-        if (dropDownInfo == null) {
+        if (SGDropDownInfo == null) {
             return 0;
         }
-        if (dropDownInfo.popupAnimation == NoAnimation) {
+        if (SGDropDownInfo.SGDropDownAnimation == NoAnimation) {
             return 1;
         }
-        return dropDownInfo.animationDuration >= 0 ? dropDownInfo.animationDuration : SGDropDown.getAnimationDuration() + 1;
+        return SGDropDownInfo.animationDuration >= 0 ? SGDropDownInfo.animationDuration : SGDropDown.getAnimationDuration() + 1;
     }
 
     public int getShadowBgColor() {
-        return dropDownInfo != null && dropDownInfo.shadowBgColor != 0 ? dropDownInfo.shadowBgColor : SGDropDown.getShadowBgColor();
+        return SGDropDownInfo != null && SGDropDownInfo.shadowBgColor != 0 ? SGDropDownInfo.shadowBgColor : SGDropDown.getShadowBgColor();
     }
 
 
@@ -610,7 +610,7 @@ public abstract class BasePopupView extends FrameLayout implements LifecycleObse
      * @return
      */
     protected int getMaxWidth() {
-        return dropDownInfo.maxWidth;
+        return SGDropDownInfo.maxWidth;
     }
 
     /**
@@ -620,7 +620,7 @@ public abstract class BasePopupView extends FrameLayout implements LifecycleObse
      * @return
      */
     protected int getMaxHeight() {
-        return dropDownInfo.maxHeight;
+        return SGDropDownInfo.maxHeight;
     }
 
     /**
@@ -630,7 +630,7 @@ public abstract class BasePopupView extends FrameLayout implements LifecycleObse
      * @return
      */
     protected int getPopupWidth() {
-        return dropDownInfo.popupWidth;
+        return SGDropDownInfo.popupWidth;
     }
 
     /**
@@ -640,7 +640,7 @@ public abstract class BasePopupView extends FrameLayout implements LifecycleObse
      * @return
      */
     protected int getPopupHeight() {
-        return dropDownInfo.popupHeight;
+        return SGDropDownInfo.popupHeight;
     }
 
     /**
@@ -649,13 +649,13 @@ public abstract class BasePopupView extends FrameLayout implements LifecycleObse
     public void dismiss() {
         handler.removeCallbacks(attachTask);
         handler.removeCallbacks(initTask);
-        if (popupStatus == PopupStatus.Dismissing || popupStatus == PopupStatus.Dismiss) {
+        if (dropDownStatus == DropDownStatus.Dismissing || dropDownStatus == DropDownStatus.Dismiss) {
             return;
         }
-        popupStatus = PopupStatus.Dismissing;
+        dropDownStatus = DropDownStatus.Dismissing;
         clearFocus();
-        if (dropDownInfo != null && dropDownInfo.SGDropDownCallback != null) {
-            dropDownInfo.SGDropDownCallback.beforeDismiss(this);
+        if (SGDropDownInfo != null && SGDropDownInfo.SGDropDownCallback != null) {
+            SGDropDownInfo.SGDropDownCallback.beforeDismiss(this);
         }
         beforeDismiss();
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_PAUSE);
@@ -694,7 +694,7 @@ public abstract class BasePopupView extends FrameLayout implements LifecycleObse
 
     protected void doAfterDismiss() {
         // PartShadowPopupView要等到完全关闭再关闭输入法，不然有问题
-        if (dropDownInfo != null && dropDownInfo.autoOpenSoftInput && !(this instanceof PartShadowPopupView)) {
+        if (SGDropDownInfo != null && SGDropDownInfo.autoOpenSoftInput && !(this instanceof PartShadowPopupView)) {
             SGKeyboardUtils.hideSoftInput(this);
         }
         handler.removeCallbacks(doAfterDismissTask);
@@ -704,24 +704,24 @@ public abstract class BasePopupView extends FrameLayout implements LifecycleObse
     protected Runnable doAfterDismissTask = new Runnable() {
         @Override
         public void run() {
-            popupStatus = PopupStatus.Dismiss;
+            dropDownStatus = DropDownStatus.Dismiss;
             lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_STOP);
-            if (dropDownInfo == null) {
+            if (SGDropDownInfo == null) {
                 return;
             }
-            if (dropDownInfo.autoOpenSoftInput && BasePopupView.this instanceof PartShadowPopupView) {
+            if (SGDropDownInfo.autoOpenSoftInput && BasePopupView.this instanceof PartShadowPopupView) {
                 SGKeyboardUtils.hideSoftInput(BasePopupView.this);
             }
             onDismiss();
             SGDropDown.longClickPoint = null;
-            if (dropDownInfo.SGDropDownCallback != null) {
-                dropDownInfo.SGDropDownCallback.onDismiss(BasePopupView.this);
+            if (SGDropDownInfo.SGDropDownCallback != null) {
+                SGDropDownInfo.SGDropDownCallback.onDismiss(BasePopupView.this);
             }
             if (dismissWithRunnable != null) {
                 dismissWithRunnable.run();
                 dismissWithRunnable = null;//no cache, avoid some bad edge effect.
             }
-            if (dropDownInfo.isRequestFocus && dropDownInfo.isViewMode) {
+            if (SGDropDownInfo.isRequestFocus && SGDropDownInfo.isViewMode) {
                 // 让根布局拿焦点，避免布局内RecyclerView类似布局获取焦点导致布局滚动
                 if (getWindowDecorView() != null) {
                     View needFocusView = getWindowDecorView().findViewById(android.R.id.content);
@@ -744,11 +744,11 @@ public abstract class BasePopupView extends FrameLayout implements LifecycleObse
     }
 
     public boolean isShow() {
-        return popupStatus != PopupStatus.Dismiss;
+        return dropDownStatus != DropDownStatus.Dismiss;
     }
 
     public boolean isDismiss() {
-        return popupStatus == PopupStatus.Dismiss;
+        return dropDownStatus == DropDownStatus.Dismiss;
     }
 
     public void toggle() {
@@ -824,18 +824,18 @@ public abstract class BasePopupView extends FrameLayout implements LifecycleObse
 
     public void destroy() {
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY);
-        if (dropDownInfo != null) {
-            dropDownInfo.atView = null;
-            dropDownInfo.SGDropDownCallback = null;
-            dropDownInfo.hostLifecycle = null;
-            if (dropDownInfo.customAnimator != null && dropDownInfo.customAnimator.targetView != null) {
-                dropDownInfo.customAnimator.targetView.animate().cancel();
+        if (SGDropDownInfo != null) {
+            SGDropDownInfo.atView = null;
+            SGDropDownInfo.SGDropDownCallback = null;
+            SGDropDownInfo.hostLifecycle = null;
+            if (SGDropDownInfo.customAnimator != null && SGDropDownInfo.customAnimator.targetView != null) {
+                SGDropDownInfo.customAnimator.targetView.animate().cancel();
             }
-            if (dropDownInfo.isViewMode) {
+            if (SGDropDownInfo.isViewMode) {
                 tryRemoveFragments();
             }
-            if (dropDownInfo.isDestroyOnDismiss) {
-                dropDownInfo = null;
+            if (SGDropDownInfo.isDestroyOnDismiss) {
+                SGDropDownInfo = null;
             }
         }
         if (dialog != null) {
@@ -861,34 +861,34 @@ public abstract class BasePopupView extends FrameLayout implements LifecycleObse
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         handler.removeCallbacksAndMessages(null);
-        if (dropDownInfo != null) {
+        if (SGDropDownInfo != null) {
             if (getWindowDecorView() != null) {
                 SGKeyboardUtils.removeLayoutChangeListener(getHostWindow(), BasePopupView.this);
             }
-            if (dropDownInfo.isViewMode && hasModifySoftMode) {
+            if (SGDropDownInfo.isViewMode && hasModifySoftMode) {
                 //还原WindowSoftMode
                 getHostWindow().setSoftInputMode(preSoftMode);
                 hasModifySoftMode = false;
             }
-            if (dropDownInfo.isDestroyOnDismiss) {
+            if (SGDropDownInfo.isDestroyOnDismiss) {
                 destroy();//如果开启isDestroyOnDismiss，强制释放资源
             }
         }
-        if(dropDownInfo !=null && dropDownInfo.hostLifecycle!=null){
-            dropDownInfo.hostLifecycle.removeObserver(this);
+        if(SGDropDownInfo !=null && SGDropDownInfo.hostLifecycle!=null){
+            SGDropDownInfo.hostLifecycle.removeObserver(this);
         }else {
             if (getContext() != null && getContext() instanceof FragmentActivity) {
                 ((FragmentActivity) getContext()).getLifecycle().removeObserver(this);
             }
         }
-        popupStatus = PopupStatus.Dismiss;
+        dropDownStatus = DropDownStatus.Dismiss;
         showSoftInputTask = null;
         hasMoveUp = false;
     }
 
     private void passClickThrough(MotionEvent event) {
-        if (dropDownInfo != null && dropDownInfo.isClickThrough ) {
-            if (dropDownInfo.isViewMode) {
+        if (SGDropDownInfo != null && SGDropDownInfo.isClickThrough ) {
+            if (SGDropDownInfo.isViewMode) {
                 //需要从DecorView分发，并且要排除自己，否则死循环
 //                ViewGroup decorView = (ViewGroup) ((Activity) getContext()).getWindow().getDecorView();
 //                for (int i = 0; i < decorView.getChildCount(); i++) {
@@ -917,7 +917,7 @@ public abstract class BasePopupView extends FrameLayout implements LifecycleObse
                     passClickThrough(event);
                     break;
                 case MotionEvent.ACTION_MOVE:
-                    if(dropDownInfo != null && dropDownInfo.isDismissOnTouchOutside) {
+                    if(SGDropDownInfo != null && SGDropDownInfo.isDismissOnTouchOutside) {
                         dismiss();
                     }
                     break;
@@ -927,9 +927,9 @@ public abstract class BasePopupView extends FrameLayout implements LifecycleObse
                     float dy = event.getY() - y;
                     float distance = (float) Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
                     passClickThrough(event);
-                    if (distance < touchSlop && dropDownInfo != null && dropDownInfo.isDismissOnTouchOutside) {
+                    if (distance < touchSlop && SGDropDownInfo != null && SGDropDownInfo.isDismissOnTouchOutside) {
                         //查看是否在排除区域外
-                        ArrayList<Rect> rects = dropDownInfo.notDismissWhenTouchInArea;
+                        ArrayList<Rect> rects = SGDropDownInfo.notDismissWhenTouchInArea;
                         if(rects!=null && rects.size()>0){
                             boolean inRect = false;
                             for (Rect r : rects) {

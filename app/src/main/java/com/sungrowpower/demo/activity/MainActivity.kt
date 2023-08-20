@@ -10,7 +10,7 @@ import android.view.Window
 import android.view.WindowManager
 import com.kuaimin.dropdown.R
 import com.sungrowpower.kit.dropdown.SGDropDown
-import com.sungrowpower.kit.dropdown.enums.PopupPosition
+import com.sungrowpower.kit.dropdown.enums.DropDownPosition
 
 /**
  * 创建日期：2023/8/15 on 13:35
@@ -38,7 +38,7 @@ class MainActivity : Activity() {
                 .atView(v)
                 .isViewMode(true)
                 .hasShadowBg(false)
-                .popupPosition(PopupPosition.Bottom)
+                .popupPosition(DropDownPosition.Bottom)
                 .asCustom(CustomPartShadowPopupView(this@MainActivity))
                 //.popupView()
                 .show()
@@ -48,7 +48,7 @@ class MainActivity : Activity() {
             SGDropDown.Builder(this@MainActivity)
                 .atView(v)
                 .isViewMode(true)
-                .popupPosition(PopupPosition.Top)
+                .popupPosition(DropDownPosition.Top)
                 .asCustom(CustomPartShadowPopupView(this@MainActivity))
                 //.popupView()
                 .show()
@@ -58,7 +58,7 @@ class MainActivity : Activity() {
             SGDropDown.Builder(this@MainActivity)
                 .atView(v)
                 .isViewMode(true)
-                .popupPosition(PopupPosition.Bottom)
+                .popupPosition(DropDownPosition.Bottom)
                 .asCustom(CustomPartShadowPopupView(this@MainActivity))
                 //.popupView()
                 .show()
