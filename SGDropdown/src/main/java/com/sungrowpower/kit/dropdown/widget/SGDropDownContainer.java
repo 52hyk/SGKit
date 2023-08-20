@@ -19,18 +19,18 @@ import com.sungrowpower.kit.dropdown.util.SGDropDownUtils;
  * Description:
  * Create by hyk
  */
-public class PartShadowContainer extends FrameLayout {
+public class SGDropDownContainer extends FrameLayout {
     public boolean isDismissOnTouchOutside = true;
 
-    public PartShadowContainer(@NonNull Context context) {
+    public SGDropDownContainer(@NonNull Context context) {
         super(context);
     }
 
-    public PartShadowContainer(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public SGDropDownContainer(@NonNull Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public PartShadowContainer(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public SGDropDownContainer(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 

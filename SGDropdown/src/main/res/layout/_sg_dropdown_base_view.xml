@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.sungrowpower.kit.dropdown.widget.PartShadowContainer xmlns:android="http://schemas.android.com/apk/res/android"
+<com.sungrowpower.kit.dropdown.widget.SGDropDownContainer xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/attachPopupContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent" />

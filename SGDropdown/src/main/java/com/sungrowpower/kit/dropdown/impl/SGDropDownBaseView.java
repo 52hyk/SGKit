@@ -18,7 +18,7 @@ import com.sungrowpower.kit.dropdown.enums.SGDropDownAnimation;
 import com.sungrowpower.kit.dropdown.enums.DropDownPosition;
 import com.sungrowpower.kit.dropdown.interfaces.SGOnClickOutsideListener;
 import com.sungrowpower.kit.dropdown.util.SGDropDownUtils;
-import com.sungrowpower.kit.dropdown.widget.PartShadowContainer;
+import com.sungrowpower.kit.dropdown.widget.SGDropDownContainer;
 
 
 /**
@@ -26,7 +26,7 @@ import com.sungrowpower.kit.dropdown.widget.PartShadowContainer;
  * Create by hyk
  */
 public abstract class SGDropDownBaseView extends SGBaseView {
-    protected PartShadowContainer attachPopupContainer;
+    protected SGDropDownContainer attachPopupContainer;
     public SGDropDownBaseView(@NonNull Context context) {
         super(context);
         attachPopupContainer = findViewById(R.id.attachPopupContainer);
@@ -34,7 +34,7 @@ public abstract class SGDropDownBaseView extends SGBaseView {
 
     @Override
     final protected int getInnerLayoutId() {
-        return R.layout._xpopup_partshadow_popup_view;
+        return R.layout._sg_dropdown_base_view;
     }
     protected void addInnerContent() {
         View contentView = LayoutInflater.from(getContext()).inflate(getImplLayoutId(), attachPopupContainer, false);
