@@ -28,9 +28,8 @@ public class SGDropDown {
     /**
      * 全局弹窗的设置
      **/
-    private static int primaryColor = Color.parseColor("#121212");
+
     private static int animationDuration = 300;
-    private static int statusBarBgColor = Color.parseColor("#55000000");
     private static int navigationBarColor = 0;
     private static int shadowBgColor = Color.parseColor("#7F000000");
     public static int isLightStatusBar = 0; //大于0为true，小于0为false
@@ -47,18 +46,7 @@ public class SGDropDown {
         return shadowBgColor;
     }
 
-    /**
-     * 设置全局的状态栏背景颜色
-     *
-     * @param color
-     */
-    public static void setStatusBarBgColor(int color) {
-        statusBarBgColor = color;
-    }
 
-    public static int getStatusBarBgColor() {
-        return statusBarBgColor;
-    }
 
     /**
      * 设置全局的导航栏栏背景颜色
@@ -73,18 +61,7 @@ public class SGDropDown {
         return navigationBarColor;
     }
 
-    /**
-     * 设置主色调
-     *
-     * @param color
-     */
-    public static void setPrimaryColor(int color) {
-        primaryColor = color;
-    }
 
-    public static int getPrimaryColor() {
-        return primaryColor;
-    }
 
     /**
      * 统一设置是否是亮色状态栏

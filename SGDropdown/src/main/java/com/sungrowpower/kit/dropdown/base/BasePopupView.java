@@ -602,9 +602,6 @@ public abstract class BasePopupView extends FrameLayout implements LifecycleObse
         return dropDownInfo != null && dropDownInfo.shadowBgColor != 0 ? dropDownInfo.shadowBgColor : SGDropDown.getShadowBgColor();
     }
 
-    public int getStatusBarBgColor() {
-        return dropDownInfo != null && dropDownInfo.statusBarBgColor != 0 ? dropDownInfo.statusBarBgColor : SGDropDown.getStatusBarBgColor();
-    }
 
     /**
      * 弹窗的最大宽度，用来限制弹窗的最大宽度
