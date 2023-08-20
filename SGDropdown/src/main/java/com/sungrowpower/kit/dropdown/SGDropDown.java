@@ -173,16 +173,6 @@ public class SGDropDown {
             return this;
         }
 
-        /**
-         * 是否设置背景为高斯模糊背景。默认为false
-         *
-         * @param hasBlurBg
-         * @return
-         */
-        public Builder hasBlurBg(boolean hasBlurBg) {
-            this.SGDropDownInfo.hasBlurBg = hasBlurBg;
-            return this;
-        }
 
         /**
          * 设置弹窗依附的View，Attach弹窗必须设置这个

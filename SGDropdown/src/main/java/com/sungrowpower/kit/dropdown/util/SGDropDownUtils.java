@@ -140,7 +140,7 @@ public class SGDropDownUtils {
         target.setLayoutParams(params);
     }
 
-    public static void applyPopupSize(final ViewGroup content, final int maxWidth, final int maxHeight,
+    public static void applyDropDownSize(final ViewGroup content, final int maxWidth, final int maxHeight,
                                       final int popupWidth, final int popupHeight, final Runnable afterApplySize) {
         content.post(() -> {
             ViewGroup.LayoutParams params = content.getLayoutParams();

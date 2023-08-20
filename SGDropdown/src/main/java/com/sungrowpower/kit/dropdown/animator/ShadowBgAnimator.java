@@ -3,6 +3,7 @@ package com.sungrowpower.kit.dropdown.animator;
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.View;
 
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
@@ -32,6 +33,7 @@ public class ShadowBgAnimator extends DropDownAnimator {
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
+                Log.i("animation-->",(Integer) animation.getAnimatedValue()+"");
                 targetView.setBackgroundColor((Integer) animation.getAnimatedValue());
             }
         });

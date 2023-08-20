@@ -17,8 +17,6 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.WindowManager;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
@@ -34,7 +32,6 @@ import androidx.lifecycle.OnLifecycleEvent;
 
 
 import com.sungrowpower.kit.dropdown.SGDropDown;
-import com.sungrowpower.kit.dropdown.animator.BlurAnimator;
 import com.sungrowpower.kit.dropdown.animator.EmptyAnimator;
 import com.sungrowpower.kit.dropdown.animator.DropDownAnimator;
 import com.sungrowpower.kit.dropdown.animator.ScaleAlphaAnimator;
@@ -59,7 +56,6 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
     public SGDropDownInfo SGDropDownInfo;
     protected DropDownAnimator popupContentAnimator;
     protected ShadowBgAnimator shadowBgAnimator;
-    protected BlurAnimator blurAnimator;
     private final int touchSlop;
     public DropDownStatus dropDownStatus = DropDownStatus.Dismiss;
     protected boolean isCreated = false;
@@ -216,7 +212,9 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
         //以Activity的content的left为准
         View decorView = ((Activity) getContext()).getWindow().getDecorView().findViewById(android.R.id.content);
         int[] loc = new int[2];
+        //获取在当前窗口内的绝对坐标
         decorView.getLocationInWindow(loc);
+        //x坐标
         return loc[0];
     }
 
@@ -226,11 +224,6 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
     protected void init() {
         if (shadowBgAnimator == null) {
             shadowBgAnimator = new ShadowBgAnimator(this, getAnimationDuration(), getShadowBgColor());
-        }
-        if (SGDropDownInfo.hasBlurBg) {
-            blurAnimator = new BlurAnimator(this, getShadowBgColor());
-            blurAnimator.hasShadowBg = SGDropDownInfo.hasShadowBg;
-            blurAnimator.decorBitmap = SGDropDownUtils.view2Bitmap((SGDropDownUtils.context2Activity(this)).getWindow().getDecorView());
         }
 
         //1. 初始化Popup
@@ -283,9 +276,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
         if (SGDropDownInfo.hasShadowBg) {
             shadowBgAnimator.initAnimator();
         }
-        if (SGDropDownInfo.hasBlurBg && blurAnimator != null) {
-            blurAnimator.initAnimator();
-        }
+
         if (popupContentAnimator != null) {
             popupContentAnimator.initAnimator();
         }
@@ -384,7 +375,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
     }
 
     /**
-     * 根据PopupInfo的popupAnimation字段来生成对应的内置的动画执行器
+     * 根据DropDownInfo的DropDownAnimation字段来生成对应的内置的动画执行器
      */
     protected DropDownAnimator genAnimatorByPopupType() {
         if (SGDropDownInfo == null || SGDropDownInfo.SGDropDownAnimation == null) {
@@ -472,10 +463,8 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
         if (SGDropDownInfo == null) {
             return;
         }
-        if (SGDropDownInfo.hasShadowBg && !SGDropDownInfo.hasBlurBg && shadowBgAnimator!=null) {
+        if (SGDropDownInfo.hasShadowBg &&   shadowBgAnimator!=null) {
             shadowBgAnimator.animateShow();
-        } else if (SGDropDownInfo.hasBlurBg && blurAnimator != null) {
-            blurAnimator.animateShow();
         }
         if (popupContentAnimator != null) {
             popupContentAnimator.animateShow();
@@ -490,10 +479,8 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
         if (SGDropDownInfo == null) {
             return;
         }
-        if (SGDropDownInfo.hasShadowBg && !SGDropDownInfo.hasBlurBg && shadowBgAnimator!=null) {
+        if (SGDropDownInfo.hasShadowBg  && shadowBgAnimator!=null) {
             shadowBgAnimator.animateDismiss();
-        } else if (SGDropDownInfo.hasBlurBg && blurAnimator != null) {
-            blurAnimator.animateDismiss();
         }
 
         if (popupContentAnimator != null) {
@@ -775,13 +762,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
         if (shadowBgAnimator != null && shadowBgAnimator.targetView != null) {
             shadowBgAnimator.targetView.animate().cancel();
         }
-        if (blurAnimator != null && blurAnimator.targetView != null) {
-            blurAnimator.targetView.animate().cancel();
-            if (blurAnimator.decorBitmap != null && !blurAnimator.decorBitmap.isRecycled()) {
-                blurAnimator.decorBitmap.recycle();
-                blurAnimator.decorBitmap = null;
-            }
-        }
+
     }
 
     @Override

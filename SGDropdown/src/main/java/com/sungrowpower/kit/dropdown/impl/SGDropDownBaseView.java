@@ -2,6 +2,7 @@ package com.sungrowpower.kit.dropdown.impl;
 
 import android.content.Context;
 import android.graphics.Rect;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,11 +51,11 @@ public abstract class SGDropDownBaseView extends SGBaseView {
         if (SGDropDownInfo.hasShadowBg) {
             shadowBgAnimator.targetView = getPopupContentView();
         }
-        getPopupContentView().setTranslationY(SGDropDownInfo.offsetY);
-        getPopupImplView().setTranslationX(SGDropDownInfo.offsetX);
-        getPopupImplView().setTranslationY(0f);
-        getPopupImplView().setVisibility(INVISIBLE);
-        SGDropDownUtils.applyPopupSize((ViewGroup) getPopupContentView(), getMaxWidth(), getMaxHeight(),
+//        getPopupContentView().setTranslationY(SGDropDownInfo.offsetY);
+//        getPopupImplView().setTranslationX(SGDropDownInfo.offsetX);
+//        getPopupImplView().setTranslationY(0f);
+//        getPopupImplView().setVisibility(INVISIBLE);
+        SGDropDownUtils.applyDropDownSize((ViewGroup) getPopupContentView(), getMaxWidth(), getMaxHeight(),
                 getPopupWidth(), getPopupHeight(), new Runnable() {
             @Override
             public void run() {
@@ -86,8 +87,8 @@ public abstract class SGDropDownBaseView extends SGBaseView {
         rect.right -= getActivityContentLeft();
 
         //水平居中
-        if (SGDropDownInfo.isCenterHorizontal && getPopupImplView() != null) {
-//            getPopupImplView().setTranslationX(XPopupUtils.getAppWidth(getContext()) / 2f - getPopupContentView().getMeasuredWidth() / 2f);
+      /*  if (SGDropDownInfo.isCenterHorizontal && getPopupImplView() != null) {
+
             //参考目标View居中，而不是屏幕居中
             int tx = (rect.left + rect.right)/2 - getPopupImplView().getMeasuredWidth()/2;
             getPopupImplView().setTranslationX(tx);
@@ -98,13 +99,13 @@ public abstract class SGDropDownBaseView extends SGBaseView {
                 tx -= (tx + getPopupImplView().getMeasuredWidth() - realWidth);
             }
             getPopupImplView().setTranslationX(tx);
-        }
+        }*/
 
         int centerY = rect.top + rect.height() / 2;
         View implView = getPopupImplView();
         FrameLayout.LayoutParams implParams = (FrameLayout.LayoutParams) implView.getLayoutParams();
         if ((centerY > getMeasuredHeight() / 2 || SGDropDownInfo.dropDownPosition == DropDownPosition.Top) && SGDropDownInfo.dropDownPosition != DropDownPosition.Bottom) {
-            // 说明atView在Window下半部分，PartShadow应该显示在它上方，计算atView之上的高度
+            // 说明atView在Window下半部分，dropdown应该显示在它上方，计算atView之上的高度
             params.height = rect.top;
             isShowUp = true;
             implParams.gravity = Gravity.BOTTOM;
@@ -112,7 +113,7 @@ public abstract class SGDropDownBaseView extends SGBaseView {
                 implParams.height = Math.min(implView.getMeasuredHeight(), getMaxHeight());
             }
         } else {
-            // atView在上半部分，PartShadow应该显示在它下方，计算atView之下的高度
+            // atView在上半部分，dropdown应该显示在它下方，计算atView之下的高度
             params.height = getMeasuredHeight() - rect.bottom;
             isShowUp = false;
             params.topMargin = rect.bottom;
@@ -127,7 +128,7 @@ public abstract class SGDropDownBaseView extends SGBaseView {
             @Override
             public void run() {
                 initAndStartAnimation();
-                getPopupImplView().setVisibility(VISIBLE);
+               // getPopupImplView().setVisibility(VISIBLE);
             }
         });
         attachPopupContainer.setOnLongClickListener(new View.OnLongClickListener() {
