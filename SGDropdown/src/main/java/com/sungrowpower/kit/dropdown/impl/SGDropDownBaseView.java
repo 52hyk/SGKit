@@ -25,9 +25,9 @@ import com.sungrowpower.kit.dropdown.widget.PartShadowContainer;
  * Description: 下拉筛选弹窗
  * Create by hyk
  */
-public abstract class DropDownSGBaseView extends SGBaseView {
+public abstract class SGDropDownBaseView extends SGBaseView {
     protected PartShadowContainer attachPopupContainer;
-    public DropDownSGBaseView(@NonNull Context context) {
+    public SGDropDownBaseView(@NonNull Context context) {
         super(context);
         attachPopupContainer = findViewById(R.id.attachPopupContainer);
     }

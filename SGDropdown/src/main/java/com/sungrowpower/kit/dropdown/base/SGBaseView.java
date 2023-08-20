@@ -43,7 +43,7 @@ import com.sungrowpower.kit.dropdown.animator.ShadowBgAnimator;
 import com.sungrowpower.kit.dropdown.animator.TranslateAlphaAnimator;
 import com.sungrowpower.kit.dropdown.animator.TranslateAnimator;
 import com.sungrowpower.kit.dropdown.enums.DropDownStatus;
-import com.sungrowpower.kit.dropdown.impl.DropDownSGBaseView;
+import com.sungrowpower.kit.dropdown.impl.SGDropDownBaseView;
 import com.sungrowpower.kit.dropdown.util.SGKeyboardUtils;
 import com.sungrowpower.kit.dropdown.util.SGDropDownUtils;
 
@@ -127,7 +127,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
                     } else {
 //                        if (hasMoveUp) return;
                         //when show keyboard, move up
-                        if (SGBaseView.this instanceof DropDownSGBaseView && dropDownStatus == DropDownStatus.Showing) {
+                        if (SGBaseView.this instanceof SGDropDownBaseView && dropDownStatus == DropDownStatus.Showing) {
                             return;
                         }
                         SGDropDownUtils.moveUpToKeyboard(height, SGBaseView.this);
@@ -233,7 +233,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
         }
 
         //1. 初始化Popup
-        if (this instanceof DropDownSGBaseView) {
+        if (this instanceof SGDropDownBaseView) {
             initPopupContent();
         } else if (!isCreated) {
             initPopupContent();
@@ -260,9 +260,6 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
             }
             beforeShow();
             lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_START);
-            //if (!(BasePopupView.this instanceof FullScreenPopupView)) {
-                focusAndProcessBackPress();
-            //}
 
         }
     };
@@ -324,9 +321,8 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
             dropDownStatus = DropDownStatus.Show;
             lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_RESUME);
             onShow();
-            //if (BasePopupView.this instanceof FullScreenPopupView) {
-                focusAndProcessBackPress();
-           //}
+
+
             if (SGDropDownInfo != null && SGDropDownInfo.SGDropDownCallback != null) {
                 SGDropDownInfo.SGDropDownCallback.onShow(SGBaseView.this);
             }
@@ -337,83 +333,13 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
         }
     };
 
-    private ShowSoftInputTask showSoftInputTask;
-    public void focusAndProcessBackPress() {
-        if (SGDropDownInfo != null && SGDropDownInfo.isRequestFocus) {
-            if(SGDropDownInfo.isViewMode){
-                setFocusableInTouchMode(true);
-                setFocusable(true);
-//                requestFocus();
-            }
-            // 此处焦点可能被内部的EditText抢走，也需要给EditText也设置返回按下监听
-//            if (Build.VERSION.SDK_INT >= 28) {
-//                addOnUnhandledKeyListener(this);
-//            } else {
-//                setOnKeyListener(new BackPressListener());
-//            }
-            addOnUnhandledKeyListener(this);
-
-            //let all EditText can process back pressed.
-            ArrayList<EditText> list = new ArrayList<>();
-            SGDropDownUtils.findAllEditText(list, (ViewGroup) getPopupContentView());
-            if (list.size() > 0) {
-                preSoftMode = getHostWindow().getAttributes().softInputMode;
-                if (SGDropDownInfo.isViewMode) {
-                    getHostWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-                    hasModifySoftMode = true;
-                }
-                for (int i = 0; i < list.size(); i++) {
-                    final EditText et = list.get(i);
-                    addOnUnhandledKeyListener(et);
-//                    if (Build.VERSION.SDK_INT >= 28) {
-//                        addOnUnhandledKeyListener(et);
-//                    }else {
-//                        boolean hasSetKeyListener = XPopupUtils.hasSetKeyListener(et);
-//                        if(!hasSetKeyListener) et.setOnKeyListener(new BackPressListener());
-//                    }
-                    if (i == 0) {
-                        if (SGDropDownInfo.autoFocusEditText) {
-                            et.setFocusable(true);
-                            et.setFocusableInTouchMode(true);
-                            et.requestFocus();
-                            if (SGDropDownInfo.autoOpenSoftInput) {
-                                showSoftInput(et);
-                            }
-                        } else {
-                            if (SGDropDownInfo.autoOpenSoftInput) {
-                                showSoftInput(this);
-                            }
-                        }
-                    }
-                }
-            } else {
-                if (SGDropDownInfo.autoOpenSoftInput) {
-                    showSoftInput(this);
-                }
-            }
-        }
-    }
 
     @Override
     public boolean onUnhandledKeyEvent(View v, KeyEvent event) {
         return processKeyEvent(event.getKeyCode(), event);
     }
 
-    protected void addOnUnhandledKeyListener(View view){
-        ViewCompat.removeOnUnhandledKeyEventListener(view, this);
-        ViewCompat.addOnUnhandledKeyEventListener(view, this);
-    }
 
-    protected void showSoftInput(View focusView) {
-        if (SGDropDownInfo != null) {
-            if (showSoftInputTask == null) {
-                showSoftInputTask = new ShowSoftInputTask(focusView);
-            } else {
-                handler.removeCallbacks(showSoftInputTask);
-            }
-            handler.postDelayed(showSoftInputTask, 10);
-        }
-    }
 
     public void dismissOrHideSoftInput() {
         if (SGKeyboardUtils.sDecorViewInvisibleHeightPre == 0) {
@@ -694,7 +620,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
 
     protected void doAfterDismiss() {
         // PartShadowPopupView要等到完全关闭再关闭输入法，不然有问题
-        if (SGDropDownInfo != null && SGDropDownInfo.autoOpenSoftInput && !(this instanceof DropDownSGBaseView)) {
+        if (SGDropDownInfo != null && SGDropDownInfo.autoOpenSoftInput && !(this instanceof SGDropDownBaseView)) {
             SGKeyboardUtils.hideSoftInput(this);
         }
         handler.removeCallbacks(doAfterDismissTask);
@@ -709,7 +635,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
             if (SGDropDownInfo == null) {
                 return;
             }
-            if (SGDropDownInfo.autoOpenSoftInput && SGBaseView.this instanceof DropDownSGBaseView) {
+            if (SGDropDownInfo.autoOpenSoftInput && SGBaseView.this instanceof SGDropDownBaseView) {
                 SGKeyboardUtils.hideSoftInput(SGBaseView.this);
             }
             onDismiss();
@@ -882,7 +808,6 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
             }
         }
         dropDownStatus = DropDownStatus.Dismiss;
-        showSoftInputTask = null;
         hasMoveUp = false;
     }
 

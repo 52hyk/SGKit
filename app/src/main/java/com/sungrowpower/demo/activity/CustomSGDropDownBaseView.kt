@@ -5,13 +5,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import com.kuaimin.dropdown.R
-import com.sungrowpower.kit.dropdown.impl.DropDownSGBaseView
+import com.sungrowpower.kit.dropdown.impl.SGDropDownBaseView
 
 /**
  * Description: 自定义局部阴影弹窗
  * Create by dance, at 2018/12/21
  */
-class CustomDropDownSGBaseView(context: Context) : DropDownSGBaseView(context) {
+class CustomSGDropDownBaseView(context: Context) : SGDropDownBaseView(context) {
     private val mData= mutableListOf<String>("Options1","Options2","Options3","Options4")
     private val adapter by lazy {
         MyAdapter(mData)

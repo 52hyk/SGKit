@@ -40,7 +40,7 @@ import androidx.annotation.FloatRange;
 
 
 import com.sungrowpower.kit.dropdown.base.SGBaseView;
-import com.sungrowpower.kit.dropdown.impl.DropDownSGBaseView;
+import com.sungrowpower.kit.dropdown.impl.SGDropDownBaseView;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -278,7 +278,7 @@ public class SGDropDownUtils {
         }
         int animDuration = 100;
         //执行上移的逻辑
-        if (pv instanceof DropDownSGBaseView) {
+        if (pv instanceof SGDropDownBaseView) {
             int overflowHeight = (int) ((focusBottom + keyboardHeight) - screenHeight
                     - pv.getPopupContentView().getTranslationY());
             if (focusEt != null && overflowHeight > 0) {

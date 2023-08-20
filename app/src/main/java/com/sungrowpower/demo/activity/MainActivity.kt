@@ -39,7 +39,7 @@ class MainActivity : Activity() {
                 .isViewMode(true)
                 .hasShadowBg(false)
                 .popupPosition(DropDownPosition.Bottom)
-                .asCustom(CustomDropDownSGBaseView(this@MainActivity))
+                .asCustom(CustomSGDropDownBaseView(this@MainActivity))
                 //.popupView()
                 .show()
         }
@@ -49,7 +49,7 @@ class MainActivity : Activity() {
                 .atView(v)
                 .isViewMode(true)
                 .popupPosition(DropDownPosition.Top)
-                .asCustom(CustomDropDownSGBaseView(this@MainActivity))
+                .asCustom(CustomSGDropDownBaseView(this@MainActivity))
                 //.popupView()
                 .show()
         }
@@ -59,7 +59,7 @@ class MainActivity : Activity() {
                 .atView(v)
                 .isViewMode(true)
                 .popupPosition(DropDownPosition.Bottom)
-                .asCustom(CustomDropDownSGBaseView(this@MainActivity))
+                .asCustom(CustomSGDropDownBaseView(this@MainActivity))
                 //.popupView()
                 .show()
         }
