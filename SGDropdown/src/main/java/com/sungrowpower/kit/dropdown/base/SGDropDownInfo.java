@@ -10,7 +10,6 @@ import androidx.lifecycle.Lifecycle;
 import com.sungrowpower.kit.dropdown.animator.DropDownAnimator;
 import com.sungrowpower.kit.dropdown.enums.SGDropDownAnimation;
 import com.sungrowpower.kit.dropdown.enums.DropDownPosition;
-import com.sungrowpower.kit.dropdown.enums.SGDropDownType;
 import com.sungrowpower.kit.dropdown.interfaces.SGDropDownCallback;
 
 import java.util.ArrayList;
@@ -20,7 +19,7 @@ import java.util.ArrayList;
  * Create by hyk
  */
 public class SGDropDownInfo {
-    public SGDropDownType SGDropDownType = null; //窗体的类型
+
     public Boolean isDismissOnBackPressed = true;  //按返回键是否消失
     public Boolean isDismissOnTouchOutside = true; //点击外部消失
     public Boolean autoDismiss = true; //操作完毕后是否自动关闭

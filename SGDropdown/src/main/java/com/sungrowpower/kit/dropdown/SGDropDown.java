@@ -15,7 +15,6 @@ import com.sungrowpower.kit.dropdown.base.SGBaseView;
 import com.sungrowpower.kit.dropdown.base.SGDropDownInfo;
 import com.sungrowpower.kit.dropdown.enums.SGDropDownAnimation;
 import com.sungrowpower.kit.dropdown.enums.DropDownPosition;
-import com.sungrowpower.kit.dropdown.enums.SGDropDownType;
 import com.sungrowpower.kit.dropdown.interfaces.SGDropDownCallback;
 import com.sungrowpower.kit.dropdown.util.SGDropDownUtils;
 
@@ -129,10 +128,6 @@ public class SGDropDown {
             this.context = context;
         }
 
-        public Builder popupType(SGDropDownType SGDropDownType) {
-            this.SGDropDownInfo.SGDropDownType = SGDropDownType;
-            return this;
-        }
 
         /**
          * 设置按下返回键是否关闭弹窗，默认为true
