@@ -35,7 +35,7 @@ public interface SGDropDownCallback {
     void beforeDismiss(BasePopupView popupView);
 
     /**
-     * 暴漏返回按键的处理，如果返回true，XPopup不会处理；如果返回false，XPopup会处理，
+     * 暴漏返回按键的处理，如果返回true，Dropdown不会处理；如果返回false，Dropdown会处理，
      * @return
      */
     boolean onBackPressed(BasePopupView popupView);

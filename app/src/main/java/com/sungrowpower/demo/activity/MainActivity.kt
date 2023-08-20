@@ -9,7 +9,7 @@ import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import com.kuaimin.dropdown.R
-import com.sungrowpower.kit.dropdown.SGDropdown
+import com.sungrowpower.kit.dropdown.SGDropDown
 import com.sungrowpower.kit.dropdown.enums.PopupPosition
 
 /**
@@ -34,7 +34,28 @@ class MainActivity : Activity() {
             decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
         findViewById<View>(R.id.tv_click).setOnClickListener { v ->
-            SGDropdown.Builder(this@MainActivity)
+            SGDropDown.Builder(this@MainActivity)
+                .atView(v)
+                .isViewMode(true)
+                .hasShadowBg(false)
+                .popupPosition(PopupPosition.Bottom)
+                .asCustom(CustomPartShadowPopupView(this@MainActivity))
+                //.popupView()
+                .show()
+        }
+
+        findViewById<View>(R.id.tv_click2).setOnClickListener { v ->
+            SGDropDown.Builder(this@MainActivity)
+                .atView(v)
+                .isViewMode(true)
+                .popupPosition(PopupPosition.Top)
+                .asCustom(CustomPartShadowPopupView(this@MainActivity))
+                //.popupView()
+                .show()
+        }
+
+        findViewById<View>(R.id.tv_click3).setOnClickListener { v ->
+            SGDropDown.Builder(this@MainActivity)
                 .atView(v)
                 .isViewMode(true)
                 .popupPosition(PopupPosition.Bottom)
@@ -42,7 +63,5 @@ class MainActivity : Activity() {
                 //.popupView()
                 .show()
         }
-
-
     }
 }

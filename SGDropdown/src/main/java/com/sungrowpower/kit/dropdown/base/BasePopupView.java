@@ -33,7 +33,7 @@ import androidx.lifecycle.LifecycleRegistry;
 import androidx.lifecycle.OnLifecycleEvent;
 
 
-import com.sungrowpower.kit.dropdown.SGDropdown;
+import com.sungrowpower.kit.dropdown.SGDropDown;
 import com.sungrowpower.kit.dropdown.animator.BlurAnimator;
 import com.sungrowpower.kit.dropdown.animator.EmptyAnimator;
 import com.sungrowpower.kit.dropdown.animator.PopupAnimator;
@@ -72,7 +72,7 @@ public abstract class BasePopupView extends FrameLayout implements LifecycleObse
     public BasePopupView(@NonNull Context context) {
         super(context);
         if (context instanceof Application) {
-            throw new IllegalArgumentException("XPopup的Context必须是Activity类型！");
+            throw new IllegalArgumentException("Dropdown的Context必须是Activity类型！");
         }
         lifecycleRegistry = new LifecycleRegistry(this);
         touchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
@@ -595,15 +595,15 @@ public abstract class BasePopupView extends FrameLayout implements LifecycleObse
         if (dropDownInfo.popupAnimation == NoAnimation) {
             return 1;
         }
-        return dropDownInfo.animationDuration >= 0 ? dropDownInfo.animationDuration : SGDropdown.getAnimationDuration() + 1;
+        return dropDownInfo.animationDuration >= 0 ? dropDownInfo.animationDuration : SGDropDown.getAnimationDuration() + 1;
     }
 
     public int getShadowBgColor() {
-        return dropDownInfo != null && dropDownInfo.shadowBgColor != 0 ? dropDownInfo.shadowBgColor : SGDropdown.getShadowBgColor();
+        return dropDownInfo != null && dropDownInfo.shadowBgColor != 0 ? dropDownInfo.shadowBgColor : SGDropDown.getShadowBgColor();
     }
 
     public int getStatusBarBgColor() {
-        return dropDownInfo != null && dropDownInfo.statusBarBgColor != 0 ? dropDownInfo.statusBarBgColor : SGDropdown.getStatusBarBgColor();
+        return dropDownInfo != null && dropDownInfo.statusBarBgColor != 0 ? dropDownInfo.statusBarBgColor : SGDropDown.getStatusBarBgColor();
     }
 
     /**
@@ -716,7 +716,7 @@ public abstract class BasePopupView extends FrameLayout implements LifecycleObse
                 SGKeyboardUtils.hideSoftInput(BasePopupView.this);
             }
             onDismiss();
-            SGDropdown.longClickPoint = null;
+            SGDropDown.longClickPoint = null;
             if (dropDownInfo.SGDropDownCallback != null) {
                 dropDownInfo.SGDropDownCallback.onDismiss(BasePopupView.this);
             }
@@ -786,7 +786,7 @@ public abstract class BasePopupView extends FrameLayout implements LifecycleObse
     /**
      * 在弹窗内嵌入Fragment的场景中，当弹窗消失后，由于Fragment被Activity的FragmentManager缓存，
      * 会导致弹窗重新创建的时候，Fragment会命中缓存，生命周期不再执行。为了处理这种情况，只需重写：
-     * getInternalFragmentNames() 方法，返回嵌入的Fragment名称，XPopup会自动移除Fragment缓存。
+     * getInternalFragmentNames() 方法，返回嵌入的Fragment名称，Dropdown会自动移除Fragment缓存。
      * 名字是: Fragment.getClass().getSimpleName()
      *
      * @return

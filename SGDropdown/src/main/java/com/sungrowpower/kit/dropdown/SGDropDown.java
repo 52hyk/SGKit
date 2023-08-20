@@ -22,8 +22,8 @@ import com.sungrowpower.kit.dropdown.util.SGDropDownUtils;
 import java.util.ArrayList;
 
 
-public class SGDropdown {
-    private SGDropdown() { }
+public class SGDropDown {
+    private SGDropDown() { }
 
     /**
      * 全局弹窗的设置
@@ -129,7 +129,7 @@ public class SGDropdown {
                 if(event.getAction()==MotionEvent.ACTION_DOWN){
                     longClickPoint = new PointF(event.getRawX(), event.getRawY());
                 }
-                if("xpopup".equals(v.getTag()) && event.getAction()==MotionEvent.ACTION_MOVE){
+                if("dropdown".equals(v.getTag()) && event.getAction()==MotionEvent.ACTION_MOVE){
                     //长按发送，阻断父View拦截
                     v.getParent().requestDisallowInterceptTouchEvent(true);
                 }
@@ -141,7 +141,7 @@ public class SGDropdown {
                 return false;
             }
         });
-        v.setTag("xpopup");
+        v.setTag("dropdown");
     }
 
     public static class Builder {
@@ -411,7 +411,7 @@ public class SGDropdown {
 
         /**
          * 设置状态栏的背景颜色，目前只对全屏弹窗和Drawer弹窗有效，其他弹窗
-         * XPopup强制将状态栏设置为透明
+         * Dropdown强制将状态栏设置为透明
          * @param statusBarBgColor
          * @return
          */
@@ -511,7 +511,7 @@ public class SGDropdown {
 
         /**
          * 是否允许应用在后台的时候也能弹出弹窗，默认是false。注意如果开启这个开关，需要申请悬浮窗权限才能生效。
-         * 直接使用 XPopup.requestOverlayPermission()即可申请
+         * 直接使用 Dropdown.requestOverlayPermission()即可申请
          * @param enableShowWhenAppBackground
          * @return
          */
@@ -570,7 +570,7 @@ public class SGDropdown {
         }
 
         /**
-         * XPopup的弹窗默认是Dialog实现，该方法设置为true则切换为View实现，两者区别如下：
+         * Dropdown的弹窗默认是Dialog实现，该方法设置为true则切换为View实现，两者区别如下：
          * 1. Dialog实现，独立Window渲染，性能是View实现的2倍以上，但部分与输入法交互效果无法做到，
          *    比如根据输入进行联想搜索的场景，因为输入法也是一个Dialog，Android中无法实现2个Dialog同时获取焦点，
          *    而设置为View模式即可轻松实现；
@@ -633,7 +633,7 @@ public class SGDropdown {
         }
 
         /**
-         * 默认情况下XPopup监视Activity的生命周期，对于Fragment(或其他任意拥有Lifecycle的组件)实现的UI，可以传入Fragment
+         * 默认情况下Dropdown监视Activity的生命周期，对于Fragment(或其他任意拥有Lifecycle的组件)实现的UI，可以传入Fragment
          * 的Lifecycle，从而实现在Fragment销毁时弹窗也自动销毁，无需手动调用dismiss()和destroy()
          * @param lifecycle 自定义UI的生命周期
          * @return

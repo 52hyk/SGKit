@@ -57,7 +57,9 @@ public class PartShadowContainer extends FrameLayout {
                     float distance = (float) Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
                     if (distance < ViewConfiguration.get(getContext()).getScaledTouchSlop()) {
                         if (isDismissOnTouchOutside) {
-                            if (listener != null) listener.onClickOutside();
+                            if (listener != null) {
+                                listener.onClickOutside();
+                            }
                         }
                     }
                     x = 0;

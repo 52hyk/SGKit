@@ -14,7 +14,7 @@ import android.view.WindowManager;
 import androidx.annotation.NonNull;
 
 import com.sungrowpower.kit.R;
-import com.sungrowpower.kit.dropdown.SGDropdown;
+import com.sungrowpower.kit.dropdown.SGDropDown;
 import com.sungrowpower.kit.dropdown.util.FuckRomUtils;
 import com.sungrowpower.kit.dropdown.util.SGDropDownUtils;
 
@@ -24,7 +24,7 @@ import com.sungrowpower.kit.dropdown.util.SGDropDownUtils;
  */
 public class FullScreenDialog extends Dialog {
     public FullScreenDialog(@NonNull Context context) {
-        super(context, R.style._XPopup_TransparentDialog);
+        super(context, R.style._DropDown_TransparentDialog);
     }
 
     @Override
@@ -98,7 +98,7 @@ public class FullScreenDialog extends Dialog {
     }
 
     private int getNavigationBarColor(){
-        return contentView.dropDownInfo.navigationBarColor==0 ? SGDropdown.getNavigationBarColor()
+        return contentView.dropDownInfo.navigationBarColor==0 ? SGDropDown.getNavigationBarColor()
                 : contentView.dropDownInfo.navigationBarColor;
     }
 
@@ -127,7 +127,7 @@ public class FullScreenDialog extends Dialog {
             getWindow().getDecorView().setSystemUiVisibility(decorView.getSystemUiVisibility() | uiOptions);
             return;
         }
-        int light = contentView.dropDownInfo.isLightStatusBar == 0 ? SGDropdown.isLightStatusBar : contentView.dropDownInfo.isLightStatusBar;
+        int light = contentView.dropDownInfo.isLightStatusBar == 0 ? SGDropDown.isLightStatusBar : contentView.dropDownInfo.isLightStatusBar;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && light!=0) {
             View decorView = getWindow().getDecorView();
             int vis = decorView.getSystemUiVisibility();
@@ -171,7 +171,7 @@ public class FullScreenDialog extends Dialog {
     }
 
     public void setNavBarLightMode() {
-        int light = contentView.dropDownInfo.isLightNavigationBar == 0 ? SGDropdown.isLightNavigationBar : contentView.dropDownInfo.isLightNavigationBar;
+        int light = contentView.dropDownInfo.isLightNavigationBar == 0 ? SGDropDown.isLightNavigationBar : contentView.dropDownInfo.isLightNavigationBar;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && light!=0) {
             View decorView = getWindow().getDecorView();
             int vis = decorView.getSystemUiVisibility();
