@@ -75,6 +75,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
             throw new IllegalArgumentException("Dropdown的Context必须是Activity类型！");
         }
         lifecycleRegistry = new LifecycleRegistry(this);
+        //它获得的是触发移动事件的最短距离，如果小于这个距离就不触发移动控件
         touchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
         setId(View.generateViewId());
         View contentView = LayoutInflater.from(context).inflate(getInnerLayoutId(), this, false);
