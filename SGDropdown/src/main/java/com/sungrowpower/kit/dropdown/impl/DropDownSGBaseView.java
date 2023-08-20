@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import com.sungrowpower.kit.R;
 import com.sungrowpower.kit.dropdown.animator.DropDownAnimator;
 import com.sungrowpower.kit.dropdown.animator.TranslateAnimator;
-import com.sungrowpower.kit.dropdown.base.BasePopupView;
+import com.sungrowpower.kit.dropdown.base.SGBaseView;
 import com.sungrowpower.kit.dropdown.enums.SGDropDownAnimation;
 import com.sungrowpower.kit.dropdown.enums.DropDownPosition;
 import com.sungrowpower.kit.dropdown.interfaces.SGOnClickOutsideListener;
@@ -25,9 +25,9 @@ import com.sungrowpower.kit.dropdown.widget.PartShadowContainer;
  * Description: 下拉筛选弹窗
  * Create by hyk
  */
-public abstract class PartShadowPopupView extends BasePopupView {
+public abstract class DropDownSGBaseView extends SGBaseView {
     protected PartShadowContainer attachPopupContainer;
-    public PartShadowPopupView(@NonNull Context context) {
+    public DropDownSGBaseView(@NonNull Context context) {
         super(context);
         attachPopupContainer = findViewById(R.id.attachPopupContainer);
     }

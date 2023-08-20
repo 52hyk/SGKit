@@ -5,13 +5,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import com.kuaimin.dropdown.R
-import com.sungrowpower.kit.dropdown.impl.PartShadowPopupView
+import com.sungrowpower.kit.dropdown.impl.DropDownSGBaseView
 
 /**
  * Description: 自定义局部阴影弹窗
  * Create by dance, at 2018/12/21
  */
-class CustomPartShadowPopupView(context: Context) : PartShadowPopupView(context) {
+class CustomDropDownSGBaseView(context: Context) : DropDownSGBaseView(context) {
     private val mData= mutableListOf<String>("Options1","Options2","Options3","Options4")
     private val adapter by lazy {
         MyAdapter(mData)

@@ -11,7 +11,7 @@ import androidx.lifecycle.Lifecycle;
 
 
 import com.sungrowpower.kit.dropdown.animator.DropDownAnimator;
-import com.sungrowpower.kit.dropdown.base.BasePopupView;
+import com.sungrowpower.kit.dropdown.base.SGBaseView;
 import com.sungrowpower.kit.dropdown.base.SGDropDownInfo;
 import com.sungrowpower.kit.dropdown.enums.SGDropDownAnimation;
 import com.sungrowpower.kit.dropdown.enums.DropDownPosition;
@@ -636,7 +636,7 @@ public class SGDropDown {
 
 
 
-        public BasePopupView asCustom(BasePopupView popupView) {
+        public SGBaseView asCustom(SGBaseView popupView) {
 //            if (popupView instanceof CenterPopupView) {
 //                popupType(PopupType.Center);
 //            } else if (popupView instanceof BottomPopupView) {

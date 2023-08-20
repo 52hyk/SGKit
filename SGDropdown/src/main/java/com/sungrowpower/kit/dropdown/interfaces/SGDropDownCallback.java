@@ -1,7 +1,7 @@
 package com.sungrowpower.kit.dropdown.interfaces;
 
 
-import com.sungrowpower.kit.dropdown.base.BasePopupView;
+import com.sungrowpower.kit.dropdown.base.SGBaseView;
 
 /**
  * Description: dropdown显示和隐藏的回调接口，如果你不想重写3个方法，则可以使用SimpleCallback，
@@ -12,40 +12,40 @@ public interface SGDropDownCallback {
     /**
      * 弹窗的onCreate方法执行完调用
      */
-    void onCreated(BasePopupView popupView);
+    void onCreated(SGBaseView popupView);
 
     /**
      * 在show之前执行，由于onCreated只执行一次，如果想多次更新数据可以在该方法中
      */
-    void beforeShow(BasePopupView popupView);
+    void beforeShow(SGBaseView popupView);
 
     /**
      * 完全显示的时候执行
      */
-    void onShow(BasePopupView popupView);
+    void onShow(SGBaseView popupView);
 
     /**
      * 完全消失的时候执行
      */
-    void onDismiss(BasePopupView popupView);
+    void onDismiss(SGBaseView popupView);
 
     /**
      * 准备消失的时候执行
      */
-    void beforeDismiss(BasePopupView popupView);
+    void beforeDismiss(SGBaseView popupView);
 
     /**
      * 暴漏返回按键的处理，如果返回true，Dropdown不会处理；如果返回false，Dropdown会处理，
      * @return
      */
-    boolean onBackPressed(BasePopupView popupView);
+    boolean onBackPressed(SGBaseView popupView);
 
     /**
      * 当软键盘高度改变时调用，比如打开和关闭软键盘
      * @param height
      * @return
      */
-    void onKeyBoardStateChanged(BasePopupView popupView, int height);
+    void onKeyBoardStateChanged(SGBaseView popupView, int height);
 
     /**
      * 弹窗被拖拽时执行，适用于能拖拽的弹窗，比如Bottom弹窗和Drawer弹窗
@@ -55,5 +55,5 @@ public interface SGDropDownCallback {
      * @param upOrLeft 是否是向上或者向左；垂直拖拽时，true表示向上，false表现向下；
      *                 水平拖拽时，true表示向左，false表示向右
      */
-    void onDrag(BasePopupView popupView, int value, float percent, boolean upOrLeft);
+    void onDrag(SGBaseView popupView, int value, float percent, boolean upOrLeft);
 }

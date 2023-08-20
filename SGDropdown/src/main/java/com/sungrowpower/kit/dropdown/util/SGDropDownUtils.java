@@ -39,8 +39,8 @@ import android.widget.Toast;
 import androidx.annotation.FloatRange;
 
 
-import com.sungrowpower.kit.dropdown.base.BasePopupView;
-import com.sungrowpower.kit.dropdown.impl.PartShadowPopupView;
+import com.sungrowpower.kit.dropdown.base.SGBaseView;
+import com.sungrowpower.kit.dropdown.impl.DropDownSGBaseView;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -232,7 +232,7 @@ public class SGDropDownUtils {
     //这个不是必现的，暂时无解
     private static int preKeyboardHeight = 0;
 
-    public static void moveUpToKeyboard(final int keyboardHeight, final BasePopupView pv) {
+    public static void moveUpToKeyboard(final int keyboardHeight, final SGBaseView pv) {
         preKeyboardHeight = keyboardHeight;
         pv.post(new Runnable() {
             @Override
@@ -242,7 +242,7 @@ public class SGDropDownUtils {
         });
     }
 
-    private static void moveUpToKeyboardInternal(int keyboardHeight, BasePopupView pv) {
+    private static void moveUpToKeyboardInternal(int keyboardHeight, SGBaseView pv) {
         if (pv.SGDropDownInfo == null || !pv.SGDropDownInfo.isMoveUpToKeyboard) {
             return;
         }
@@ -278,7 +278,7 @@ public class SGDropDownUtils {
         }
         int animDuration = 100;
         //执行上移的逻辑
-        if (pv instanceof PartShadowPopupView) {
+        if (pv instanceof DropDownSGBaseView) {
             int overflowHeight = (int) ((focusBottom + keyboardHeight) - screenHeight
                     - pv.getPopupContentView().getTranslationY());
             if (focusEt != null && overflowHeight > 0) {
@@ -291,7 +291,7 @@ public class SGDropDownUtils {
                 .start();
     }
 
-    public static void moveDown(BasePopupView pv) {
+    public static void moveDown(SGBaseView pv) {
         //暂时忽略PartShadow弹窗和AttachPopupView
 
         pv.getPopupContentView().animate().translationY(0)
