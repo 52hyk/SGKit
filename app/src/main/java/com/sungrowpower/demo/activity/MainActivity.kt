@@ -11,6 +11,7 @@ import android.view.WindowManager
 import com.kuaimin.dropdown.R
 import com.sungrowpower.kit.dropdown.SGDropDown
 import com.sungrowpower.kit.dropdown.enums.DropDownPosition
+import com.sungrowpower.kit.dropdown.enums.SGDropDownAnimation
 
 /**
  * 创建日期：2023/8/15 on 13:35
@@ -58,6 +59,7 @@ class MainActivity : Activity() {
             SGDropDown.Builder(this@MainActivity)
                 .atView(v)
                 .isViewMode(true)
+                .popupAnimation(SGDropDownAnimation.ScaleAlphaFromRightTop)
                 .popupPosition(DropDownPosition.Bottom)
                 .asCustom(CustomSGDropDownBaseView(this@MainActivity))
                 //.popupView()

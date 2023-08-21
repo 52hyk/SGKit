@@ -32,7 +32,12 @@ import androidx.lifecycle.OnLifecycleEvent;
 
 import com.sungrowpower.kit.dropdown.SGDropDown;
 import com.sungrowpower.kit.dropdown.animator.DropDownAnimator;
+import com.sungrowpower.kit.dropdown.animator.EmptyAnimator;
+import com.sungrowpower.kit.dropdown.animator.ScaleAlphaAnimator;
+import com.sungrowpower.kit.dropdown.animator.ScrollScaleAnimator;
 import com.sungrowpower.kit.dropdown.animator.ShadowBgAnimator;
+import com.sungrowpower.kit.dropdown.animator.TranslateAlphaAnimator;
+import com.sungrowpower.kit.dropdown.animator.TranslateAnimator;
 import com.sungrowpower.kit.dropdown.enums.DropDownStatus;
 import com.sungrowpower.kit.dropdown.impl.SGDropDownBaseView;
 import com.sungrowpower.kit.dropdown.util.SGDropDownUtils;
@@ -375,39 +380,39 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
         if (SGDropDownInfo == null || SGDropDownInfo.SGDropDownAnimation == null) {
             return null;
         }
-//        switch (SGDropDownInfo.SGDropDownAnimation) {
-//            case ScaleAlphaFromCenter:
-//            case ScaleAlphaFromLeftTop:
-//            case ScaleAlphaFromRightTop:
-//            case ScaleAlphaFromLeftBottom:
-//            case ScaleAlphaFromRightBottom:
-//                return new ScaleAlphaAnimator(getPopupContentView(), getAnimationDuration(), SGDropDownInfo.SGDropDownAnimation);
-//
-//            case TranslateAlphaFromLeft:
-//            case TranslateAlphaFromTop:
-//            case TranslateAlphaFromRight:
-//            case TranslateAlphaFromBottom:
-//                return new TranslateAlphaAnimator(getPopupContentView(), getAnimationDuration(), SGDropDownInfo.SGDropDownAnimation);
-//
-//            case TranslateFromLeft:
-//            case TranslateFromTop:
-//            case TranslateFromRight:
-//            case TranslateFromBottom:
-//                return new TranslateAnimator(getPopupContentView(), getAnimationDuration(), SGDropDownInfo.SGDropDownAnimation);
-//
-//            case ScrollAlphaFromLeft:
-//            case ScrollAlphaFromLeftTop:
-//            case ScrollAlphaFromTop:
-//            case ScrollAlphaFromRightTop:
-//            case ScrollAlphaFromRight:
-//            case ScrollAlphaFromRightBottom:
-//            case ScrollAlphaFromBottom:
-//            case ScrollAlphaFromLeftBottom:
-//                return new ScrollScaleAnimator(getPopupContentView(), getAnimationDuration(), SGDropDownInfo.SGDropDownAnimation);
-//
-//            case NoAnimation:
-//                return new EmptyAnimator(getPopupContentView(), getAnimationDuration());
-//        }
+        switch (SGDropDownInfo.SGDropDownAnimation) {
+            case ScaleAlphaFromCenter:
+            case ScaleAlphaFromLeftTop:
+            case ScaleAlphaFromRightTop:
+            case ScaleAlphaFromLeftBottom:
+            case ScaleAlphaFromRightBottom:
+                return new ScaleAlphaAnimator(getPopupContentView(), getAnimationDuration(), SGDropDownInfo.SGDropDownAnimation);
+
+            case TranslateAlphaFromLeft:
+            case TranslateAlphaFromTop:
+            case TranslateAlphaFromRight:
+            case TranslateAlphaFromBottom:
+                return new TranslateAlphaAnimator(getPopupContentView(), getAnimationDuration(), SGDropDownInfo.SGDropDownAnimation);
+
+            case TranslateFromLeft:
+            case TranslateFromTop:
+            case TranslateFromRight:
+            case TranslateFromBottom:
+                return new TranslateAnimator(getPopupContentView(), getAnimationDuration(), SGDropDownInfo.SGDropDownAnimation);
+
+            case ScrollAlphaFromLeft:
+            case ScrollAlphaFromLeftTop:
+            case ScrollAlphaFromTop:
+            case ScrollAlphaFromRightTop:
+            case ScrollAlphaFromRight:
+            case ScrollAlphaFromRightBottom:
+            case ScrollAlphaFromBottom:
+            case ScrollAlphaFromLeftBottom:
+                return new ScrollScaleAnimator(getPopupContentView(), getAnimationDuration(), SGDropDownInfo.SGDropDownAnimation);
+
+            case NoAnimation:
+                return new EmptyAnimator(getPopupContentView(), getAnimationDuration());
+        }
         return null;
     }
 
