@@ -62,7 +62,6 @@ class MainActivity : Activity() {
                 .popupAnimation(SGDropDownAnimation.ScaleAlphaFromRightTop)
                 .popupPosition(DropDownPosition.Bottom)
                 .asCustom(CustomSGDropDownBaseView(this@MainActivity))
-                //.popupView()
                 .show()
         }
     }
