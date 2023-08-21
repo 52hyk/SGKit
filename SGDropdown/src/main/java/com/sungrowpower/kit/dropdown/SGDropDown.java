@@ -30,7 +30,7 @@ public class SGDropDown {
 
     private static int animationDuration = 300;
     private static int navigationBarColor = 0;
-    private static int shadowBgColor = Color.parseColor("#7F000000");
+    private static int shadowBgColor = Color.parseColor("#7F000000");//50%的透明度
     public static int isLightStatusBar = 0; //大于0为true，小于0为false
     public static int isLightNavigationBar = 0; //大于0为true，小于0为false
 
