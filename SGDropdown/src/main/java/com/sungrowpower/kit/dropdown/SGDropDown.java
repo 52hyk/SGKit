@@ -404,16 +404,6 @@ public class SGDropDown {
             return this;
         }
 
-        /**
-         * 是否启用拖拽，比如：Bottom弹窗默认是带手势拖拽效果的，如果禁用则不能拖拽
-         *
-         * @param enableDrag
-         * @return
-         */
-        public Builder enableDrag(boolean enableDrag) {
-            this.SGDropDownInfo.enableDrag = enableDrag;
-            return this;
-        }
 
         /**
          * 是否与目标水平居中，比如：默认情况下Attach弹窗依靠着目标的左边或者右边，如果isCenterHorizontal为true，则与目标水平居中对齐
@@ -482,16 +472,6 @@ public class SGDropDown {
             return this;
         }
 
-        /**
-         * 是否开启三阶拖拽效果，想高德地图上面的弹窗那样可以拖拽的效果
-         *
-         * @param isThreeDrag
-         * @return
-         */
-        public Builder isThreeDrag(boolean isThreeDrag) {
-            this.SGDropDownInfo.isThreeDrag = isThreeDrag;
-            return this;
-        }
 
         /**
          * 是否在弹窗消失后就立即释放资源，杜绝内存泄漏，仅仅适用于弹窗只用一次的场景，默认为false。

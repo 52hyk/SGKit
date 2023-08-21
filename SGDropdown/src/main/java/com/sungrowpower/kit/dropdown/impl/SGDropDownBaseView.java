@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 
@@ -31,6 +32,8 @@ public abstract class SGDropDownBaseView extends SGBaseView {
     public SGDropDownBaseView(@NonNull Context context) {
         super(context);
         attachPopupContainer = findViewById(R.id.attachPopupContainer);
+        Log.i("content-->==-",findViewById(R.id.attachPopupContainer).getId()+"");
+
     }
 
     @Override
@@ -55,6 +58,7 @@ public abstract class SGDropDownBaseView extends SGBaseView {
 //        getPopupImplView().setTranslationX(SGDropDownInfo.offsetX);
 //        getPopupImplView().setTranslationY(0f);
 //        getPopupImplView().setVisibility(INVISIBLE);
+        Log.i("content-->",attachPopupContainer.getChildCount()+"=="+getPopupImplView().getId()+"=="+getPopupContentView().getId());
         SGDropDownUtils.applyDropDownSize((ViewGroup) getPopupContentView(), getMaxWidth(), getMaxHeight(),
                 getPopupWidth(), getPopupHeight(), new Runnable() {
             @Override

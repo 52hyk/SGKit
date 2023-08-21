@@ -29,11 +29,11 @@ public class ShadowBgAnimator extends DropDownAnimator {
 
     @Override
     public void animateShow() {
+        //属性动画
         ValueAnimator animator = ValueAnimator.ofObject(argbEvaluator, startColor, shadowColor);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                Log.i("animation-->",(Integer) animation.getAnimatedValue()+"");
                 targetView.setBackgroundColor((Integer) animation.getAnimatedValue());
             }
         });

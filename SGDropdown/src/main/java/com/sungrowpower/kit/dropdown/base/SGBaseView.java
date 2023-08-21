@@ -6,6 +6,7 @@ import static com.sungrowpower.kit.dropdown.enums.SGDropDownAnimation.NoAnimatio
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Handler;
 import android.os.Looper;
@@ -258,7 +259,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
             popupContentAnimator = SGDropDownInfo.customAnimator;
             popupContentAnimator.targetView = getPopupContentView();
         } else {
-            // 根据PopupInfo的popupAnimation字段来生成对应的动画执行器，如果popupAnimation字段为null，则返回null
+            // 根据SGDropDownInfo的popupAnimation字段来生成对应的动画执行器，如果popupAnimation字段为null，则返回null
             popupContentAnimator = genAnimatorByPopupType();
             if (popupContentAnimator == null) {
                 popupContentAnimator = getPopupAnimator();

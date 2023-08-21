@@ -1,6 +1,8 @@
 package com.sungrowpower.demo.activity
 
 import android.content.Context
+import android.util.Log
+import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -24,6 +26,7 @@ class CustomSGDropDownBaseView(context: Context) : SGDropDownBaseView(context) {
         super.onCreate()
         findViewById<RecyclerView>(R.id.rv).layoutManager=LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
         findViewById<RecyclerView>(R.id.rv).adapter=adapter
+        Log.i("content-->==",findViewById<LinearLayout>(R.id.layout).id.toString())
     }
 
     override fun onShow() {
