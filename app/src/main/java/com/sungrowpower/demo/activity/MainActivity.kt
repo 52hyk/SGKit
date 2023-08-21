@@ -5,9 +5,11 @@ import android.app.Activity
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
+import android.widget.Toast
 import com.kuaimin.dropdown.R
 import com.sungrowpower.kit.dropdown.SGDropDown
 import com.sungrowpower.kit.dropdown.enums.DropDownPosition
@@ -59,10 +61,27 @@ class MainActivity : Activity() {
             SGDropDown.Builder(this@MainActivity)
                 .atView(v)
                 .isViewMode(true)
+                .dismissOnBackPressed(true) // 按返回键是否关闭弹窗，默认为true
+
                 .popupAnimation(SGDropDownAnimation.ScaleAlphaFromRightTop)
                 .popupPosition(DropDownPosition.Bottom)
                 .asCustom(CustomSGDropDownBaseView(this@MainActivity))
+
                 .show()
         }
+    }
+
+    private var mExitTime: Long = 0
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (System.currentTimeMillis().minus(mExitTime) <= 2000) {
+                finish()
+            } else {
+                mExitTime = System.currentTimeMillis()
+                Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show()
+            }
+            return true
+        }
+        return super.onKeyDown(keyCode, event)
     }
 }
