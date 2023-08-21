@@ -186,29 +186,6 @@ public class SGDropDownUtils {
         });
     }
 
-    public static void setCursorDrawableColor(EditText et, int color) {
-        //暂时没有找到有效的方法来动态设置cursor的颜色
-    }
-
-    public static BitmapDrawable createBitmapDrawable(Resources resources, int width, int color) {
-        Bitmap bitmap = Bitmap.createBitmap(width, 20, Bitmap.Config.ARGB_4444);
-        Canvas canvas = new Canvas(bitmap);
-        Paint paint = new Paint();
-        paint.setColor(color);
-        canvas.drawRect(0, 0, bitmap.getWidth(), 4, paint);
-        paint.setColor(Color.TRANSPARENT);
-        canvas.drawRect(0, 4, bitmap.getWidth(), 20, paint);
-        BitmapDrawable bitmapDrawable = new BitmapDrawable(resources, bitmap);
-        bitmapDrawable.setGravity(Gravity.BOTTOM);
-        return bitmapDrawable;
-    }
-
-    public static StateListDrawable createSelector(Drawable defaultDrawable, Drawable focusDrawable) {
-        StateListDrawable stateListDrawable = new StateListDrawable();
-        stateListDrawable.addState(new int[]{android.R.attr.state_focused}, focusDrawable);
-        stateListDrawable.addState(new int[]{}, defaultDrawable);
-        return stateListDrawable;
-    }
 
     public static boolean isInRect(float x, float y, Rect rect) {
         return x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom;
@@ -362,110 +339,7 @@ public class SGDropDownUtils {
         });
     }
 
-    private static boolean writeFileFromIS(final OutputStream fos, final InputStream is) {
-        OutputStream os = null;
-        try {
-            os = new BufferedOutputStream(fos);
-            byte data[] = new byte[8192];
-            int len;
-            while ((len = is.read(data, 0, 8192)) != -1) {
-                os.write(data, 0, len);
-            }
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        } finally {
-            try {
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            try {
-                if (os != null) {
-                    os.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
-    public static Bitmap renderScriptBlur(Context context, final Bitmap src,
-                                          @FloatRange(
-                                                  from = 0, to = 25, fromInclusive = false
-                                          ) final float radius,
-                                          final boolean recycle) {
-        RenderScript rs = null;
-        Bitmap ret = recycle ? src : src.copy(src.getConfig(), true);
-        try {
-            rs = RenderScript.create(context);
-            rs.setMessageHandler(new RenderScript.RSMessageHandler());
-            Allocation input = Allocation.createFromBitmap(rs,
-                    ret,
-                    Allocation.MipmapControl.MIPMAP_NONE,
-                    Allocation.USAGE_SCRIPT);
-            Allocation output = Allocation.createTyped(rs, input.getType());
-            ScriptIntrinsicBlur blurScript = ScriptIntrinsicBlur.create(rs, Element.U8_4(rs));
-            blurScript.setInput(input);
-            blurScript.setRadius(radius);
-            blurScript.forEach(output);
-            output.copyTo(ret);
-        } finally {
-            if (rs != null) {
-                rs.destroy();
-            }
-        }
-        return ret;
-    }
-
-    /**
-     * View to bitmap.
-     *
-     * @param view The view.
-     * @return bitmap
-     */
-    public static Bitmap view2Bitmap(final View view) {
-        if (view == null) {
-            return null;
-        }
-        boolean drawingCacheEnabled = view.isDrawingCacheEnabled();
-        boolean willNotCacheDrawing = view.willNotCacheDrawing();
-        view.setDrawingCacheEnabled(true);
-        view.setWillNotCacheDrawing(false);
-        Bitmap drawingCache = view.getDrawingCache();
-        Bitmap bitmap;
-        if (null == drawingCache) {
-            view.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
-                    View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
-            view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
-            view.buildDrawingCache();
-            drawingCache = view.getDrawingCache();
-            if (drawingCache != null) {
-                bitmap = Bitmap.createBitmap(drawingCache);
-            } else {
-                bitmap = Bitmap.createBitmap(view.getMeasuredWidth(), view.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
-                Canvas canvas = new Canvas(bitmap);
-                view.draw(canvas);
-            }
-        } else {
-            bitmap = Bitmap.createBitmap(drawingCache);
-        }
-        view.destroyDrawingCache();
-        view.setWillNotCacheDrawing(willNotCacheDrawing);
-        view.setDrawingCacheEnabled(drawingCacheEnabled);
-        return bitmap;
-    }
-
-    public static boolean isLayoutRtl(Context context) {
-        Locale primaryLocale;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            primaryLocale = context.getResources().getConfiguration().getLocales().get(0);
-        } else {
-            primaryLocale = context.getResources().getConfiguration().locale;
-        }
-        return TextUtils.getLayoutDirectionFromLocale(primaryLocale) == View.LAYOUT_DIRECTION_RTL;
-    }
 
     public static Activity context2Activity(View view) {
         Context context = view.getContext();
@@ -479,26 +353,7 @@ public class SGDropDownUtils {
         return null;
     }
 
-    public static Drawable createDrawable(int color, float radius) {
-        GradientDrawable drawable = new GradientDrawable();
-        drawable.setShape(GradientDrawable.RECTANGLE);
-        drawable.setColor(color);
-        drawable.setCornerRadius(radius);
-        return drawable;
-    }
 
-    public static Drawable createDrawable(int color, float tlRadius, float trRadius, float brRadius,
-                                          float blRadius) {
-        GradientDrawable drawable = new GradientDrawable();
-        drawable.setShape(GradientDrawable.RECTANGLE);
-        drawable.setColor(color);
-        drawable.setCornerRadii(new float[]{
-                tlRadius, tlRadius,
-                trRadius, trRadius,
-                brRadius, brRadius,
-                blRadius, blRadius});
-        return drawable;
-    }
 
     public static boolean hasSetKeyListener(View view) {
         try {
@@ -532,127 +387,6 @@ public class SGDropDownUtils {
             inSampleSize <<= 1;
         }
         return inSampleSize;
-    }
-
-    public static Bitmap getBitmap(final File file, final int maxWidth, final int maxHeight) {
-        if (file == null) {
-            return null;
-        }
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(file.getAbsolutePath(), options);
-        options.inSampleSize = calculateInSampleSize(options, maxWidth, maxHeight);
-        options.inJustDecodeBounds = false;
-        return BitmapFactory.decodeFile(file.getAbsolutePath(), options);
-    }
-
-    public static int[] getImageSize(File file) {
-        if (file == null) {
-            return new int[]{0, 0};
-        }
-        BitmapFactory.Options opts = new BitmapFactory.Options();
-        opts.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(file.getAbsolutePath(), opts);
-        return new int[]{opts.outWidth, opts.outHeight};
-    }
-
-    public static String getImageType(final File file) {
-        if (file == null) {
-            return "";
-        }
-        InputStream is = null;
-        try {
-            is = new FileInputStream(file);
-            byte[] bytes = new byte[12];
-            if (is.read(bytes) != -1) {
-                String type = bytes2HexString(bytes, true).toUpperCase();
-                if (type.contains("FFD8FF")) {
-                    return "jpg";
-                } else if (type.contains("89504E47")) {
-                    return "png";
-                } else if (type.contains("47494638")) {
-                    return "gif";
-                } else if (type.contains("49492A00") || type.contains("4D4D002A")) {
-                    return "tiff";
-                } else if (type.contains("424D")) {
-                    return "bmp";
-                } else if (type.startsWith("52494646") && type.endsWith("57454250")) {//524946461c57000057454250-12个字节
-                    return "webp";
-                } else if (type.contains("00000100") || type.contains("00000200")) {
-                    return "ico";
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (is != null) {
-                    is.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return "";
-    }
-
-    private static final char[] HEX_DIGITS_UPPER =
-            {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
-    private static final char[] HEX_DIGITS_LOWER =
-            {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
-
-    public static String bytes2HexString(final byte[] bytes, boolean isUpperCase) {
-        if (bytes == null) {
-            return "";
-        }
-        char[] hexDigits = isUpperCase ? HEX_DIGITS_UPPER : HEX_DIGITS_LOWER;
-        int len = bytes.length;
-        if (len <= 0) {
-            return "";
-        }
-        char[] ret = new char[len << 1];
-        for (int i = 0, j = 0; i < len; i++) {
-            ret[j++] = hexDigits[bytes[i] >> 4 & 0x0f];
-            ret[j++] = hexDigits[bytes[i] & 0x0f];
-        }
-        return new String(ret);
-    }
-
-
-    public static int getRotateDegree(final String filePath) {
-        try {
-            ExifInterface exifInterface = new ExifInterface(filePath);
-            int orientation = exifInterface.getAttributeInt(
-                    ExifInterface.TAG_ORIENTATION,
-                    ExifInterface.ORIENTATION_NORMAL
-            );
-            switch (orientation) {
-                case ExifInterface.ORIENTATION_ROTATE_90:
-                    return 90;
-                case ExifInterface.ORIENTATION_ROTATE_180:
-                    return 180;
-                case ExifInterface.ORIENTATION_ROTATE_270:
-                    return 270;
-                default:
-                    return 0;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            return -1;
-        }
-    }
-
-    public static Bitmap rotate(final Bitmap src,
-                                final int degrees,
-                                final float px,
-                                final float py) {
-        if (degrees == 0) {
-            return src;
-        }
-        Matrix matrix = new Matrix();
-        matrix.setRotate(degrees, px, py);
-        Bitmap ret = Bitmap.createBitmap(src, 0, 0, src.getWidth(), src.getHeight(), matrix, true);
-        return ret;
     }
 
     public static Rect getViewRect(View view){
