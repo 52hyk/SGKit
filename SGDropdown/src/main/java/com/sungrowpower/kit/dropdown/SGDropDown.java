@@ -328,29 +328,6 @@ public class SGDropDown {
             return this;
         }
 
-        /**
-         * 弹窗在x方向的偏移量，对所有弹窗生效，单位是px
-         *
-         * @param offsetX
-         * @return
-         */
-        public Builder offsetX(int offsetX) {
-            this.SGDropDownInfoBean.offsetX = offsetX;
-            return this;
-        }
-
-        /**
-         * 弹窗在y方向的偏移量，对所有弹窗生效，单位是px
-         *
-         * @param offsetY
-         * @return
-         */
-        public Builder offsetY(int offsetY) {
-            this.SGDropDownInfoBean.offsetY = offsetY;
-            return this;
-        }
-
-
 
 
         /**
@@ -401,16 +378,6 @@ public class SGDropDown {
             return this;
         }
 
-        /**
-         * 设置圆角，对所有内置弹窗有效
-         *
-         * @param borderRadius
-         * @return
-         */
-        public Builder borderRadius(float borderRadius) {
-            this.SGDropDownInfoBean.borderRadius = borderRadius;
-            return this;
-        }
 
         /**
          * 是否以屏幕中心进行定位，默认是false，为false时根据Material范式进行定位，主要影响Attach系列弹窗
@@ -427,24 +394,6 @@ public class SGDropDown {
             return this;
         }
 
-        /**
-         * Dropdown的弹窗默认是Dialog实现，该方法设置为true则切换为View实现，两者区别如下：
-         * 1. Dialog实现，独立Window渲染，性能是View实现的2倍以上，但部分与输入法交互效果无法做到，
-         *    比如根据输入进行联想搜索的场景，因为输入法也是一个Dialog，Android中无法实现2个Dialog同时获取焦点，
-         *    而设置为View模式即可轻松实现；
-         *    但是Dialog实现有个缺陷是弹窗内部无法使用Fragment，这是Android的限制；
-         *    Dialog的层级高，会覆盖View层
-         * 2. View实现本质是把弹窗挂载到Activity的decorView上面，由于还是View，所以很多与输入法的交互都能实现；
-         *    View实现内部完全可以使用Fragment；
-         *    缺点是和Activity相同渲染线程，性能比Dialog低
-         *
-         * @param viewMode 是否是View实现，默认是false
-         * @return
-         */
-        public Builder isViewMode(boolean viewMode) {
-            this.SGDropDownInfoBean.isViewMode = viewMode;
-            return this;
-        }
 
         /**
          * 半透明阴影的颜色

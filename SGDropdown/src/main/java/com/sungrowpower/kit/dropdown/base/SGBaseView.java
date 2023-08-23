@@ -275,10 +275,10 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
     }
 
     public Window getHostWindow() {
-        if (SGDropDownInfoBean != null && SGDropDownInfoBean.isViewMode) {
+        if (SGDropDownInfoBean != null) {
             return ((Activity) getContext()).getWindow();
         }
-        return  null;
+        return null;
     }
 
     protected void doAfterShow() {
@@ -618,7 +618,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
                 dismissWithRunnable.run();
                 dismissWithRunnable = null;//no cache, avoid some bad edge effect.
             }
-            if (SGDropDownInfoBean.isRequestFocus && SGDropDownInfoBean.isViewMode) {
+            if (SGDropDownInfoBean.isRequestFocus) {
                 // 让根布局拿焦点，避免布局内RecyclerView类似布局获取焦点导致布局滚动
                 if (getWindowDecorView() != null) {
                     View needFocusView = getWindowDecorView().findViewById(android.R.id.content);
@@ -732,9 +732,8 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
             if (SGDropDownInfoBean.customAnimator != null && SGDropDownInfoBean.customAnimator.targetView != null) {
                 SGDropDownInfoBean.customAnimator.targetView.animate().cancel();
             }
-            if (SGDropDownInfoBean.isViewMode) {
-                tryRemoveFragments();
-            }
+            tryRemoveFragments();
+
             if (SGDropDownInfoBean.isDestroyOnDismiss) {
                 SGDropDownInfoBean = null;
             }
@@ -754,7 +753,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
             if (getWindowDecorView() != null) {
                 SGKeyboardUtils.removeLayoutChangeListener(getHostWindow(), SGBaseView.this);
             }
-            if (SGDropDownInfoBean.isViewMode && hasModifySoftMode) {
+            if (hasModifySoftMode) {
                 //还原WindowSoftMode
                 getHostWindow().setSoftInputMode(preSoftMode);
                 hasModifySoftMode = false;
@@ -776,18 +775,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
 
     private void passClickThrough(MotionEvent event) {
         if (SGDropDownInfoBean != null && SGDropDownInfoBean.isClickThrough) {
-            if (SGDropDownInfoBean.isViewMode) {
-                //需要从DecorView分发，并且要排除自己，否则死循环
-//                ViewGroup decorView = (ViewGroup) ((Activity) getContext()).getWindow().getDecorView();
-//                for (int i = 0; i < decorView.getChildCount(); i++) {
-//                    View view = decorView.getChildAt(i);
-//                    if (view != this) view.dispatchTouchEvent(event);
-//                }
-                //从content分发即可
-                getActivityContentView().dispatchTouchEvent(event);
-            } else {
-                ((Activity) getContext()).dispatchTouchEvent(event);
-            }
+            getActivityContentView().dispatchTouchEvent(event);
         }
     }
 

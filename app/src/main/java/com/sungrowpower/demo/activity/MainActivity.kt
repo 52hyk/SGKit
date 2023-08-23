@@ -39,7 +39,6 @@ class MainActivity : Activity() {
         findViewById<View>(R.id.tv_click).setOnClickListener { v ->
             SGDropDown.Builder(this@MainActivity)
                 .atView(v)
-                .isViewMode(true)
                 .hasShadowBg(false)
                 .dropDownPosition(DropDownPosition.Bottom)
                 .asCustom(CustomSGDropDownBaseView(this@MainActivity))
@@ -49,7 +48,6 @@ class MainActivity : Activity() {
         findViewById<View>(R.id.tv_click2).setOnClickListener { v ->
             SGDropDown.Builder(this@MainActivity)
                 .atView(v)
-                .isViewMode(true)
                 .dropDownPosition(DropDownPosition.Top)
                 .asCustom(CustomSGDropDownBaseView(this@MainActivity))
                 .show()

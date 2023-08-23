@@ -32,7 +32,6 @@ public class SGDropDownInfoBean {
     public int maxWidth; // 最大宽度
     public int maxHeight; // 最大高度
     public int dropDownWidth, dropDownHeight; // 指定弹窗的宽高，受max的宽高限制
-    public float borderRadius = 15; // 圆角
     public Boolean autoOpenSoftInput = false;//是否自动打开输入法
     public SGDropDownCallback SGDropDownCallback;
 
@@ -40,13 +39,11 @@ public class SGDropDownInfoBean {
     public DropDownPosition dropDownPosition = null; //弹窗出现在目标的什么位置
     public Boolean hasStatusBarShadow = false; //是否显示状态栏阴影
 
-    public int offsetX, offsetY;//x，y方向的偏移量
     public boolean isRequestFocus = true; //弹窗是否强制抢占焦点
     public boolean autoFocusEditText = true; //是否让输入框自动获取焦点
     public boolean isClickThrough = false;//是否点击透传，默认弹背景点击是拦截的
     public boolean isDestroyOnDismiss = false; //是否关闭后进行资源释放
     public boolean positionByWindowCenter = false; //是否已屏幕中心进行定位，默认根据Material范式进行定位
-    public boolean isViewMode = true; //是否是View实现
     public int shadowBgColor = 0; //阴影背景的颜色
     public int animationDuration = -1; //动画的时长
     public int statusBarBgColor = 0; //状态栏阴影颜色，对Drawer弹窗和全屏弹窗有效
