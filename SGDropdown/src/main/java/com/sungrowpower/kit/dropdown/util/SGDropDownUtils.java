@@ -5,29 +5,13 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Matrix;
-import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.StateListDrawable;
-import android.media.ExifInterface;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.Settings;
-import android.renderscript.Allocation;
-import android.renderscript.Element;
-import android.renderscript.RenderScript;
-import android.renderscript.ScriptIntrinsicBlur;
-import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -36,22 +20,13 @@ import android.view.animation.OvershootInterpolator;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.FloatRange;
-
 
 import com.sungrowpower.kit.dropdown.base.SGBaseView;
 import com.sungrowpower.kit.dropdown.impl.SGDropDownBaseView;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Locale;
 
 
 /**
@@ -220,7 +195,7 @@ public class SGDropDownUtils {
     }
 
     private static void moveUpToKeyboardInternal(int keyboardHeight, SGBaseView pv) {
-        if (pv.SGDropDownInfo == null || !pv.SGDropDownInfo.isMoveUpToKeyboard) {
+        if (pv.SGDropDownInfoBean == null || !pv.SGDropDownInfoBean.isMoveUpToKeyboard) {
             return;
         }
         //暂时忽略PartShadow弹窗和AttachPopupView

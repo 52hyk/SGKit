@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 
@@ -51,7 +50,7 @@ public abstract class SGDropDownBaseView extends SGBaseView {
             addInnerContent();
         }
         // 指定阴影动画的目标View
-        if (SGDropDownInfo.hasShadowBg) {
+        if (SGDropDownInfoBean.hasShadowBg) {
             shadowBgAnimator.targetView = getPopupContentView();
         }
 //        getPopupContentView().setTranslationY(SGDropDownInfo.offsetY);
@@ -76,7 +75,7 @@ public abstract class SGDropDownBaseView extends SGBaseView {
 
     public boolean isShowUp;
     public void doAttach() {
-        if (SGDropDownInfo.atView == null) {
+        if (SGDropDownInfoBean.atView == null) {
             throw new IllegalArgumentException("atView must not be null for PartShadowPopupView！");
         }
 
@@ -86,7 +85,7 @@ public abstract class SGDropDownBaseView extends SGBaseView {
 
 
         //1. 获取atView在屏幕上的位置
-        Rect rect = SGDropDownInfo.getAtViewRect();
+        Rect rect = SGDropDownInfoBean.getAtViewRect();
         rect.left -= getActivityContentLeft();
         rect.right -= getActivityContentLeft();
 
@@ -108,7 +107,7 @@ public abstract class SGDropDownBaseView extends SGBaseView {
         int centerY = rect.top + rect.height() / 2;
         View implView = getPopupImplView();
         FrameLayout.LayoutParams implParams = (FrameLayout.LayoutParams) implView.getLayoutParams();
-        if ((centerY > getMeasuredHeight() / 2 || SGDropDownInfo.dropDownPosition == DropDownPosition.Top) && SGDropDownInfo.dropDownPosition != DropDownPosition.Bottom) {
+        if ((centerY > getMeasuredHeight() / 2 || SGDropDownInfoBean.dropDownPosition == DropDownPosition.Top) && SGDropDownInfoBean.dropDownPosition != DropDownPosition.Bottom) {
             // 说明atView在Window下半部分，dropdown应该显示在它上方，计算atView之上的高度
             params.height = rect.top;
             isShowUp = true;
@@ -138,7 +137,7 @@ public abstract class SGDropDownBaseView extends SGBaseView {
         attachPopupContainer.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                if (SGDropDownInfo.isDismissOnTouchOutside) {
+                if (SGDropDownInfoBean.isDismissOnTouchOutside) {
                     dismiss();
                 }
                 return false;
@@ -147,7 +146,7 @@ public abstract class SGDropDownBaseView extends SGBaseView {
         attachPopupContainer.setOnClickOutsideListener(new SGOnClickOutsideListener() {
             @Override
             public void onClickOutside() {
-                if (SGDropDownInfo.isDismissOnTouchOutside) {
+                if (SGDropDownInfoBean.isDismissOnTouchOutside) {
                     dismiss();
                 }
             }
