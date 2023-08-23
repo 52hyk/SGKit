@@ -27,10 +27,10 @@ import com.sungrowpower.kit.dropdown.widget.SGDropDownContainer;
  * Create by hyk
  */
 public abstract class SGDropDownBaseView extends SGBaseView {
-    protected SGDropDownContainer attachPopupContainer;
+    protected SGDropDownContainer sgDropDownContainer;
     public SGDropDownBaseView(@NonNull Context context) {
         super(context);
-        attachPopupContainer = findViewById(R.id.attachPopupContainer);
+        sgDropDownContainer = findViewById(R.id.attachPopupContainer);
         Log.i("content-->==-",findViewById(R.id.attachPopupContainer).getId()+"");
 
     }
@@ -40,13 +40,13 @@ public abstract class SGDropDownBaseView extends SGBaseView {
         return R.layout._sg_dropdown_base_view;
     }
     protected void addInnerContent() {
-        View contentView = LayoutInflater.from(getContext()).inflate(getImplLayoutId(), attachPopupContainer, false);
-        attachPopupContainer.addView(contentView);
+        View contentView = LayoutInflater.from(getContext()).inflate(getImplLayoutId(), sgDropDownContainer, false);
+        sgDropDownContainer.addView(contentView);
     }
 
     @Override
     protected void initPopupContent() {
-        if (attachPopupContainer.getChildCount() == 0) {
+        if (sgDropDownContainer.getChildCount() == 0) {
             addInnerContent();
         }
         // 指定阴影动画的目标View
@@ -57,7 +57,7 @@ public abstract class SGDropDownBaseView extends SGBaseView {
 //        getPopupImplView().setTranslationX(SGDropDownInfo.offsetX);
 //        getPopupImplView().setTranslationY(0f);
 //        getPopupImplView().setVisibility(INVISIBLE);
-        Log.i("content-->",attachPopupContainer.getChildCount()+"=="+getPopupImplView().getId()+"=="+getPopupContentView().getId());
+        Log.i("content-->",sgDropDownContainer.getChildCount()+"=="+getPopupImplView().getId()+"=="+getPopupContentView().getId());
         SGDropDownUtils.applyDropDownSize((ViewGroup) getPopupContentView(), getMaxWidth(), getMaxHeight(),
                 getDropDownWidth(), getDropDownHeight(), new Runnable() {
             @Override
@@ -120,7 +120,7 @@ public abstract class SGDropDownBaseView extends SGBaseView {
                // getPopupImplView().setVisibility(VISIBLE);
             }
         });
-        attachPopupContainer.setOnLongClickListener(new View.OnLongClickListener() {
+        sgDropDownContainer.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 if (SGDropDownInfoBean.isDismissOnTouchOutside) {
@@ -129,7 +129,7 @@ public abstract class SGDropDownBaseView extends SGBaseView {
                 return false;
             }
         });
-        attachPopupContainer.setOnClickOutsideListener(new SGOnClickOutsideListener() {
+        sgDropDownContainer.setOnClickOutsideListener(new SGOnClickOutsideListener() {
             @Override
             public void onClickOutside() {
                 if (SGDropDownInfoBean.isDismissOnTouchOutside) {

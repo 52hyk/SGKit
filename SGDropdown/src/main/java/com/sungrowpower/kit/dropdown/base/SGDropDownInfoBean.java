@@ -46,7 +46,7 @@ public class SGDropDownInfoBean {
     public boolean isClickThrough = false;//是否点击透传，默认弹背景点击是拦截的
     public boolean isDestroyOnDismiss = false; //是否关闭后进行资源释放
     public boolean positionByWindowCenter = false; //是否已屏幕中心进行定位，默认根据Material范式进行定位
-    public boolean isViewMode = false; //是否是View实现
+    public boolean isViewMode = true; //是否是View实现
     public int shadowBgColor = 0; //阴影背景的颜色
     public int animationDuration = -1; //动画的时长
     public int statusBarBgColor = 0; //状态栏阴影颜色，对Drawer弹窗和全屏弹窗有效

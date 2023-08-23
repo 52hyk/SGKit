@@ -41,9 +41,8 @@ class MainActivity : Activity() {
                 .atView(v)
                 .isViewMode(true)
                 .hasShadowBg(false)
-                .popupPosition(DropDownPosition.Bottom)
+                .dropDownPosition(DropDownPosition.Bottom)
                 .asCustom(CustomSGDropDownBaseView(this@MainActivity))
-                //.popupView()
                 .show()
         }
 
@@ -51,22 +50,18 @@ class MainActivity : Activity() {
             SGDropDown.Builder(this@MainActivity)
                 .atView(v)
                 .isViewMode(true)
-                .popupPosition(DropDownPosition.Top)
+                .dropDownPosition(DropDownPosition.Top)
                 .asCustom(CustomSGDropDownBaseView(this@MainActivity))
-                //.popupView()
                 .show()
         }
 
         findViewById<View>(R.id.tv_click3).setOnClickListener { v ->
             SGDropDown.Builder(this@MainActivity)
                 .atView(v)
-                .isViewMode(true)
                 .dismissOnBackPressed(true) // 按返回键是否关闭弹窗，默认为true
-
-                .popupAnimation(SGDropDownAnimation.ScaleAlphaFromRightTop)
-                .popupPosition(DropDownPosition.Bottom)
+                .dropDownAnimation(SGDropDownAnimation.ScaleAlphaFromRightTop)
+                .dropDownPosition(DropDownPosition.Bottom)
                 .asCustom(CustomSGDropDownBaseView(this@MainActivity))
-
                 .show()
         }
     }

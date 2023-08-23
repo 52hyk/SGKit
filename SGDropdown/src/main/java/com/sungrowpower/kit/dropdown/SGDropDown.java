@@ -210,7 +210,7 @@ public class SGDropDown {
          * @param SGDropDownAnimation
          * @return
          */
-        public Builder popupAnimation(SGDropDownAnimation SGDropDownAnimation) {
+        public Builder dropDownAnimation(SGDropDownAnimation SGDropDownAnimation) {
             this.SGDropDownInfoBean.SGDropDownAnimation = SGDropDownAnimation;
             return this;
         }
@@ -300,7 +300,7 @@ public class SGDropDown {
          * @param dropDownPosition
          * @return
          */
-        public Builder popupPosition(DropDownPosition dropDownPosition) {
+        public Builder dropDownPosition(DropDownPosition dropDownPosition) {
             this.SGDropDownInfoBean.dropDownPosition = dropDownPosition;
             return this;
         }
