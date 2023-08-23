@@ -316,60 +316,6 @@ public class SGDropDown {
             return this;
         }
 
-        /**
-         * 设置是否显示状态栏，默认是显示的。如果你希望弹窗隐藏状态栏，就设置为true;
-         * 只在dialog模式下有效
-         * @param hasStatusBar
-         * @return
-         */
-        public Builder hasStatusBar(boolean hasStatusBar) {
-            this.SGDropDownInfoBean.hasStatusBar = hasStatusBar;
-            return this;
-        }
-
-        /**
-         * 设置是否显示导航栏，默认是显示的。如果你希望弹窗隐藏导航栏，就设置为true
-         * 只在dialog模式下有效
-         * @param hasNavigationBar
-         * @return
-         */
-        public Builder hasNavigationBar(boolean hasNavigationBar) {
-            this.SGDropDownInfoBean.hasNavigationBar = hasNavigationBar;
-            return this;
-        }
-
-        /**
-         * 设置导航栏的颜色，如果你希望弹窗修改导航栏的颜色的时候用；
-         * 只在dialog模式下有效
-         * @param navigationBarColor
-         * @return
-         */
-        public Builder navigationBarColor(int navigationBarColor) {
-            this.SGDropDownInfoBean.navigationBarColor = navigationBarColor;
-            return this;
-        }
-
-        /**
-         * 设置导航栏是否是亮色，默认false
-         * 只在dialog模式下有效
-         * @param isLightNavigationBar
-         * @return
-         */
-        public Builder isLightNavigationBar(boolean isLightNavigationBar) {
-            this.SGDropDownInfoBean.isLightNavigationBar = isLightNavigationBar ? 1 : -1;
-            return this;
-        }
-
-        /**
-         * 设置状态栏是否是亮色，默认false
-         * 只在dialog模式下有效
-         * @param isLightStatusBar
-         * @return
-         */
-        public Builder isLightStatusBar(boolean isLightStatusBar) {
-            this.SGDropDownInfoBean.isLightStatusBar = isLightStatusBar ? 1 : -1;
-            return this;
-        }
 
         /**
          * 设置状态栏的背景颜色，目前只对全屏弹窗和Drawer弹窗有效，其他弹窗
@@ -438,16 +384,6 @@ public class SGDropDown {
             return this;
         }
 
-        /**
-         * 是否使用暗色主题，默认是false。对所有内置弹窗生效。
-         *
-         * @param isDarkTheme
-         * @return
-         */
-        public Builder isDarkTheme(boolean isDarkTheme) {
-            this.SGDropDownInfoBean.isDarkTheme = isDarkTheme;
-            return this;
-        }
 
         /**
          * 是否点击弹窗背景时将点击事件透传到Activity下，默认是false。目前对Center弹窗，Attach弹窗，
@@ -461,16 +397,7 @@ public class SGDropDown {
             return this;
         }
 
-        /**
-         * 是否允许应用在后台的时候也能弹出弹窗，默认是false。注意如果开启这个开关，需要申请悬浮窗权限才能生效。
-         * 直接使用 Dropdown.requestOverlayPermission()即可申请
-         * @param enableShowWhenAppBackground
-         * @return
-         */
-        public Builder enableShowWhenAppBackground(boolean enableShowWhenAppBackground) {
-            this.SGDropDownInfoBean.enableShowWhenAppBackground = enableShowWhenAppBackground;
-            return this;
-        }
+
 
 
         /**
@@ -547,16 +474,6 @@ public class SGDropDown {
          */
         public Builder animationDuration(int animationDuration) {
             this.SGDropDownInfoBean.animationDuration = animationDuration;
-            return this;
-        }
-
-        /**
-         * 是否保持屏幕常亮，默认false
-         * @param keepScreenOn
-         * @return
-         */
-        public Builder keepScreenOn(boolean keepScreenOn) {
-            this.SGDropDownInfoBean.keepScreenOn = keepScreenOn;
             return this;
         }
 

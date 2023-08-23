@@ -45,7 +45,7 @@ import java.util.List;
  * Create by hyk
  */
 public abstract class SGBaseView extends FrameLayout implements LifecycleObserver, LifecycleOwner,
-        ViewCompat.OnUnhandledKeyEventListenerCompat{
+        ViewCompat.OnUnhandledKeyEventListenerCompat {
     public SGDropDownInfoBean SGDropDownInfoBean;
     protected DropDownAnimator popupContentAnimator;
     protected ShadowBgAnimator shadowBgAnimator;
@@ -91,9 +91,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
         if (SGDropDownInfoBean.isRequestFocus) {
             SGKeyboardUtils.hideSoftInput(activity.getWindow());
         }
-        if (!SGDropDownInfoBean.isViewMode && dialog != null && dialog.isShowing()) {
-            return SGBaseView.this;
-        }
+
         getActivityContentView().post(attachTask);
         return this;
     }
@@ -131,31 +129,30 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
         }
     };
 
-    public FullScreenDialog dialog;
 
     private void attachToHost() {
         if (SGDropDownInfoBean == null) {
             throw new IllegalArgumentException("如果弹窗对象是复用的，则不要设置isDestroyOnDismiss(true)");
         }
-        if(SGDropDownInfoBean.hostLifecycle!=null){
+        if (SGDropDownInfoBean.hostLifecycle != null) {
             SGDropDownInfoBean.hostLifecycle.addObserver(this);
-        }else {
+        } else {
             if (getContext() instanceof FragmentActivity) {
                 ((FragmentActivity) getContext()).getLifecycle().addObserver(this);
             }
         }
 
-        if(getLayoutParams()==null){
+        if (getLayoutParams() == null) {
             //设置自己的大小，和Activity的contentView保持一致
             int navHeight = 0;
             View decorView = ((Activity) getContext()).getWindow().getDecorView();
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
                 View navBarView = decorView.findViewById(android.R.id.navigationBarBackground);
-                if(navBarView!=null) {
-                    navHeight = SGDropDownUtils.isLandscape(getContext()) && !SGDropDownUtils.isTablet()  ?
+                if (navBarView != null) {
+                    navHeight = SGDropDownUtils.isLandscape(getContext()) && !SGDropDownUtils.isTablet() ?
                             navBarView.getMeasuredWidth() : navBarView.getMeasuredHeight();
                 }
-            }else {
+            } else {
                 navHeight = SGDropDownUtils.isNavBarVisible(((Activity) getContext()).getWindow()) ?
                         SGDropDownUtils.getNavBarHeight() : 0;
             }
@@ -163,28 +160,21 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
             View activityContent = getActivityContentView();
             MarginLayoutParams params = new MarginLayoutParams(activityContent.getMeasuredWidth(),
                     decorView.getMeasuredHeight() -
-                            ( SGDropDownUtils.isLandscape(getContext()) && !SGDropDownUtils.isTablet() ? 0 : navHeight));
-            if(SGDropDownUtils.isLandscape(getContext())) {
+                            (SGDropDownUtils.isLandscape(getContext()) && !SGDropDownUtils.isTablet() ? 0 : navHeight));
+            if (SGDropDownUtils.isLandscape(getContext())) {
                 params.leftMargin = getActivityContentLeft();
             }
             setLayoutParams(params);
         }
 
-        if (SGDropDownInfoBean.isViewMode) {
-            //view实现
-            ViewGroup decorView = (ViewGroup) ((Activity) getContext()).getWindow().getDecorView();
-            if(getParent()!=null) {
-                ((ViewGroup)getParent()).removeView(this);
-            }
-            decorView.addView(this);
-        } else {
-            //dialog实现
-            if (dialog == null) {
-                dialog = new FullScreenDialog(getContext())
-                        .setContent(this);
-            }
-            dialog.show();
+
+        //view实现
+        ViewGroup decorView = (ViewGroup) ((Activity) getContext()).getWindow().getDecorView();
+        if (getParent() != null) {
+            ((ViewGroup) getParent()).removeView(this);
         }
+        decorView.addView(this);
+
     }
 
     protected View getWindowDecorView() {
@@ -198,8 +188,8 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
         return ((Activity) getContext()).getWindow().getDecorView().findViewById(android.R.id.content);
     }
 
-    protected int getActivityContentLeft(){
-        if(!SGDropDownUtils.isLandscape(getContext())) {
+    protected int getActivityContentLeft() {
+        if (!SGDropDownUtils.isLandscape(getContext())) {
             return 0;
         }
         //以Activity的content的left为准
@@ -276,14 +266,10 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
     }
 
     private void detachFromHost() {
-        if (SGDropDownInfoBean != null && SGDropDownInfoBean.isViewMode) {
+        if (SGDropDownInfoBean != null) {
             ViewGroup decorView = (ViewGroup) getParent();
             if (decorView != null) {
                 decorView.removeView(this);
-            }
-        } else {
-            if (dialog != null) {
-                dialog.dismiss();
             }
         }
     }
@@ -292,7 +278,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
         if (SGDropDownInfoBean != null && SGDropDownInfoBean.isViewMode) {
             return ((Activity) getContext()).getWindow();
         }
-        return dialog == null ? null : dialog.getWindow();
+        return  null;
     }
 
     protected void doAfterShow() {
@@ -325,7 +311,6 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
     }
 
 
-
     public void dismissOrHideSoftInput() {
         if (SGKeyboardUtils.sDecorViewInvisibleHeightPre == 0) {
             dismiss();
@@ -349,7 +334,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
         }
     }
 
-    protected boolean processKeyEvent(int keyCode, KeyEvent event){
+    protected boolean processKeyEvent(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP && SGDropDownInfoBean != null) {
             if (SGDropDownInfoBean.isDismissOnBackPressed &&
                     (SGDropDownInfoBean.SGDropDownCallback == null || !SGDropDownInfoBean.SGDropDownCallback.onBackPressed(SGBaseView.this))) {
@@ -412,6 +397,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
 
     /**
      * 内部使用，自定义弹窗的时候不要重新这个方法
+     *
      * @return
      */
     protected abstract int getInnerLayoutId();
@@ -437,16 +423,20 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
     /**
      * 请使用onCreate，主要给弹窗内部用，不要去重写。
      */
-    protected void initPopupContent() { }
+    protected void initPopupContent() {
+    }
 
     /**
      * do init.
      */
-    protected void onCreate() { }
+    protected void onCreate() {
+    }
 
-    protected void applyDarkTheme() { }
+    protected void applyDarkTheme() {
+    }
 
-    protected void applyLightTheme() { }
+    protected void applyLightTheme() {
+    }
 
     /**
      * 执行显示动画：动画由2部分组成，一个是背景渐变动画，一个是Content的动画；
@@ -456,7 +446,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
         if (SGDropDownInfoBean == null) {
             return;
         }
-        if (SGDropDownInfoBean.hasShadowBg &&   shadowBgAnimator!=null) {
+        if (SGDropDownInfoBean.hasShadowBg && shadowBgAnimator != null) {
             shadowBgAnimator.animateShow();
         }
         if (popupContentAnimator != null) {
@@ -472,7 +462,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
         if (SGDropDownInfoBean == null) {
             return;
         }
-        if (SGDropDownInfoBean.hasShadowBg  && shadowBgAnimator!=null) {
+        if (SGDropDownInfoBean.hasShadowBg && shadowBgAnimator != null) {
             shadowBgAnimator.animateDismiss();
         }
 
@@ -708,19 +698,23 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
     /**
      * onDismiss之前执行一次
      */
-    protected void beforeDismiss() { }
+    protected void beforeDismiss() {
+    }
 
     /**
      * onCreated之后，onShow之前执行
      */
-    protected void beforeShow() {}
+    protected void beforeShow() {
+    }
 
     /**
      * 显示动画执行完毕后执行
      */
-    protected void onShow() { }
+    protected void onShow() {
+    }
 
-    protected void onKeyboardHeightChange(int height) { }
+    protected void onKeyboardHeightChange(int height) {
+    }
 
     @OnLifecycleEvent(value = Lifecycle.Event.ON_DESTROY)
     public void onDestroy() {
@@ -745,13 +739,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
                 SGDropDownInfoBean = null;
             }
         }
-        if (dialog != null) {
-            if(dialog.isShowing()) {
-                dialog.dismiss();
-            }
-            dialog.contentView = null;
-            dialog = null;
-        }
+
         if (shadowBgAnimator != null && shadowBgAnimator.targetView != null) {
             shadowBgAnimator.targetView.animate().cancel();
         }
@@ -775,9 +763,9 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
                 destroy();//如果开启isDestroyOnDismiss，强制释放资源
             }
         }
-        if(SGDropDownInfoBean !=null && SGDropDownInfoBean.hostLifecycle!=null){
+        if (SGDropDownInfoBean != null && SGDropDownInfoBean.hostLifecycle != null) {
             SGDropDownInfoBean.hostLifecycle.removeObserver(this);
-        }else {
+        } else {
             if (getContext() != null && getContext() instanceof FragmentActivity) {
                 ((FragmentActivity) getContext()).getLifecycle().removeObserver(this);
             }
@@ -787,7 +775,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
     }
 
     private void passClickThrough(MotionEvent event) {
-        if (SGDropDownInfoBean != null && SGDropDownInfoBean.isClickThrough ) {
+        if (SGDropDownInfoBean != null && SGDropDownInfoBean.isClickThrough) {
             if (SGDropDownInfoBean.isViewMode) {
                 //需要从DecorView分发，并且要排除自己，否则死循环
 //                ViewGroup decorView = (ViewGroup) ((Activity) getContext()).getWindow().getDecorView();
@@ -804,6 +792,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
     }
 
     private float x, y;
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         // 如果自己接触到了点击，并且不在PopupContentView范围内点击，则进行判断是否是点击事件,如果是，则dismiss
@@ -817,7 +806,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
                     passClickThrough(event);
                     break;
                 case MotionEvent.ACTION_MOVE:
-                    if(SGDropDownInfoBean != null && SGDropDownInfoBean.isDismissOnTouchOutside) {
+                    if (SGDropDownInfoBean != null && SGDropDownInfoBean.isDismissOnTouchOutside) {
                         dismiss();
                     }
                     break;
@@ -830,18 +819,18 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
                     if (distance < touchSlop && SGDropDownInfoBean != null && SGDropDownInfoBean.isDismissOnTouchOutside) {
                         //查看是否在排除区域外
                         ArrayList<Rect> rects = SGDropDownInfoBean.notDismissWhenTouchInArea;
-                        if(rects!=null && rects.size()>0){
+                        if (rects != null && rects.size() > 0) {
                             boolean inRect = false;
                             for (Rect r : rects) {
-                                if(SGDropDownUtils.isInRect(event.getX(), event.getY(), r)){
+                                if (SGDropDownUtils.isInRect(event.getX(), event.getY(), r)) {
                                     inRect = true;
                                     break;
                                 }
                             }
-                            if(!inRect){
+                            if (!inRect) {
                                 dismiss();
                             }
-                        }else {
+                        } else {
                             dismiss();
                         }
                     }
