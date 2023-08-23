@@ -212,11 +212,11 @@ public class SGDropDownUtils {
         }
 
         int dy = 0;
-        int popupHeight = pv.getPopupContentView().getHeight();
-        int popupWidth = pv.getPopupContentView().getWidth();
-        if (pv.getPopupImplView() != null) {
-            popupHeight = Math.min(popupHeight, pv.getPopupImplView().getMeasuredHeight());
-            popupWidth = Math.min(popupWidth, pv.getPopupImplView().getMeasuredWidth());
+        int popupHeight = pv.getDropDownContentView().getHeight();
+        int popupWidth = pv.getDropDownContentView().getWidth();
+        if (pv.getDropDownImplView() != null) {
+            popupHeight = Math.min(popupHeight, pv.getDropDownImplView().getMeasuredHeight());
+            popupWidth = Math.min(popupWidth, pv.getDropDownImplView().getMeasuredWidth());
         }
 
         int screenHeight = pv.getMeasuredHeight();
@@ -232,12 +232,12 @@ public class SGDropDownUtils {
         //执行上移的逻辑
         if (pv instanceof SGDropDownBaseView) {
             int overflowHeight = (int) ((focusBottom + keyboardHeight) - screenHeight
-                    - pv.getPopupContentView().getTranslationY());
+                    - pv.getDropDownContentView().getTranslationY());
             if (focusEt != null && overflowHeight > 0) {
                 dy = overflowHeight;
             }
         }
-        pv.getPopupContentView().animate().translationY(-dy)
+        pv.getDropDownContentView().animate().translationY(-dy)
                 .setDuration(animDuration)
                 .setInterpolator(new OvershootInterpolator(0))
                 .start();
@@ -246,7 +246,7 @@ public class SGDropDownUtils {
     public static void moveDown(SGBaseView pv) {
         //暂时忽略PartShadow弹窗和AttachPopupView
 
-        pv.getPopupContentView().animate().translationY(0)
+        pv.getDropDownContentView().animate().translationY(0)
                 .setDuration(100).start();
     }
 

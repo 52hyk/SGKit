@@ -224,8 +224,14 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
             }
         }
         handler.postDelayed(initTask, 10);
-    }
+        //添加监听
+        addOnUnhandledKeyListener(this);
 
+    }
+    protected void addOnUnhandledKeyListener(View view){
+        ViewCompat.removeOnUnhandledKeyEventListener(view, this);
+        ViewCompat.addOnUnhandledKeyEventListener(view, this);
+    }
     private final Runnable initTask = new Runnable() {
         @Override
         public void run() {
@@ -242,11 +248,11 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
     };
 
     protected void initAnimator() {
-        getPopupContentView().setAlpha(1f);
+        getDropDownContentView().setAlpha(1f);
         // 优先使用自定义的动画器
         if (SGDropDownInfoBean.customAnimator != null) {
             popupContentAnimator = SGDropDownInfoBean.customAnimator;
-            popupContentAnimator.targetView = getPopupContentView();
+            popupContentAnimator.targetView = getDropDownContentView();
         } else {
             // 根据SGDropDownInfo的popupAnimation字段来生成对应的动画执行器，如果popupAnimation字段为null，则返回null
             popupContentAnimator = genAnimatorByPopupType();
@@ -319,20 +325,6 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
         }
     }
 
-    static class ShowSoftInputTask implements Runnable {
-        View focusView;
-
-        public ShowSoftInputTask(View focusView) {
-            this.focusView = focusView;
-        }
-
-        @Override
-        public void run() {
-            if (focusView != null) {
-                SGKeyboardUtils.showSoftInput(focusView);
-            }
-        }
-    }
 
     protected boolean processKeyEvent(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP && SGDropDownInfoBean != null) {
@@ -432,11 +424,6 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
     protected void onCreate() {
     }
 
-    protected void applyDarkTheme() {
-    }
-
-    protected void applyLightTheme() {
-    }
 
     /**
      * 执行显示动画：动画由2部分组成，一个是背景渐变动画，一个是Content的动画；
@@ -477,12 +464,12 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
      *
      * @return
      */
-    public View getPopupContentView() {
+    public View getDropDownContentView() {
         return getChildAt(0);
     }
 
-    public View getPopupImplView() {
-        return ((ViewGroup) getPopupContentView()).getChildAt(0);
+    public View getDropDownImplView() {
+        return ((ViewGroup) getDropDownContentView()).getChildAt(0);
     }
 
     public int getAnimationDuration() {
@@ -785,7 +772,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
     public boolean onTouchEvent(MotionEvent event) {
         // 如果自己接触到了点击，并且不在dropDownContentView范围内点击，则进行判断是否是点击事件,如果是，则dismiss
         Rect rect = new Rect();
-        getPopupImplView().getGlobalVisibleRect(rect);
+        getDropDownImplView().getGlobalVisibleRect(rect);
         if (!SGDropDownUtils.isInRect(event.getX(), event.getY(), rect)) {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:

@@ -51,12 +51,12 @@ public abstract class SGDropDownBaseView extends SGBaseView {
         }
         // 指定阴影动画的目标View
         if (SGDropDownInfoBean.hasShadowBg) {
-            shadowBgAnimator.targetView = getPopupContentView();
+            shadowBgAnimator.targetView = getDropDownContentView();
         }
 
 //        getPopupImplView().setVisibility(INVISIBLE);
-        Log.i("content-->",sgDropDownContainer.getChildCount()+"=="+getPopupImplView().getId()+"=="+getPopupContentView().getId());
-        SGDropDownUtils.applyDropDownSize((ViewGroup) getPopupContentView(), getMaxWidth(), getMaxHeight(),
+        Log.i("content-->",sgDropDownContainer.getChildCount()+"=="+getDropDownImplView().getId()+"=="+getDropDownContentView().getId());
+        SGDropDownUtils.applyDropDownSize((ViewGroup) getDropDownContentView(), getMaxWidth(), getMaxHeight(),
                 getDropDownWidth(), getDropDownHeight(), new Runnable() {
             @Override
             public void run() {
@@ -78,7 +78,7 @@ public abstract class SGDropDownBaseView extends SGBaseView {
         }
 
         //1. apply width and height
-        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) getPopupContentView().getLayoutParams();
+        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) getDropDownContentView().getLayoutParams();
         params.width = getMeasuredWidth();
 
 
@@ -89,7 +89,7 @@ public abstract class SGDropDownBaseView extends SGBaseView {
 
 
         int centerY = rect.top + rect.height() / 2;
-        View implView = getPopupImplView();
+        View implView = getDropDownImplView();
         FrameLayout.LayoutParams implParams = (FrameLayout.LayoutParams) implView.getLayoutParams();
         if ((centerY > getMeasuredHeight() / 2 || SGDropDownInfoBean.dropDownPosition == DropDownPosition.Top) && SGDropDownInfoBean.dropDownPosition != DropDownPosition.Bottom) {
             // 说明atView在Window下半部分，dropdown应该显示在它上方，计算atView之上的高度
@@ -109,9 +109,9 @@ public abstract class SGDropDownBaseView extends SGBaseView {
                 implParams.height = Math.min(implView.getMeasuredHeight(), getMaxHeight());
             }
         }
-        getPopupContentView().setLayoutParams(params);
+        getDropDownContentView().setLayoutParams(params);
         implView.setLayoutParams(implParams);
-        getPopupContentView().post(new Runnable() {
+        getDropDownContentView().post(new Runnable() {
             @Override
             public void run() {
                 initAndStartAnimation();
@@ -138,7 +138,7 @@ public abstract class SGDropDownBaseView extends SGBaseView {
     }
     @Override
     protected DropDownAnimator getPopupAnimator() {
-        return new TranslateAnimator(getPopupImplView(), getAnimationDuration(), isShowUp ?
+        return new TranslateAnimator(getDropDownImplView(), getAnimationDuration(), isShowUp ?
                 SGDropDownAnimation.TranslateFromBottom : SGDropDownAnimation.TranslateFromTop);
     }
 
