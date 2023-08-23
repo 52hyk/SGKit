@@ -775,7 +775,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
 
     private void passClickThrough(MotionEvent event) {
         if (SGDropDownInfoBean != null && SGDropDownInfoBean.isClickThrough) {
-            getActivityContentView().dispatchTouchEvent(event);
+                getActivityContentView().dispatchTouchEvent(event);
         }
     }
 
@@ -783,7 +783,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        // 如果自己接触到了点击，并且不在PopupContentView范围内点击，则进行判断是否是点击事件,如果是，则dismiss
+        // 如果自己接触到了点击，并且不在dropDownContentView范围内点击，则进行判断是否是点击事件,如果是，则dismiss
         Rect rect = new Rect();
         getPopupImplView().getGlobalVisibleRect(rect);
         if (!SGDropDownUtils.isInRect(event.getX(), event.getY(), rect)) {

@@ -53,9 +53,7 @@ public abstract class SGDropDownBaseView extends SGBaseView {
         if (SGDropDownInfoBean.hasShadowBg) {
             shadowBgAnimator.targetView = getPopupContentView();
         }
-//        getPopupContentView().setTranslationY(SGDropDownInfo.offsetY);
-//        getPopupImplView().setTranslationX(SGDropDownInfo.offsetX);
-//        getPopupImplView().setTranslationY(0f);
+
 //        getPopupImplView().setVisibility(INVISIBLE);
         Log.i("content-->",sgDropDownContainer.getChildCount()+"=="+getPopupImplView().getId()+"=="+getPopupContentView().getId());
         SGDropDownUtils.applyDropDownSize((ViewGroup) getPopupContentView(), getMaxWidth(), getMaxHeight(),
