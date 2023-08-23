@@ -60,7 +60,7 @@ public abstract class SGDropDownBaseView extends SGBaseView {
 //        getPopupImplView().setVisibility(INVISIBLE);
         Log.i("content-->",attachPopupContainer.getChildCount()+"=="+getPopupImplView().getId()+"=="+getPopupContentView().getId());
         SGDropDownUtils.applyDropDownSize((ViewGroup) getPopupContentView(), getMaxWidth(), getMaxHeight(),
-                getPopupWidth(), getPopupHeight(), new Runnable() {
+                getDropDownWidth(), getDropDownHeight(), new Runnable() {
             @Override
             public void run() {
                 doAttach();

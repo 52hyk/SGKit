@@ -232,8 +232,8 @@ public class SGDropDown {
          * @param height
          * @return
          */
-        public Builder popupHeight(int height) {
-            this.SGDropDownInfo.popupHeight = height;
+        public Builder dropDownHeight(int height) {
+            this.SGDropDownInfo.dropDownHeight = height;
             return this;
         }
 
@@ -243,8 +243,8 @@ public class SGDropDown {
          * @param width
          * @return
          */
-        public Builder popupWidth(int width) {
-            this.SGDropDownInfo.popupWidth = width;
+        public Builder dropDownWidth(int width) {
+            this.SGDropDownInfo.dropDownWidth = width;
             return this;
         }
 

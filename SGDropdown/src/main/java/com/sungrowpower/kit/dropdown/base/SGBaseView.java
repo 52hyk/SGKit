@@ -536,8 +536,8 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
      *
      * @return
      */
-    protected int getPopupWidth() {
-        return SGDropDownInfo.popupWidth;
+    protected int getDropDownWidth() {
+        return SGDropDownInfo.dropDownWidth;
     }
 
     /**
@@ -546,8 +546,8 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
      *
      * @return
      */
-    protected int getPopupHeight() {
-        return SGDropDownInfo.popupHeight;
+    protected int getDropDownHeight() {
+        return SGDropDownInfo.dropDownHeight;
     }
 
     /**

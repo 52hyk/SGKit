@@ -31,7 +31,7 @@ public class SGDropDownInfo {
     public PointF touchPoint = null; // 触摸的点
     public int maxWidth; // 最大宽度
     public int maxHeight; // 最大高度
-    public int popupWidth, popupHeight; // 指定弹窗的宽高，受max的宽高限制
+    public int dropDownWidth, dropDownHeight; // 指定弹窗的宽高，受max的宽高限制
     public float borderRadius = 15; // 圆角
     public Boolean autoOpenSoftInput = false;//是否自动打开输入法
     public SGDropDownCallback SGDropDownCallback;
