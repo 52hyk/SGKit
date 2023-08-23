@@ -351,16 +351,7 @@ public class SGDropDown {
         }
 
 
-        /**
-         * 是否与目标水平居中，比如：默认情况下Attach弹窗依靠着目标的左边或者右边，如果isCenterHorizontal为true，则与目标水平居中对齐
-         *
-         * @param isCenterHorizontal
-         * @return
-         */
-        public Builder isCenterHorizontal(boolean isCenterHorizontal) {
-            this.SGDropDownInfoBean.isCenterHorizontal = isCenterHorizontal;
-            return this;
-        }
+
 
         /**
          * 是否抢占焦点，默认情况下弹窗会抢占焦点，目的是为了能处理返回按键事件。如果为false，则不在抢焦点，但也无法响应返回按键了
@@ -396,8 +387,6 @@ public class SGDropDown {
             this.SGDropDownInfoBean.isClickThrough = isClickThrough;
             return this;
         }
-
-
 
 
         /**
@@ -512,9 +501,6 @@ public class SGDropDown {
             this.SGDropDownInfoBean.SGDropDownCallback = SGDropDownCallback;
             return this;
         }
-
-        /****************************************** 便捷方法 ****************************************/
-
 
 
 

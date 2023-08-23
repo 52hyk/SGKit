@@ -89,20 +89,6 @@ public abstract class SGDropDownBaseView extends SGBaseView {
         rect.left -= getActivityContentLeft();
         rect.right -= getActivityContentLeft();
 
-        //水平居中
-      /*  if (SGDropDownInfo.isCenterHorizontal && getPopupImplView() != null) {
-
-            //参考目标View居中，而不是屏幕居中
-            int tx = (rect.left + rect.right)/2 - getPopupImplView().getMeasuredWidth()/2;
-            getPopupImplView().setTranslationX(tx);
-        }else {
-            int tx = rect.left + SGDropDownInfo.offsetX;
-            int realWidth = getActivityContentView().getMeasuredWidth();
-            if(tx + getPopupImplView().getMeasuredWidth() > realWidth){
-                tx -= (tx + getPopupImplView().getMeasuredWidth() - realWidth);
-            }
-            getPopupImplView().setTranslationX(tx);
-        }*/
 
         int centerY = rect.top + rect.height() / 2;
         View implView = getPopupImplView();

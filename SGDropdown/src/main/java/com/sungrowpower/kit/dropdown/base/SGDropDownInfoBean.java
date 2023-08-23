@@ -41,7 +41,6 @@ public class SGDropDownInfoBean {
     public Boolean hasStatusBarShadow = false; //是否显示状态栏阴影
 
     public int offsetX, offsetY;//x，y方向的偏移量
-    public boolean isCenterHorizontal = false;//是否水平居中
     public boolean isRequestFocus = true; //弹窗是否强制抢占焦点
     public boolean autoFocusEditText = true; //是否让输入框自动获取焦点
     public boolean isClickThrough = false;//是否点击透传，默认弹背景点击是拦截的
