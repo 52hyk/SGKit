@@ -29,10 +29,8 @@ public class SGDropDown {
      **/
 
     private static int animationDuration = 300;
-    private static int navigationBarColor = 0;
     private static int shadowBgColor = Color.parseColor("#7F000000");//50%的透明度
-    public static int isLightStatusBar = 0; //大于0为true，小于0为false
-    public static int isLightNavigationBar = 0; //大于0为true，小于0为false
+
 
     /**
      * 设置全局的背景阴影颜色
@@ -46,37 +44,6 @@ public class SGDropDown {
     }
 
 
-
-    /**
-     * 设置全局的导航栏栏背景颜色
-     *
-     * @param color
-     */
-    public static void setNavigationBarColor(int color) {
-        navigationBarColor = color;
-    }
-
-    public static int getNavigationBarColor() {
-        return navigationBarColor;
-    }
-
-
-
-    /**
-     * 统一设置是否是亮色状态栏
-     * @param isLight
-     */
-    public static void setIsLightStatusBar(boolean isLight) {
-        isLightStatusBar = isLight ? 1 : -1;
-    }
-
-    /**
-     * 统一设置是否是亮色导航栏
-     * @param isLight
-     */
-    public static void setIsLightNavigationBar(boolean isLight) {
-        isLightNavigationBar = isLight ? 1 : -1;
-    }
 
     /**
      * 设置全局动画时长
@@ -461,17 +428,7 @@ public class SGDropDown {
             return this;
         }
         public SGBaseView asCustom(SGBaseView popupView) {
-//            if (popupView instanceof CenterPopupView) {
-//                popupType(PopupType.Center);
-//            } else if (popupView instanceof BottomPopupView) {
-//                popupType(PopupType.Bottom);
-//            } else if (popupView instanceof AttachPopupView) {
-//                popupType(PopupType.AttachView);
-//            } else if (popupView instanceof ImageViewerPopupView) {
-//                popupType(PopupType.ImageViewer);
-//            } else if (popupView instanceof PositionPopupView) {
-//                popupType(PopupType.Position);
-//            }
+
             popupView.SGDropDownInfoBean = this.SGDropDownInfoBean;
             return popupView;
         }
