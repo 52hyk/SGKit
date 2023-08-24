@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sungrowpower.kit.R
 import com.sungrowpower.kit.dropdown.adapter.MyAdapter
 import com.sungrowpower.kit.dropdown.adapter.MyColumnAdapter
+import com.sungrowpower.kit.dropdown.bean.SGGroupDataBean
 import com.sungrowpower.kit.dropdown.bean.SGSimpleDataBean
 import com.sungrowpower.kit.dropdown.impl.SGDropDownBaseView
 import com.sungrowpower.kit.dropdown.util.SGDropDownUtils
@@ -19,6 +20,8 @@ import com.sungrowpower.kit.dropdown.util.SGDropDownUtils
  */
 class SGBuiltDropDownView(context: Context) : SGDropDownBaseView(context) {
     private var mData = mutableListOf<SGSimpleDataBean>()
+    private var mGroupData = mutableListOf<SGGroupDataBean>()
+
     private val adapter by lazy {
         MyAdapter(mData).apply {
             setOnItemClickListener { adapter, view, position ->
@@ -52,24 +55,28 @@ class SGBuiltDropDownView(context: Context) : SGDropDownBaseView(context) {
     override fun onCreate() {
         super.onCreate()
         mData = SGDropDownInfoBean.options as MutableList<SGSimpleDataBean>
-        if (SGDropDownInfoBean.useColumn == 0) {
-            val params = findViewById<RecyclerView>(R.id.rv).layoutParams as MarginLayoutParams
-            params.bottomMargin = SGDropDownUtils.dp2px(context, 4F)
-            params.topMargin = SGDropDownUtils.dp2px(context, 4F)
-            findViewById<RecyclerView>(R.id.rv).layoutManager =
-                LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            findViewById<RecyclerView>(R.id.rv).adapter = adapter
-        } else {
-            val params = findViewById<RecyclerView>(R.id.rv).layoutParams as MarginLayoutParams
-            params.leftMargin = SGDropDownUtils.dp2px(context, 6F)
-            params.rightMargin = SGDropDownUtils.dp2px(context, 6F)
-            params.topMargin = SGDropDownUtils.dp2px(context, 12F)
+        mGroupData = SGDropDownInfoBean.options as MutableList<SGGroupDataBean>
 
-            findViewById<RecyclerView>(R.id.rv).layoutManager =
-                GridLayoutManager(context, SGDropDownInfoBean.useColumn)
-            findViewById<RecyclerView>(R.id.rv).adapter = adapterColumn
+        if (mData.size!=0) {
+
+            if (SGDropDownInfoBean.useColumn == 0) {
+                val params = findViewById<RecyclerView>(R.id.rv).layoutParams as MarginLayoutParams
+                params.bottomMargin = SGDropDownUtils.dp2px(context, 4F)
+                params.topMargin = SGDropDownUtils.dp2px(context, 4F)
+                findViewById<RecyclerView>(R.id.rv).layoutManager =
+                    LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                findViewById<RecyclerView>(R.id.rv).adapter = adapter
+            } else {
+                val params = findViewById<RecyclerView>(R.id.rv).layoutParams as MarginLayoutParams
+                params.leftMargin = SGDropDownUtils.dp2px(context, 6F)
+                params.rightMargin = SGDropDownUtils.dp2px(context, 6F)
+                params.topMargin = SGDropDownUtils.dp2px(context, 12F)
+
+                findViewById<RecyclerView>(R.id.rv).layoutManager =
+                    GridLayoutManager(context, SGDropDownInfoBean.useColumn)
+                findViewById<RecyclerView>(R.id.rv).adapter = adapterColumn
+            }
         }
-
         Log.i("content-->==", findViewById<LinearLayout>(R.id.layout).id.toString())
     }
 

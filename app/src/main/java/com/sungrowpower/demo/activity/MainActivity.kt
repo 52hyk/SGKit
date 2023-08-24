@@ -12,6 +12,7 @@ import android.view.WindowManager
 import android.widget.Toast
 import com.sungrowpower.demo.R
 import com.sungrowpower.kit.dropdown.SGDropDown
+import com.sungrowpower.kit.dropdown.bean.SGGroupDataBean
 import com.sungrowpower.kit.dropdown.bean.SGSimpleDataBean
 import com.sungrowpower.kit.dropdown.enums.DropDownPosition
 import com.sungrowpower.kit.dropdown.enums.SGDropDownAnimation
@@ -26,6 +27,8 @@ import com.sungrowpower.kit.dropdown.view.SGBuiltDropDownView
 class MainActivity : Activity() {
 
     private val data= mutableListOf(SGSimpleDataBean("option",false,true),SGSimpleDataBean("option",false,false),SGSimpleDataBean("option",false,false),SGSimpleDataBean("option",true,false),SGSimpleDataBean("option",true,false))
+    private val groupData= mutableListOf(SGGroupDataBean("Group1",SGSimpleDataBean("option",false,true)))
+
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,6 +78,16 @@ class MainActivity : Activity() {
 //                .dropDownPosition(DropDownPosition.Bottom)
 //                .asCustom(SGBuiltDropDownView(this@MainActivity))
 //                .show()
+        }
+
+        findViewById<View>(R.id.tv_click5).setOnClickListener { v ->
+            SGDropDown.Builder(this@MainActivity)
+                .atView(v)
+                .setOptions(groupData as List<Any>?)
+                .dropDownPosition(DropDownPosition.Bottom)
+                .dropDownView()
+                .show()
+
         }
     }
 
