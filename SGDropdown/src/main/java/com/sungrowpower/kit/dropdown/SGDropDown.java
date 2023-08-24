@@ -27,10 +27,10 @@ public class SGDropDown {
     /**
      * 全局弹窗的设置
      **/
-
+    //动画时间
     private static int animationDuration = 300;
-    private static int shadowBgColor = Color.parseColor("#7F000000");//50%的透明度
-
+    //50%的透明度
+    private static int shadowBgColor = Color.parseColor("#7F000000");
 
     /**
      * 设置全局的背景阴影颜色
