@@ -40,8 +40,9 @@ class MainActivity : Activity() {
             SGDropDown.Builder(this@MainActivity)
                 .atView(v)
                 .hasShadowBg(false)
+                .setUseColumn(0)
                 .dropDownPosition(DropDownPosition.Bottom)
-                .asCustom(CustomSGDropDownBaseView(this@MainActivity))
+                .asCustom(TestEditView(this@MainActivity))
                 .show()
         }
 

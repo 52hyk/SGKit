@@ -19,7 +19,7 @@ class CustomSGDropDownBaseView(context: Context) : SGDropDownBaseView(context) {
         MyAdapter(mData)
     }
     override fun getImplLayoutId(): Int {
-        return R.layout.custom_part_shadow_popup2
+        return R.layout.dropdown
     }
 
     override fun onCreate() {

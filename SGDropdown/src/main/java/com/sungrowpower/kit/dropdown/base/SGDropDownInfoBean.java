@@ -67,10 +67,12 @@ public class SGDropDownInfoBean {
     public int statusBarBgColor = 0;
     //当触摸在这个区域时，不消失
     public ArrayList<Rect> notDismissWhenTouchInArea;
+    //使用多列
+    public int useColumn = 0;
     //自定义的宿主生命周期
     public Lifecycle hostLifecycle;
 
-    public Rect getAtViewRect(){
+    public Rect getAtViewRect() {
         int[] locations = new int[2];
         atView.getLocationInWindow(locations);
         return new Rect(locations[0], locations[1], locations[0] + atView.getMeasuredWidth(),

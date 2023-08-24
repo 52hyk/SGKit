@@ -451,8 +451,15 @@ public class SGDropDown {
             return this;
         }
 
-
-
+        /**
+         * 设置多列
+         * @param useColumn
+         * @return
+         */
+        public Builder setUseColumn(int useColumn) {
+            this.SGDropDownInfoBean.useColumn = useColumn;
+            return this;
+        }
         public SGBaseView asCustom(SGBaseView popupView) {
 //            if (popupView instanceof CenterPopupView) {
 //                popupType(PopupType.Center);
