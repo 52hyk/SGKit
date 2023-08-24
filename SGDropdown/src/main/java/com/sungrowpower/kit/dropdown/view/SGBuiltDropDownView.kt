@@ -14,7 +14,7 @@ import com.sungrowpower.kit.dropdown.impl.SGDropDownBaseView
 import com.sungrowpower.kit.dropdown.util.SGDropDownUtils
 
 /**
- * Description: 自定义局部阴影弹窗
+ * Description:内置显示
  * Create by dance, at 2018/12/21
  */
 class SGBuiltDropDownView(context: Context) : SGDropDownBaseView(context) {

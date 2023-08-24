@@ -63,11 +63,18 @@ class MainActivity : Activity() {
         findViewById<View>(R.id.tv_click3).setOnClickListener { v ->
             SGDropDown.Builder(this@MainActivity)
                 .atView(v)
-                .dismissOnBackPressed(true) // 按返回键是否关闭弹窗，默认为true
-                .dropDownAnimation(SGDropDownAnimation.ScaleAlphaFromRightTop)
-                .dropDownPosition(DropDownPosition.Bottom)
-                .asCustom(SGBuiltDropDownView(this@MainActivity))
+                .setOptions(data as List<Any>?)
+                .dropDownPosition(DropDownPosition.Top)
+                .dropDownView()
                 .show()
+
+//            SGDropDown.Builder(this@MainActivity)
+//                .atView(v)
+//                .dismissOnBackPressed(true) // 按返回键是否关闭弹窗，默认为true
+//                .dropDownAnimation(SGDropDownAnimation.ScaleAlphaFromRightTop)
+//                .dropDownPosition(DropDownPosition.Bottom)
+//                .asCustom(SGBuiltDropDownView(this@MainActivity))
+//                .show()
         }
     }
 
