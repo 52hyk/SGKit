@@ -13,6 +13,15 @@ public class SGSimpleDataBean {
     //是否被选中
     private boolean isChecked;
 
+    @Override
+    public String toString() {
+        return "SGSimpleDataBean{" +
+                "label='" + label + '\'' +
+                ", disabled=" + disabled +
+                ", isChecked=" + isChecked +
+                '}';
+    }
+
     public SGSimpleDataBean(String label, boolean disabled, boolean isChecked) {
         this.label = label;
         this.disabled = disabled;

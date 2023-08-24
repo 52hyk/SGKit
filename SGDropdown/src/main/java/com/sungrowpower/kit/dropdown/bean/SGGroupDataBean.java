@@ -11,6 +11,13 @@ public class SGGroupDataBean {
     private String title;
     private SGSimpleDataBean childData;
 
+    @Override
+    public String toString() {
+        return "SGGroupDataBean{" +
+                "title='" + title + '\'' +
+                ", childData=" + childData +
+                '}';
+    }
 
     public SGGroupDataBean(String title, SGSimpleDataBean childData) {
         this.title = title;

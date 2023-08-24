@@ -54,9 +54,15 @@ class SGBuiltDropDownView(context: Context) : SGDropDownBaseView(context) {
 
     override fun onCreate() {
         super.onCreate()
-        mData = SGDropDownInfoBean.options as MutableList<SGSimpleDataBean>
-        mGroupData = SGDropDownInfoBean.options as MutableList<SGGroupDataBean>
 
+        if (SGDropDownInfoBean.options.contains("title")){
+            mGroupData = SGDropDownInfoBean.options as MutableList<SGGroupDataBean>
+        }else{
+            mData = SGDropDownInfoBean.options as MutableList<SGSimpleDataBean>
+        }
+
+
+        Log.i("data--",mData.toString())
         if (mData.size!=0) {
 
             if (SGDropDownInfoBean.useColumn == 0) {
