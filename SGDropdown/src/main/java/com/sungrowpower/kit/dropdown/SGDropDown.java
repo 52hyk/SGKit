@@ -17,12 +17,15 @@ import com.sungrowpower.kit.dropdown.enums.SGDropDownAnimation;
 import com.sungrowpower.kit.dropdown.enums.DropDownPosition;
 import com.sungrowpower.kit.dropdown.interfaces.SGDropDownCallback;
 import com.sungrowpower.kit.dropdown.util.SGDropDownUtils;
+import com.sungrowpower.kit.dropdown.view.SGBuiltDropDownView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class SGDropDown {
-    private SGDropDown() { }
+    private SGDropDown() {
+    }
 
     /**
      * 全局弹窗的设置
@@ -34,19 +37,21 @@ public class SGDropDown {
 
     /**
      * 设置全局的背景阴影颜色
+     *
      * @param color
      */
     public static void setShadowBgColor(int color) {
         shadowBgColor = color;
     }
+
     public static int getShadowBgColor() {
         return shadowBgColor;
     }
 
 
-
     /**
      * 设置全局动画时长
+     *
      * @param duration
      */
     public static void setAnimationDuration(int duration) {
@@ -61,22 +66,24 @@ public class SGDropDown {
 
     /**
      * 在长按弹出弹窗后，能保证下层View不能滑动
+     *
      * @param v
      */
     public static PointF longClickPoint = null;
-    public static void fixLongClick(View v){
+
+    public static void fixLongClick(View v) {
         v.setOnTouchListener(new View.OnTouchListener() {
             @SuppressLint("ClickableViewAccessibility")
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if(event.getAction()==MotionEvent.ACTION_DOWN){
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     longClickPoint = new PointF(event.getRawX(), event.getRawY());
                 }
-                if("dropdown".equals(v.getTag()) && event.getAction()==MotionEvent.ACTION_MOVE){
+                if ("dropdown".equals(v.getTag()) && event.getAction() == MotionEvent.ACTION_MOVE) {
                     //长按发送，阻断父View拦截
                     v.getParent().requestDisallowInterceptTouchEvent(true);
                 }
-                if(event.getAction()==MotionEvent.ACTION_UP){
+                if (event.getAction() == MotionEvent.ACTION_UP) {
                     //长按结束，恢复阻断
                     v.getParent().requestDisallowInterceptTouchEvent(false);
                     v.setTag(null);
@@ -162,7 +169,7 @@ public class SGDropDown {
             watchView.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
-                    if (event.getAction() == MotionEvent.ACTION_DOWN){
+                    if (event.getAction() == MotionEvent.ACTION_DOWN) {
                         SGDropDownInfoBean.touchPoint = new PointF(event.getRawX(), event.getRawY());
                     }
                     return false;
@@ -196,6 +203,7 @@ public class SGDropDown {
         /**
          * 设置高度，如果重写了弹窗的getPopupHeight，则以重写的为准
          * 并且受最大高度限制
+         *
          * @param height
          * @return
          */
@@ -207,6 +215,7 @@ public class SGDropDown {
         /**
          * 设置宽度，如果重写了弹窗的getPopupWidth，则以重写的为准
          * 并且受最大宽度限制
+         *
          * @param width
          * @return
          */
@@ -287,6 +296,7 @@ public class SGDropDown {
         /**
          * 设置状态栏的背景颜色，目前只对全屏弹窗和Drawer弹窗有效，其他弹窗
          * Dropdown强制将状态栏设置为透明
+         *
          * @param statusBarBgColor
          * @return
          */
@@ -294,7 +304,6 @@ public class SGDropDown {
             this.SGDropDownInfoBean.statusBarBgColor = statusBarBgColor;
             return this;
         }
-
 
 
         /**
@@ -349,9 +358,9 @@ public class SGDropDown {
         /**
          * 是否以屏幕中心进行定位，默认是false，为false时根据Material范式进行定位，主要影响Attach系列弹窗
          * Material范式下是：
-         *      弹窗优先显示在目标下方，下方距离不够才显示在上方
+         * 弹窗优先显示在目标下方，下方距离不够才显示在上方
          * 以屏幕中心进行定位：
-         *      目标在屏幕上半方弹窗显示在目标下面，目标在屏幕下半方则弹窗显示在目标上面
+         * 目标在屏幕上半方弹窗显示在目标下面，目标在屏幕下半方则弹窗显示在目标上面
          *
          * @param positionByWindowCenter
          * @return
@@ -364,6 +373,7 @@ public class SGDropDown {
 
         /**
          * 半透明阴影的颜色
+         *
          * @param shadowBgColor
          * @return
          */
@@ -374,6 +384,7 @@ public class SGDropDown {
 
         /**
          * 动画时长
+         *
          * @param animationDuration
          * @return
          */
@@ -385,11 +396,12 @@ public class SGDropDown {
         /**
          * 开启dismissOnTouchOutside(true)时，即使触摸在指定View时也不消失；
          * 该方法可调用多次，每次可添加一个Rect区域
+         *
          * @param view 触摸View
          * @return
          */
         public Builder notDismissWhenTouchInView(View view) {
-            if(this.SGDropDownInfoBean.notDismissWhenTouchInArea==null){
+            if (this.SGDropDownInfoBean.notDismissWhenTouchInArea == null) {
                 this.SGDropDownInfoBean.notDismissWhenTouchInArea = new ArrayList<>();
             }
             this.SGDropDownInfoBean.notDismissWhenTouchInArea.add(SGDropDownUtils.getViewRect(view));
@@ -399,6 +411,7 @@ public class SGDropDown {
         /**
          * 默认情况下Dropdown监视Activity的生命周期，对于Fragment(或其他任意拥有Lifecycle的组件)实现的UI，可以传入Fragment
          * 的Lifecycle，从而实现在Fragment销毁时弹窗也自动销毁，无需手动调用dismiss()和destroy()
+         *
          * @param lifecycle 自定义UI的生命周期
          * @return
          */
@@ -420,6 +433,7 @@ public class SGDropDown {
 
         /**
          * 设置多列
+         *
          * @param useColumn
          * @return
          */
@@ -427,17 +441,28 @@ public class SGDropDown {
             this.SGDropDownInfoBean.useColumn = useColumn;
             return this;
         }
+
+        /**
+         * 设置数据集合
+         * @param dataBean
+         * @return
+         */
+        public Builder setOptions(List<Object> dataBean) {
+            this.SGDropDownInfoBean.options = dataBean;
+            return this;
+        }
+
         public SGBaseView asCustom(SGBaseView popupView) {
 
             popupView.SGDropDownInfoBean = this.SGDropDownInfoBean;
             return popupView;
         }
 
-//        public BasePopupView popupView() {
-//            CustomPartShadowPopupView customPartShadowPopupView=new CustomPartShadowPopupView(context);
-//            customPartShadowPopupView.popupInfo=this.popupInfo;
-//            return customPartShadowPopupView;
-//        }
+        public SGBaseView dropDownView() {
+            SGBuiltDropDownView sgBuiltDropDownView=new SGBuiltDropDownView(context);
+            sgBuiltDropDownView.SGDropDownInfoBean=this.SGDropDownInfoBean;
+            return sgBuiltDropDownView;
+        }
     }
 
 

@@ -10,10 +10,12 @@ import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.widget.Toast
-import com.kuaimin.dropdown.R
+import com.sungrowpower.demo.R
 import com.sungrowpower.kit.dropdown.SGDropDown
+import com.sungrowpower.kit.dropdown.bean.SGSimpleDataBean
 import com.sungrowpower.kit.dropdown.enums.DropDownPosition
 import com.sungrowpower.kit.dropdown.enums.SGDropDownAnimation
+import com.sungrowpower.kit.dropdown.view.SGBuiltDropDownView
 
 /**
  * 创建日期：2023/8/15 on 13:35
@@ -22,6 +24,8 @@ import com.sungrowpower.kit.dropdown.enums.SGDropDownAnimation
  * @author Administrator
  */
 class MainActivity : Activity() {
+
+    private val data= mutableListOf(SGSimpleDataBean("option",false,true),SGSimpleDataBean("option",false,false),SGSimpleDataBean("option",false,false),SGSimpleDataBean("option",true,false),SGSimpleDataBean("option",true,false))
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,18 +43,20 @@ class MainActivity : Activity() {
         findViewById<View>(R.id.tv_click).setOnClickListener { v ->
             SGDropDown.Builder(this@MainActivity)
                 .atView(v)
-                .hasShadowBg(false)
-                .setUseColumn(0)
+                .setOptions(data as List<Any>?)
                 .dropDownPosition(DropDownPosition.Bottom)
-                .asCustom(TestEditView(this@MainActivity))
+                .dropDownView()
                 .show()
         }
 
         findViewById<View>(R.id.tv_click2).setOnClickListener { v ->
             SGDropDown.Builder(this@MainActivity)
                 .atView(v)
-                .dropDownPosition(DropDownPosition.Top)
-                .asCustom(CustomSGDropDownBaseView(this@MainActivity))
+                .setUseColumn(3)
+                .setOptions(data as List<Any>?)
+
+                .dropDownPosition(DropDownPosition.Bottom)
+                .asCustom(SGBuiltDropDownView(this@MainActivity))
                 .show()
         }
 
@@ -60,7 +66,7 @@ class MainActivity : Activity() {
                 .dismissOnBackPressed(true) // 按返回键是否关闭弹窗，默认为true
                 .dropDownAnimation(SGDropDownAnimation.ScaleAlphaFromRightTop)
                 .dropDownPosition(DropDownPosition.Bottom)
-                .asCustom(CustomSGDropDownBaseView(this@MainActivity))
+                .asCustom(SGBuiltDropDownView(this@MainActivity))
                 .show()
         }
     }

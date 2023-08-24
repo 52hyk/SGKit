@@ -13,6 +13,7 @@ import com.sungrowpower.kit.dropdown.enums.DropDownPosition;
 import com.sungrowpower.kit.dropdown.interfaces.SGDropDownCallback;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Description: Popup的属性封装
@@ -69,6 +70,8 @@ public class SGDropDownInfoBean {
     public ArrayList<Rect> notDismissWhenTouchInArea;
     //使用多列
     public int useColumn = 0;
+    //数据集合
+    public List<Object> options;
     //自定义的宿主生命周期
     public Lifecycle hostLifecycle;
 

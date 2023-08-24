@@ -4,7 +4,8 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 
-import com.kuaimin.dropdown.R;
+
+import com.sungrowpower.demo.R;
 import com.sungrowpower.kit.dropdown.impl.SGDropDownBaseView;
 
 /**

@@ -14,6 +14,7 @@
   <dimen name="sgkit_textSize_9">9dp</dimen>
   <dimen name="sgkit_2dp">2dp</dimen>
   <dimen name="sgkit_4dp">4dp</dimen>
+  <dimen name="sgkit_6dp">6dp</dimen>
   <dimen name="sgkit_8dp">8dp</dimen>
   <dimen name="sgkit_18dp">18dp</dimen>
 </resources>
