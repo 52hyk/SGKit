@@ -11,6 +11,7 @@ import com.sungrowpower.kit.dropdown.animator.DropDownAnimator;
 import com.sungrowpower.kit.dropdown.enums.SGDropDownAnimation;
 import com.sungrowpower.kit.dropdown.enums.DropDownPosition;
 import com.sungrowpower.kit.dropdown.interfaces.SGDropDownCallback;
+import com.sungrowpower.kit.dropdown.interfaces.SGOnClickOptionListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,6 +75,8 @@ public class SGDropDownInfoBean {
     public List<Object> options;
     //是否支持多选
     public boolean multiple = false;
+    //数据监听回调
+    public SGOnClickOptionListener sgOnClickOptionListener;
     //自定义的宿主生命周期
     public Lifecycle hostLifecycle;
 

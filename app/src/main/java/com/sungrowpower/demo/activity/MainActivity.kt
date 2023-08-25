@@ -5,6 +5,7 @@ import android.app.Activity
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.Window
@@ -13,10 +14,14 @@ import android.widget.Toast
 import com.sungrowpower.demo.R
 import com.sungrowpower.demo.dropdown.CustomDropDown
 import com.sungrowpower.kit.dropdown.SGDropDown
+import com.sungrowpower.kit.dropdown.base.SGBaseView
+import com.sungrowpower.kit.dropdown.bean.SGGroupBackDataBean
 import com.sungrowpower.kit.dropdown.bean.SGGroupDataBean
 import com.sungrowpower.kit.dropdown.bean.SGSimpleDataBean
 import com.sungrowpower.kit.dropdown.enums.DropDownPosition
 import com.sungrowpower.kit.dropdown.enums.SGDropDownAnimation
+import com.sungrowpower.kit.dropdown.interfaces.SGDropDownCallback
+import com.sungrowpower.kit.dropdown.interfaces.SGOnClickOptionListener
 import com.sungrowpower.kit.dropdown.view.SGBuiltDropDownView
 
 /**
@@ -53,6 +58,22 @@ class MainActivity : Activity() {
                 .atView(v)
                 .setOptions(data as List<Any>?)
                 .dropDownPosition(DropDownPosition.Bottom)
+                .setOnClickOptionListener(object :SGOnClickOptionListener{
+
+                    override fun selectedValue(columnData: MutableList<Int>?, groupBackDataBeanList: MutableList<SGGroupBackDataBean>?, ) {
+
+                    }
+
+                    override fun onOptionClick(childPos: Int, parentPos: Int) {
+                        Log.i("changer-Click", "childPos:$childPos,parentPos:$parentPos")
+
+                    }
+
+                    override fun onOptionChange(childPos: Int, parentPos: Int) {
+                        Log.i("changer-Change", "childPos:$childPos,parentPos:$parentPos")
+
+                    }
+                })
                 .dropDownView()
                 .show()
         }
@@ -92,6 +113,22 @@ class MainActivity : Activity() {
                 .atView(v)
                 .setOptions(groupData as List<Any>?)
                 .dropDownPosition(DropDownPosition.Bottom)
+                .setOnClickOptionListener(object :SGOnClickOptionListener{
+
+                    override fun selectedValue(columnData: MutableList<Int>?, groupBackDataBeanList: MutableList<SGGroupBackDataBean>?, ) {
+                        Log.i("changer-value", groupBackDataBeanList.toString())
+                    }
+
+                    override fun onOptionClick(childPos: Int, parentPos: Int) {
+                        Log.i("changer-Click", "childPos:$childPos,parentPos:$parentPos")
+
+                    }
+
+                    override fun onOptionChange(childPos: Int, parentPos: Int) {
+                        Log.i("changer-Change", "childPos:$childPos,parentPos:$parentPos")
+
+                    }
+                })
                 .dropDownView()
                 .show()
 

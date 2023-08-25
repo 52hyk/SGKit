@@ -16,6 +16,7 @@ import com.sungrowpower.kit.dropdown.base.SGDropDownInfoBean;
 import com.sungrowpower.kit.dropdown.enums.SGDropDownAnimation;
 import com.sungrowpower.kit.dropdown.enums.DropDownPosition;
 import com.sungrowpower.kit.dropdown.interfaces.SGDropDownCallback;
+import com.sungrowpower.kit.dropdown.interfaces.SGOnClickOptionListener;
 import com.sungrowpower.kit.dropdown.util.SGDropDownUtils;
 import com.sungrowpower.kit.dropdown.view.SGBuiltDropDownView;
 
@@ -213,7 +214,7 @@ public class SGDropDown {
         }
 
         /**
-         * 设置宽度，如果重写了弹窗的getPopupWidth，则以重写的为准
+         * 设置宽度，如果重写了弹窗的getDropDownWidth，则以重写的为准
          * 并且受最大宽度限制
          *
          * @param width
@@ -424,10 +425,19 @@ public class SGDropDown {
          * @param SGDropDownCallback
          * @return
          */
-        public Builder setPopupCallback(SGDropDownCallback SGDropDownCallback) {
+        public Builder setDropDownViewCallback(SGDropDownCallback SGDropDownCallback) {
             this.SGDropDownInfoBean.SGDropDownCallback = SGDropDownCallback;
             return this;
         }
+
+        /**
+         *置弹数据点击、变化等监听
+         */
+        public Builder setOnClickOptionListener( SGOnClickOptionListener sgOnClickOptionListener) {
+            this.SGDropDownInfoBean.sgOnClickOptionListener = sgOnClickOptionListener;
+            return this;
+        }
+
 
         /**
          * 设置多列
@@ -460,10 +470,10 @@ public class SGDropDown {
             return this;
         }
 
-        public SGBaseView customView(SGBaseView popupView) {
+        public SGBaseView customView(SGBaseView dropDownView) {
 
-            popupView.SGDropDownInfoBean = this.SGDropDownInfoBean;
-            return popupView;
+            dropDownView.SGDropDownInfoBean = this.SGDropDownInfoBean;
+            return dropDownView;
         }
 
         public SGBaseView dropDownView() {
