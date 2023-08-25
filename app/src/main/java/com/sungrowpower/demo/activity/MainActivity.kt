@@ -27,8 +27,12 @@ import com.sungrowpower.kit.dropdown.view.SGBuiltDropDownView
  */
 class MainActivity : Activity() {
 
-    private val data= mutableListOf(SGSimpleDataBean("option",false,true),SGSimpleDataBean("option",false,false),SGSimpleDataBean("option",false,false),SGSimpleDataBean("option",true,false),SGSimpleDataBean("option",true,false))
-    private val groupData= mutableListOf(SGGroupDataBean("Group1",data))
+    private val data = mutableListOf(SGSimpleDataBean("option", false, true),
+        SGSimpleDataBean("option", false, false),
+        SGSimpleDataBean("option", false, false),
+        SGSimpleDataBean("option", true, false),
+        SGSimpleDataBean("option", true, false))
+    private val groupData = mutableListOf(SGGroupDataBean("Group1", data))
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,7 +62,7 @@ class MainActivity : Activity() {
                 .atView(v)
                 .setUseColumn(3)
                 .setOptions(data as List<Any>?)
-
+                .setMultiple(false)
                 .dropDownPosition(DropDownPosition.Bottom)
                 .customView(SGBuiltDropDownView(this@MainActivity))
                 .show()

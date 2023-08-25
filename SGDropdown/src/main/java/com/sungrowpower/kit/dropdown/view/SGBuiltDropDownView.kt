@@ -16,7 +16,7 @@ import com.sungrowpower.kit.dropdown.impl.SGDropDownBaseView
 import com.sungrowpower.kit.dropdown.util.SGDropDownUtils
 
 /**
- * Description:内置显示
+ * Description:内置View显示
  * Create by dance, at 2018/12/21
  */
 class SGBuiltDropDownView(context: Context) : SGDropDownBaseView(context) {
@@ -40,11 +40,20 @@ class SGBuiltDropDownView(context: Context) : SGDropDownBaseView(context) {
     private val adapterColumn by lazy {
         MyColumnAdapter(mData).apply {
             setOnItemClickListener { adapter, view, position ->
+
                 if (mData[position].isDisabled) {
                     return@setOnItemClickListener
                 }
-                mData[position].isChecked = !mData[position].isChecked
-                notifyItemChanged(position)
+                if (SGDropDownInfoBean.multiple) {
+                    mData[position].isChecked = !mData[position].isChecked
+                    notifyItemChanged(position)
+                } else {
+                    for (i in mData.indices) {
+                        mData[i].isChecked = false
+                    }
+                    mData[position].isChecked = true
+                    notifyDataSetChanged()
+                }
             }
         }
     }
@@ -66,14 +75,14 @@ class SGBuiltDropDownView(context: Context) : SGDropDownBaseView(context) {
 
 
 
-        if (SGDropDownInfoBean.options.toString().contains("title")){
+        if (SGDropDownInfoBean.options.toString().contains("title")) {
             mGroupData = SGDropDownInfoBean.options as MutableList<SGGroupDataBean>
-        }else{
+        } else {
             mData = SGDropDownInfoBean.options as MutableList<SGSimpleDataBean>
         }
 
 
-        if (mData.size!=0) {
+        if (mData.size != 0) {
 
             if (SGDropDownInfoBean.useColumn == 0) {
                 val params = findViewById<RecyclerView>(R.id.rv).layoutParams as MarginLayoutParams
@@ -92,7 +101,7 @@ class SGBuiltDropDownView(context: Context) : SGDropDownBaseView(context) {
                     GridLayoutManager(context, SGDropDownInfoBean.useColumn)
                 findViewById<RecyclerView>(R.id.rv).adapter = adapterColumn
             }
-        }else{
+        } else {
             val params = findViewById<RecyclerView>(R.id.rv).layoutParams as MarginLayoutParams
             params.leftMargin = SGDropDownUtils.dp2px(context, 6F)
             params.rightMargin = SGDropDownUtils.dp2px(context, 6F)

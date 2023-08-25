@@ -270,9 +270,7 @@ public class SGDropDown {
         }
 
         /**
-         * 设置弹窗出现在目标的什么位置，有四种取值：Left，Right，Top，Bottom。这种手动设置位置的行为
-         * 只对Attach弹窗和Drawer弹窗生效。
-         *
+         * 设置弹窗出现在目标的什么位置，有两种取值：Top，Bottom。这种手动设置位置的行为
          * @param dropDownPosition
          * @return
          */
@@ -449,6 +447,16 @@ public class SGDropDown {
          */
         public Builder setOptions(List<Object> dataBean) {
             this.SGDropDownInfoBean.options = dataBean;
+            return this;
+        }
+
+        /**
+         * 是否支持多选
+         * @param multiple
+         * @return
+         */
+        public Builder setMultiple(Boolean multiple){
+            this.SGDropDownInfoBean.multiple = multiple;
             return this;
         }
 

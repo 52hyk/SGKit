@@ -72,6 +72,8 @@ public class SGDropDownInfoBean {
     public int useColumn = 0;
     //数据集合
     public List<Object> options;
+    //是否支持多选
+    public boolean multiple = false;
     //自定义的宿主生命周期
     public Lifecycle hostLifecycle;
 

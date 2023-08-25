@@ -47,13 +47,4 @@ public interface SGDropDownCallback {
      */
     void onKeyBoardStateChanged(SGBaseView popupView, int height);
 
-    /**
-     * 弹窗被拖拽时执行，适用于能拖拽的弹窗，比如Bottom弹窗和Drawer弹窗
-     * @param popupView
-     * @param value  拖拽的距离
-     * @param percent  拖拽的百分比
-     * @param upOrLeft 是否是向上或者向左；垂直拖拽时，true表示向上，false表现向下；
-     *                 水平拖拽时，true表示向左，false表示向右
-     */
-    void onDrag(SGBaseView popupView, int value, float percent, boolean upOrLeft);
 }

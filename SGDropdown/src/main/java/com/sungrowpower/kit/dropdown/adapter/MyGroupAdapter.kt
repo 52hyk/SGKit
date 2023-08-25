@@ -1,6 +1,7 @@
 package com.sungrowpower.kit.dropdown.adapter
 
 import android.content.Context
+import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
@@ -21,7 +22,15 @@ class MyGroupAdapter(mData:MutableList<SGGroupDataBean>):
     override fun onBindViewHolder(holder: QuickViewHolder, position: Int, item: SGGroupDataBean?) {
         holder.setText(R.id.tv_name,item!!.title)
         holder.getView<RecyclerView>(R.id.rv).layoutManager=GridLayoutManager(context,3)
-        holder.getView<RecyclerView>(R.id.rv).adapter=MyColumnAdapter(item.childData)
+        holder.getView<RecyclerView>(R.id.rv).adapter=MyColumnAdapter(item.childData).apply {
+            setOnItemClickListener { adapter, view, position ->
+                if (item.childData[position].isDisabled) {
+                    return@setOnItemClickListener
+                }
+                item.childData[position].isChecked = !item.childData[position].isChecked
+                notifyItemChanged(position)
+            }
+        }
     }
 
     override fun onCreateViewHolder(

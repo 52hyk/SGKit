@@ -58,7 +58,7 @@ public class SGDropDownContainer extends FrameLayout {
                     if (distance < ViewConfiguration.get(getContext()).getScaledTouchSlop()) {
                         if (isDismissOnTouchOutside) {
                             if (listener != null) {
-                               // listener.onClickOutside();
+                                listener.onClickOutside();
                             }
                         }
                     }
@@ -75,5 +75,4 @@ public class SGDropDownContainer extends FrameLayout {
     public void setOnClickOutsideListener(SGOnClickOutsideListener listener) {
         this.listener = listener;
     }
-
 }
