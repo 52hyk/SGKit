@@ -20,6 +20,6 @@ public class TestEditView extends SGDropDownBaseView {
 
     @Override
     protected int getImplLayoutId() {
-        return R.layout.test_edit;
+        return R.layout._sg_custom;
     }
 }

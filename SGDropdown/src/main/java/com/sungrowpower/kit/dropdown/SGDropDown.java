@@ -452,7 +452,7 @@ public class SGDropDown {
             return this;
         }
 
-        public SGBaseView asCustom(SGBaseView popupView) {
+        public SGBaseView customView(SGBaseView popupView) {
 
             popupView.SGDropDownInfoBean = this.SGDropDownInfoBean;
             return popupView;

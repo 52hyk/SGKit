@@ -11,6 +11,7 @@ import android.view.Window
 import android.view.WindowManager
 import android.widget.Toast
 import com.sungrowpower.demo.R
+import com.sungrowpower.demo.dropdown.CustomDropDown
 import com.sungrowpower.kit.dropdown.SGDropDown
 import com.sungrowpower.kit.dropdown.bean.SGGroupDataBean
 import com.sungrowpower.kit.dropdown.bean.SGSimpleDataBean
@@ -27,7 +28,7 @@ import com.sungrowpower.kit.dropdown.view.SGBuiltDropDownView
 class MainActivity : Activity() {
 
     private val data= mutableListOf(SGSimpleDataBean("option",false,true),SGSimpleDataBean("option",false,false),SGSimpleDataBean("option",false,false),SGSimpleDataBean("option",true,false),SGSimpleDataBean("option",true,false))
-    private val groupData= mutableListOf(SGGroupDataBean("Group1",SGSimpleDataBean("option",false,true)))
+    private val groupData= mutableListOf(SGGroupDataBean("Group1",data))
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,7 +60,7 @@ class MainActivity : Activity() {
                 .setOptions(data as List<Any>?)
 
                 .dropDownPosition(DropDownPosition.Bottom)
-                .asCustom(SGBuiltDropDownView(this@MainActivity))
+                .customView(SGBuiltDropDownView(this@MainActivity))
                 .show()
         }
 
@@ -71,15 +72,17 @@ class MainActivity : Activity() {
                 .dropDownView()
                 .show()
 
-//            SGDropDown.Builder(this@MainActivity)
-//                .atView(v)
-//                .dismissOnBackPressed(true) // 按返回键是否关闭弹窗，默认为true
-//                .dropDownAnimation(SGDropDownAnimation.ScaleAlphaFromRightTop)
-//                .dropDownPosition(DropDownPosition.Bottom)
-//                .asCustom(SGBuiltDropDownView(this@MainActivity))
-//                .show()
         }
+        findViewById<View>(R.id.tv_click4).setOnClickListener { v ->
+            SGDropDown.Builder(this@MainActivity)
+                .atView(v)
+                .setOptions(groupData as List<Any>?)
+                .dropDownHeight(300)
+                .dropDownPosition(DropDownPosition.Bottom)
+                .customView(CustomDropDown(this@MainActivity))
+                .show()
 
+        }
         findViewById<View>(R.id.tv_click5).setOnClickListener { v ->
             SGDropDown.Builder(this@MainActivity)
                 .atView(v)

@@ -9,7 +9,12 @@ import java.util.List;
  */
 public class SGGroupDataBean {
     private String title;
-    private SGSimpleDataBean childData;
+    private List<SGSimpleDataBean> childData;
+
+    public SGGroupDataBean(String title, List<SGSimpleDataBean> childData) {
+        this.title = title;
+        this.childData = childData;
+    }
 
     @Override
     public String toString() {
@@ -19,12 +24,6 @@ public class SGGroupDataBean {
                 '}';
     }
 
-    public SGGroupDataBean(String title, SGSimpleDataBean childData) {
-        this.title = title;
-        this.childData = childData;
-    }
-
-
     public String getTitle() {
         return title;
     }
@@ -32,13 +31,17 @@ public class SGGroupDataBean {
     public void setTitle(String title) {
         this.title = title;
     }
-    public SGSimpleDataBean getChildData() {
+
+    public List<SGSimpleDataBean> getChildData() {
         return childData;
     }
 
-    public void setChildData(SGSimpleDataBean childData) {
+    public void setChildData(List<SGSimpleDataBean> childData) {
         this.childData = childData;
     }
+
+
+
 
 
 

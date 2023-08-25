@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sungrowpower.kit.R
 import com.sungrowpower.kit.dropdown.adapter.MyAdapter
 import com.sungrowpower.kit.dropdown.adapter.MyColumnAdapter
+import com.sungrowpower.kit.dropdown.adapter.MyGroupAdapter
 import com.sungrowpower.kit.dropdown.bean.SGGroupDataBean
 import com.sungrowpower.kit.dropdown.bean.SGSimpleDataBean
 import com.sungrowpower.kit.dropdown.impl.SGDropDownBaseView
@@ -48,6 +49,14 @@ class SGBuiltDropDownView(context: Context) : SGDropDownBaseView(context) {
         }
     }
 
+    private val adapterGroup by lazy {
+        MyGroupAdapter(mGroupData).apply {
+            setOnItemClickListener { adapter, view, position ->
+
+            }
+        }
+    }
+
     override fun getImplLayoutId(): Int {
         return R.layout._sg_simple_drop_down
     }
@@ -55,14 +64,15 @@ class SGBuiltDropDownView(context: Context) : SGDropDownBaseView(context) {
     override fun onCreate() {
         super.onCreate()
 
-        if (SGDropDownInfoBean.options.contains("title")){
+
+
+        if (SGDropDownInfoBean.options.toString().contains("title")){
             mGroupData = SGDropDownInfoBean.options as MutableList<SGGroupDataBean>
         }else{
             mData = SGDropDownInfoBean.options as MutableList<SGSimpleDataBean>
         }
 
 
-        Log.i("data--",mData.toString())
         if (mData.size!=0) {
 
             if (SGDropDownInfoBean.useColumn == 0) {
@@ -82,15 +92,16 @@ class SGBuiltDropDownView(context: Context) : SGDropDownBaseView(context) {
                     GridLayoutManager(context, SGDropDownInfoBean.useColumn)
                 findViewById<RecyclerView>(R.id.rv).adapter = adapterColumn
             }
+        }else{
+            val params = findViewById<RecyclerView>(R.id.rv).layoutParams as MarginLayoutParams
+            params.leftMargin = SGDropDownUtils.dp2px(context, 6F)
+            params.rightMargin = SGDropDownUtils.dp2px(context, 6F)
+            params.topMargin = SGDropDownUtils.dp2px(context, 12F)
+            findViewById<RecyclerView>(R.id.rv).layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            findViewById<RecyclerView>(R.id.rv).adapter = adapterGroup
         }
         Log.i("content-->==", findViewById<LinearLayout>(R.id.layout).id.toString())
     }
 
-    override fun onShow() {
-        super.onShow()
-    }
-
-    override fun onDismiss() {
-        super.onDismiss()
-    }
 }
