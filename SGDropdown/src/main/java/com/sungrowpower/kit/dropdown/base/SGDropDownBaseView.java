@@ -30,8 +30,8 @@ public abstract class SGDropDownBaseView extends SGBaseView {
     protected SGDropDownContainer sgDropDownContainer;
     public SGDropDownBaseView(@NonNull Context context) {
         super(context);
-        sgDropDownContainer = findViewById(R.id.attachPopupContainer);
-        Log.i("content-->==-",findViewById(R.id.attachPopupContainer).getId()+"");
+        sgDropDownContainer = findViewById(R.id.attachDropDownContainer);
+        Log.i("content-->==-",findViewById(R.id.attachDropDownContainer).getId()+"");
 
     }
 
@@ -54,7 +54,7 @@ public abstract class SGDropDownBaseView extends SGBaseView {
             shadowBgAnimator.targetView = getDropDownContentView();
         }
 
-//        getPopupImplView().setVisibility(INVISIBLE);
+//        getDropDownImplView().setVisibility(INVISIBLE);
         Log.i("content-->",sgDropDownContainer.getChildCount()+"=="+getDropDownImplView().getId()+"=="+getDropDownContentView().getId());
         SGDropDownUtils.applyDropDownSize((ViewGroup) getDropDownContentView(), getMaxWidth(), getMaxHeight(),
                 getDropDownWidth(), getDropDownHeight(), new Runnable() {
@@ -74,7 +74,7 @@ public abstract class SGDropDownBaseView extends SGBaseView {
     public boolean isShowUp;
     public void doAttach() {
         if (SGDropDownInfoBean.atView == null) {
-            throw new IllegalArgumentException("atView must not be null for PartShadowPopupView！");
+            throw new IllegalArgumentException("atView must not be null for DropDownView！");
         }
 
         //1. apply width and height
@@ -115,7 +115,7 @@ public abstract class SGDropDownBaseView extends SGBaseView {
             @Override
             public void run() {
                 initAndStartAnimation();
-               // getPopupImplView().setVisibility(VISIBLE);
+               //getDropDownImplView().setVisibility(VISIBLE);
             }
         });
         sgDropDownContainer.setOnLongClickListener(new View.OnLongClickListener() {

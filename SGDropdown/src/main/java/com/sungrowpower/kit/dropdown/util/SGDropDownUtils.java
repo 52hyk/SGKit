@@ -114,7 +114,7 @@ public class SGDropDownUtils {
     }
 
     public static void applyDropDownSize(final ViewGroup content, final int maxWidth, final int maxHeight,
-                                      final int popupWidth, final int popupHeight, final Runnable afterApplySize) {
+                                      final int dropDownWidth, final int dropDownHeight, final Runnable afterApplySize) {
         content.post(() -> {
             ViewGroup.LayoutParams params = content.getLayoutParams();
             View implView = content.getChildAt(0);
@@ -128,25 +128,25 @@ public class SGDropDownUtils {
                 if (implParams.width==ViewGroup.LayoutParams.MATCH_PARENT){
                     implParams.width = Math.min(w, maxWidth);
                 }
-                if (popupWidth > 0) {
-                    params.width = Math.min(popupWidth, maxWidth);
-                    implParams.width = Math.min(popupWidth, maxWidth);
+                if (dropDownWidth > 0) {
+                    params.width = Math.min(dropDownWidth, maxWidth);
+                    implParams.width = Math.min(dropDownWidth, maxWidth);
                 }
-            } else if (popupWidth > 0) {
-                params.width = popupWidth;
-                implParams.width = popupWidth;
+            } else if (dropDownWidth > 0) {
+                params.width = dropDownWidth;
+                implParams.width = dropDownWidth;
             }
 
             int h = content.getMeasuredHeight();
             if (maxHeight > 0) {
                 params.height = Math.min(h, maxHeight);
-                if (popupHeight > 0) {
-                    params.height = Math.min(popupHeight, maxHeight);
-                    implParams.height = Math.min(popupHeight, maxHeight);
+                if (dropDownHeight > 0) {
+                    params.height = Math.min(dropDownHeight, maxHeight);
+                    implParams.height = Math.min(dropDownHeight, maxHeight);
                 }
-            } else if (popupHeight > 0) {
-                params.height = popupHeight;
-                implParams.height = popupHeight;
+            } else if (dropDownHeight > 0) {
+                params.height = dropDownHeight;
+                implParams.height = dropDownHeight;
             }
             implView.setLayoutParams(implParams);
             content.setLayoutParams(params);
@@ -196,7 +196,6 @@ public class SGDropDownUtils {
         if (pv.SGDropDownInfoBean == null || !pv.SGDropDownInfoBean.isMoveUpToKeyboard) {
             return;
         }
-        //暂时忽略PartShadow弹窗和AttachPopupView
 
         //判断是否盖住输入框
         ArrayList<EditText> allEts = new ArrayList<>();
@@ -210,11 +209,11 @@ public class SGDropDownUtils {
         }
 
         int dy = 0;
-        int popupHeight = pv.getDropDownContentView().getHeight();
-        int popupWidth = pv.getDropDownContentView().getWidth();
+        int dropDownHeight = pv.getDropDownContentView().getHeight();
+        int dropDownWidth = pv.getDropDownContentView().getWidth();
         if (pv.getDropDownImplView() != null) {
-            popupHeight = Math.min(popupHeight, pv.getDropDownImplView().getMeasuredHeight());
-            popupWidth = Math.min(popupWidth, pv.getDropDownImplView().getMeasuredWidth());
+            dropDownHeight = Math.min(dropDownHeight, pv.getDropDownImplView().getMeasuredHeight());
+            dropDownWidth = Math.min(dropDownWidth, pv.getDropDownImplView().getMeasuredWidth());
         }
 
         int screenHeight = pv.getMeasuredHeight();
@@ -242,7 +241,6 @@ public class SGDropDownUtils {
     }
 
     public static void moveDown(SGBaseView pv) {
-        //暂时忽略PartShadow弹窗和AttachPopupView
 
         pv.getDropDownContentView().animate().translationY(0)
                 .setDuration(100).start();

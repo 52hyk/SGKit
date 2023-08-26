@@ -54,7 +54,7 @@ public final class SGKeyboardUtils {
      * @param window The activity.
      * @param listener The soft input changed listener.
      */
-    public static void registerSoftInputChangedListener(final Window window, final SGBaseView popupView, final OnSoftInputChangedListener listener) {
+    public static void registerSoftInputChangedListener(final Window window, final SGBaseView dropDownView, final OnSoftInputChangedListener listener) {
         final int flags = window.getAttributes().flags;
         if ((flags & WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS) != 0) {
             window.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
@@ -72,19 +72,19 @@ public final class SGKeyboardUtils {
             }
         };
         contentView.getViewTreeObserver().addOnGlobalLayoutListener(onGlobalLayoutListener);
-        listenerArray.append(popupView.getId(), onGlobalLayoutListener);
+        listenerArray.append(dropDownView.getId(), onGlobalLayoutListener);
     }
 
-    public static void removeLayoutChangeListener(Window window, SGBaseView popupView){
+    public static void removeLayoutChangeListener(Window window, SGBaseView dropDownView){
         final View contentView = window.findViewById(android.R.id.content);
         if (contentView == null) {
             return;
         }
-        ViewTreeObserver.OnGlobalLayoutListener tag = listenerArray.get(popupView.getId());
+        ViewTreeObserver.OnGlobalLayoutListener tag = listenerArray.get(dropDownView.getId());
         if (tag != null) {
             contentView.getViewTreeObserver().removeOnGlobalLayoutListener(tag);
             tag = null;
-            listenerArray.remove(popupView.getId());
+            listenerArray.remove(dropDownView.getId());
         }
     }
 
