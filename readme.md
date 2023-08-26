@@ -1,5 +1,5 @@
 ## 属性
-| 方法名 | 描述 | 类形 | 型默认值 |
+| 属性 | 描述 | 类形 | 型默认值 |
 | --- | --- | ---| ---|
 | options | 展示的选项 | List<Object> | null |
 | dropDownPosition | 展开方向 | enum | Top |
