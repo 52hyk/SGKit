@@ -137,7 +137,7 @@ public abstract class SGDropDownBaseView extends SGBaseView {
         });
     }
     @Override
-    protected DropDownAnimator getPopupAnimator() {
+    protected DropDownAnimator getDropDownAnimator() {
         return new TranslateAnimator(getDropDownImplView(), getAnimationDuration(), isShowUp ?
                 SGDropDownAnimation.TranslateFromBottom : SGDropDownAnimation.TranslateFromTop);
     }

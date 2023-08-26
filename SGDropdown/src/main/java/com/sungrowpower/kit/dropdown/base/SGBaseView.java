@@ -31,7 +31,12 @@ import androidx.lifecycle.OnLifecycleEvent;
 
 import com.sungrowpower.kit.dropdown.SGDropDown;
 import com.sungrowpower.kit.dropdown.animator.DropDownAnimator;
+import com.sungrowpower.kit.dropdown.animator.EmptyAnimator;
+import com.sungrowpower.kit.dropdown.animator.ScaleAlphaAnimator;
+import com.sungrowpower.kit.dropdown.animator.ScrollScaleAnimator;
 import com.sungrowpower.kit.dropdown.animator.ShadowBgAnimator;
+import com.sungrowpower.kit.dropdown.animator.TranslateAlphaAnimator;
+import com.sungrowpower.kit.dropdown.animator.TranslateAnimator;
 import com.sungrowpower.kit.dropdown.enums.DropDownStatus;
 import com.sungrowpower.kit.dropdown.util.SGDropDownUtils;
 import com.sungrowpower.kit.dropdown.util.SGKeyboardUtils;
@@ -231,7 +236,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
             // 根据SGDropDownInfo的dropDownAnimation字段来生成对应的动画执行器，如果dropDownAnimation字段为null，则返回null
             dropDownAnimator = genAnimatorByDropDownType();
             if (dropDownAnimator == null) {
-                dropDownAnimator = getPopupAnimator();
+                dropDownAnimator = getDropDownAnimator();
             }
         }
 
@@ -325,39 +330,39 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
         if (SGDropDownInfoBean == null || SGDropDownInfoBean.SGDropDownAnimation == null) {
             return null;
         }
-//        switch (SGDropDownInfo.SGDropDownAnimation) {
-//            case ScaleAlphaFromCenter:
-//            case ScaleAlphaFromLeftTop:
-//            case ScaleAlphaFromRightTop:
-//            case ScaleAlphaFromLeftBottom:
-//            case ScaleAlphaFromRightBottom:
-//                return new ScaleAlphaAnimator(getPopupContentView(), getAnimationDuration(), SGDropDownInfo.SGDropDownAnimation);
-//
-//            case TranslateAlphaFromLeft:
-//            case TranslateAlphaFromTop:
-//            case TranslateAlphaFromRight:
-//            case TranslateAlphaFromBottom:
-//                return new TranslateAlphaAnimator(getPopupContentView(), getAnimationDuration(), SGDropDownInfo.SGDropDownAnimation);
-//
-//            case TranslateFromLeft:
-//            case TranslateFromTop:
-//            case TranslateFromRight:
-//            case TranslateFromBottom:
-//                return new TranslateAnimator(getPopupContentView(), getAnimationDuration(), SGDropDownInfo.SGDropDownAnimation);
-//
-//            case ScrollAlphaFromLeft:
-//            case ScrollAlphaFromLeftTop:
-//            case ScrollAlphaFromTop:
-//            case ScrollAlphaFromRightTop:
-//            case ScrollAlphaFromRight:
-//            case ScrollAlphaFromRightBottom:
-//            case ScrollAlphaFromBottom:
-//            case ScrollAlphaFromLeftBottom:
-//                return new ScrollScaleAnimator(getPopupContentView(), getAnimationDuration(), SGDropDownInfo.SGDropDownAnimation);
-//
-//            case NoAnimation:
-//                return new EmptyAnimator(getPopupContentView(), getAnimationDuration());
-//        }
+        switch (SGDropDownInfoBean.SGDropDownAnimation) {
+            case ScaleAlphaFromCenter:
+            case ScaleAlphaFromLeftTop:
+            case ScaleAlphaFromRightTop:
+            case ScaleAlphaFromLeftBottom:
+            case ScaleAlphaFromRightBottom:
+                return new ScaleAlphaAnimator(getDropDownContentView(), getAnimationDuration(), SGDropDownInfoBean.SGDropDownAnimation);
+
+            case TranslateAlphaFromLeft:
+            case TranslateAlphaFromTop:
+            case TranslateAlphaFromRight:
+            case TranslateAlphaFromBottom:
+                return new TranslateAlphaAnimator(getDropDownContentView(), getAnimationDuration(), SGDropDownInfoBean.SGDropDownAnimation);
+
+            case TranslateFromLeft:
+            case TranslateFromTop:
+            case TranslateFromRight:
+            case TranslateFromBottom:
+                return new TranslateAnimator(getDropDownContentView(), getAnimationDuration(), SGDropDownInfoBean.SGDropDownAnimation);
+
+            case ScrollAlphaFromLeft:
+            case ScrollAlphaFromLeftTop:
+            case ScrollAlphaFromTop:
+            case ScrollAlphaFromRightTop:
+            case ScrollAlphaFromRight:
+            case ScrollAlphaFromRightBottom:
+            case ScrollAlphaFromBottom:
+            case ScrollAlphaFromLeftBottom:
+                return new ScrollScaleAnimator(getDropDownContentView(), getAnimationDuration(), SGDropDownInfoBean.SGDropDownAnimation);
+
+            case NoAnimation:
+                return new EmptyAnimator(getDropDownContentView(), getAnimationDuration());
+        }
         return null;
     }
 
@@ -378,11 +383,11 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
     }
 
     /**
-     * 获取PopupAnimator，用于每种类型的DropDownView自定义自己的动画器
+     * 获取DropDownAnimator，用于每种类型的DropDownView自定义自己的动画器
      *
      * @return
      */
-    protected DropDownAnimator getPopupAnimator() {
+    protected DropDownAnimator getDropDownAnimator() {
         return null;
     }
 
