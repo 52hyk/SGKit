@@ -330,21 +330,6 @@ public class SGDropDown {
         }
 
 
-        /**
-         * 是否以屏幕中心进行定位，默认是false，为false时根据Material范式进行定位，主要影响Attach系列弹窗
-         * Material范式下是：
-         * 弹窗优先显示在目标下方，下方距离不够才显示在上方
-         * 以屏幕中心进行定位：
-         * 目标在屏幕上半方弹窗显示在目标下面，目标在屏幕下半方则弹窗显示在目标上面
-         *
-         * @param positionByWindowCenter
-         * @return
-         */
-        public Builder positionByWindowCenter(boolean positionByWindowCenter) {
-            this.SGDropDownInfoBean.positionByWindowCenter = positionByWindowCenter;
-            return this;
-        }
-
 
         /**
          * 半透明阴影的颜色

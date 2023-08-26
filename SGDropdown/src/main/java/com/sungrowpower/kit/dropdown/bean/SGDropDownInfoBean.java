@@ -57,8 +57,6 @@ public class SGDropDownInfoBean {
     public boolean isClickThrough = false;
     //是否关闭后进行资源释放
     public boolean isDestroyOnDismiss = false;
-    //是否已屏幕中心进行定位，默认根据Material范式进行定位
-    public boolean positionByWindowCenter = false;
     //阴影背景的颜色
     public int shadowBgColor = 0;
     //动画的时长
