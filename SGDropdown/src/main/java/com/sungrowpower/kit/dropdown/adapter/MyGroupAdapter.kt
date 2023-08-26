@@ -7,10 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.QuickViewHolder
 import com.sungrowpower.kit.R
-import com.sungrowpower.kit.dropdown.base.SGDropDownInfoBean
+import com.sungrowpower.kit.dropdown.bean.SGDropDownInfoBean
 import com.sungrowpower.kit.dropdown.bean.SGGroupDataBean
 import com.sungrowpower.kit.dropdown.interfaces.SGGroupOnClickListener
-import com.sungrowpower.kit.dropdown.interfaces.SGOnClickOutsideListener
 
 /**
  * 创建日期：2023/8/25 on 9:28

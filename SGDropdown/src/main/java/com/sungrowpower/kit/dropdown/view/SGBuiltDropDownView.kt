@@ -2,12 +2,10 @@ package com.sungrowpower.kit.dropdown.view
 
 import android.content.Context
 import android.util.Log
-import android.view.View
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.chad.library.adapter.base.BaseQuickAdapter
 import com.sungrowpower.kit.R
 import com.sungrowpower.kit.dropdown.adapter.MyAdapter
 import com.sungrowpower.kit.dropdown.adapter.MyColumnAdapter
@@ -16,10 +14,8 @@ import com.sungrowpower.kit.dropdown.bean.SGGroupBackDataBean
 import com.sungrowpower.kit.dropdown.bean.SGGroupBackDataBean.SGGroupChildBackDataBean
 import com.sungrowpower.kit.dropdown.bean.SGGroupDataBean
 import com.sungrowpower.kit.dropdown.bean.SGSimpleDataBean
-import com.sungrowpower.kit.dropdown.impl.SGDropDownBaseView
+import com.sungrowpower.kit.dropdown.base.SGDropDownBaseView
 import com.sungrowpower.kit.dropdown.interfaces.SGGroupOnClickListener
-import com.sungrowpower.kit.dropdown.interfaces.SGOnClickOptionListener
-import com.sungrowpower.kit.dropdown.interfaces.SGOnClickOutsideListener
 import com.sungrowpower.kit.dropdown.util.SGDropDownUtils
 
 /**

@@ -12,7 +12,7 @@ import androidx.lifecycle.Lifecycle;
 
 import com.sungrowpower.kit.dropdown.animator.DropDownAnimator;
 import com.sungrowpower.kit.dropdown.base.SGBaseView;
-import com.sungrowpower.kit.dropdown.base.SGDropDownInfoBean;
+import com.sungrowpower.kit.dropdown.bean.SGDropDownInfoBean;
 import com.sungrowpower.kit.dropdown.enums.SGDropDownAnimation;
 import com.sungrowpower.kit.dropdown.enums.DropDownPosition;
 import com.sungrowpower.kit.dropdown.interfaces.SGDropDownCallback;

@@ -8,10 +8,8 @@ import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.graphics.Rect;
-import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
-import android.provider.Settings;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -22,7 +20,7 @@ import android.widget.Toast;
 
 
 import com.sungrowpower.kit.dropdown.base.SGBaseView;
-import com.sungrowpower.kit.dropdown.impl.SGDropDownBaseView;
+import com.sungrowpower.kit.dropdown.base.SGDropDownBaseView;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -250,44 +248,6 @@ public class SGDropDownUtils {
                 .setDuration(100).start();
     }
 
-    public static boolean isNavBarVisible(Window window) {
-        boolean isVisible = false;
-        ViewGroup decorView = (ViewGroup) window.getDecorView();
-        for (int i = 0, count = decorView.getChildCount(); i < count; i++) {
-            final View child = decorView.getChildAt(i);
-            final int id = child.getId();
-            if (id != View.NO_ID) {
-                try {
-                    String resourceEntryName = window.getContext().getResources().getResourceEntryName(id);
-                    if ("navigationBarBackground".equals(resourceEntryName)
-                            && child.getVisibility() == View.VISIBLE) {
-                        isVisible = true;
-                        break;
-                    }
-                }catch (Resources.NotFoundException e){
-                    break;
-                }
-            }
-        }
-        if (isVisible) {
-            // 对于三星手机，android10以下非OneUI2的版本，比如 s8，note8 等设备上，
-            // 导航栏显示存在bug："当用户隐藏导航栏时显示输入法的时候导航栏会跟随显示"，会导致隐藏输入法之后判断错误
-            // 这个问题在 OneUI 2 & android 10 版本已修复
-            if (FuckRomUtils.isSamsung()
-                    && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1
-                    && Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-                try {
-                    return Settings.Global.getInt(window.getContext().getContentResolver(), "navigationbar_hide_bar_enabled") == 0;
-                } catch (Exception ignore) {
-                }
-            }
-
-            int visibility = decorView.getSystemUiVisibility();
-            isVisible = (visibility & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0;
-        }
-
-        return isVisible;
-    }
 
     public static void findAllEditText(ArrayList<EditText> list, ViewGroup group) {
         for (int i = 0; i < group.getChildCount(); i++) {

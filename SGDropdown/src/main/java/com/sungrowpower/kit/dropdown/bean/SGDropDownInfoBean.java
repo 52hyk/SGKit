@@ -1,4 +1,4 @@
-package com.sungrowpower.kit.dropdown.base;
+package com.sungrowpower.kit.dropdown.bean;
 
 import android.graphics.PointF;
 import android.graphics.Rect;

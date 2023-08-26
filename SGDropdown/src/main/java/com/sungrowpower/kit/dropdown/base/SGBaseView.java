@@ -33,7 +33,6 @@ import com.sungrowpower.kit.dropdown.SGDropDown;
 import com.sungrowpower.kit.dropdown.animator.DropDownAnimator;
 import com.sungrowpower.kit.dropdown.animator.ShadowBgAnimator;
 import com.sungrowpower.kit.dropdown.enums.DropDownStatus;
-import com.sungrowpower.kit.dropdown.impl.SGDropDownBaseView;
 import com.sungrowpower.kit.dropdown.util.SGDropDownUtils;
 import com.sungrowpower.kit.dropdown.util.SGKeyboardUtils;
 
@@ -46,8 +45,8 @@ import java.util.List;
  */
 public abstract class SGBaseView extends FrameLayout implements LifecycleObserver, LifecycleOwner,
         ViewCompat.OnUnhandledKeyEventListenerCompat {
-    public SGDropDownInfoBean SGDropDownInfoBean;
-    protected DropDownAnimator popupContentAnimator;
+    public com.sungrowpower.kit.dropdown.bean.SGDropDownInfoBean SGDropDownInfoBean;
+    protected DropDownAnimator dropDownAnimator;
     protected ShadowBgAnimator shadowBgAnimator;
     private final int touchSlop;
     public DropDownStatus dropDownStatus = DropDownStatus.Dismiss;
@@ -99,7 +98,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
     private final Runnable attachTask = new Runnable() {
         @Override
         public void run() {
-            // 1. add PopupView to its host.
+            // 1. add dropDownView to its host.
             attachToHost();
             //2. 注册对话框监听器
             SGKeyboardUtils.registerSoftInputChangedListener(getHostWindow(), SGBaseView.this, new SGKeyboardUtils.OnSoftInputChangedListener() {
@@ -140,31 +139,6 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
             if (getContext() instanceof FragmentActivity) {
                 ((FragmentActivity) getContext()).getLifecycle().addObserver(this);
             }
-        }
-
-        if (getLayoutParams() == null) {
-            //设置自己的大小，和Activity的contentView保持一致
-            int navHeight = 0;
-            View decorView = ((Activity) getContext()).getWindow().getDecorView();
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                View navBarView = decorView.findViewById(android.R.id.navigationBarBackground);
-                if (navBarView != null) {
-                    navHeight = SGDropDownUtils.isLandscape(getContext()) && !SGDropDownUtils.isTablet() ?
-                            navBarView.getMeasuredWidth() : navBarView.getMeasuredHeight();
-                }
-            } else {
-                navHeight = SGDropDownUtils.isNavBarVisible(((Activity) getContext()).getWindow()) ?
-                        SGDropDownUtils.getNavBarHeight() : 0;
-            }
-
-            View activityContent = getActivityContentView();
-            MarginLayoutParams params = new MarginLayoutParams(activityContent.getMeasuredWidth(),
-                    decorView.getMeasuredHeight() -
-                            (SGDropDownUtils.isLandscape(getContext()) && !SGDropDownUtils.isTablet() ? 0 : navHeight));
-            if (SGDropDownUtils.isLandscape(getContext())) {
-                params.leftMargin = getActivityContentLeft();
-            }
-            setLayoutParams(params);
         }
 
 
@@ -251,13 +225,13 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
         getDropDownContentView().setAlpha(1f);
         // 优先使用自定义的动画器
         if (SGDropDownInfoBean.customAnimator != null) {
-            popupContentAnimator = SGDropDownInfoBean.customAnimator;
-            popupContentAnimator.targetView = getDropDownContentView();
+            dropDownAnimator = SGDropDownInfoBean.customAnimator;
+            dropDownAnimator.targetView = getDropDownContentView();
         } else {
             // 根据SGDropDownInfo的popupAnimation字段来生成对应的动画执行器，如果popupAnimation字段为null，则返回null
-            popupContentAnimator = genAnimatorByPopupType();
-            if (popupContentAnimator == null) {
-                popupContentAnimator = getPopupAnimator();
+            dropDownAnimator = genAnimatorByPopupType();
+            if (dropDownAnimator == null) {
+                dropDownAnimator = getPopupAnimator();
             }
         }
 
@@ -266,8 +240,8 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
             shadowBgAnimator.initAnimator();
         }
 
-        if (popupContentAnimator != null) {
-            popupContentAnimator.initAnimator();
+        if (dropDownAnimator != null) {
+            dropDownAnimator.initAnimator();
         }
     }
 
@@ -395,7 +369,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
     protected abstract int getInnerLayoutId();
 
     /**
-     * 如果你自己继承BasePopupView来做，这个不用实现
+     * 如果你自己继承SGBaseView来做，这个不用实现
      *
      * @return
      */
@@ -404,7 +378,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
     }
 
     /**
-     * 获取PopupAnimator，用于每种类型的PopupView自定义自己的动画器
+     * 获取PopupAnimator，用于每种类型的DropDownView自定义自己的动画器
      *
      * @return
      */
@@ -436,8 +410,8 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
         if (SGDropDownInfoBean.hasShadowBg && shadowBgAnimator != null) {
             shadowBgAnimator.animateShow();
         }
-        if (popupContentAnimator != null) {
-            popupContentAnimator.animateShow();
+        if (dropDownAnimator != null) {
+            dropDownAnimator.animateShow();
         }
     }
 
@@ -453,14 +427,14 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
             shadowBgAnimator.animateDismiss();
         }
 
-        if (popupContentAnimator != null) {
-            popupContentAnimator.animateDismiss();
+        if (dropDownAnimator != null) {
+            dropDownAnimator.animateDismiss();
         }
     }
 
     /**
-     * 获取内容View，本质上PopupView显示的内容都在这个View内部。
-     * 而且我们对PopupView执行的动画，也是对它执行的动画
+     * 获取内容View，本质上DropDownView显示的内容都在这个View内部。
+     * 而且我们对DropDownView执行的动画，也是对它执行的动画
      *
      * @return
      */
@@ -577,7 +551,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
     }
 
     protected void doAfterDismiss() {
-        // PartShadowPopupView要等到完全关闭再关闭输入法，不然有问题
+        //SGDropDownBaseView要等到完全关闭再关闭输入法，不然有问题
         if (SGDropDownInfoBean != null && SGDropDownInfoBean.autoOpenSoftInput && !(this instanceof SGDropDownBaseView)) {
             SGKeyboardUtils.hideSoftInput(this);
         }
