@@ -280,30 +280,6 @@ public class SGDropDown {
             return this;
         }
 
-        /**
-         * 设置是否给StatusBar添加阴影，目前对Drawer弹窗和全屏弹窗生效生效。
-         *
-         * @param hasStatusBarShadow
-         * @return
-         */
-        public Builder hasStatusBarShadow(boolean hasStatusBarShadow) {
-            this.SGDropDownInfoBean.hasStatusBarShadow = hasStatusBarShadow;
-            return this;
-        }
-
-
-        /**
-         * 设置状态栏的背景颜色，目前只对全屏弹窗和Drawer弹窗有效，其他弹窗
-         * Dropdown强制将状态栏设置为透明
-         *
-         * @param statusBarBgColor
-         * @return
-         */
-        public Builder statusBarBgColor(int statusBarBgColor) {
-            this.SGDropDownInfoBean.statusBarBgColor = statusBarBgColor;
-            return this;
-        }
-
 
         /**
          * 是否抢占焦点，默认情况下弹窗会抢占焦点，目的是为了能处理返回按键事件。如果为false，则不在抢焦点，但也无法响应返回按键了

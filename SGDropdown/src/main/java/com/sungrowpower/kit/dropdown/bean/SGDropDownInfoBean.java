@@ -49,8 +49,6 @@ public class SGDropDownInfoBean {
     public Boolean isMoveUpToKeyboard = true;
     //弹窗出现在目标的什么位置
     public DropDownPosition dropDownPosition = null;
-    //是否显示状态栏阴影
-    public Boolean hasStatusBarShadow = false;
     //弹窗是否强制抢占焦点
     public boolean isRequestFocus = true;
     //是否让输入框自动获取焦点
@@ -65,8 +63,6 @@ public class SGDropDownInfoBean {
     public int shadowBgColor = 0;
     //动画的时长
     public int animationDuration = -1;
-    //状态栏阴影颜色，对Drawer弹窗和全屏弹窗有效
-    public int statusBarBgColor = 0;
     //当触摸在这个区域时，不消失
     public ArrayList<Rect> notDismissWhenTouchInArea;
     //使用多列
