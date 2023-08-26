@@ -15,5 +15,5 @@
 | --- | --- | ---| ---|
 | selectedValue | 当前选择的选项标识 | void | null |
 | onOptionClick | 点击选项时触发的回调函数 | void | null |
-| onOptionChange | 当选项改变时触发的回调函数 | void null |
+| onOptionChange | 当选项改变时触发的回调函数 | void | null |
 
