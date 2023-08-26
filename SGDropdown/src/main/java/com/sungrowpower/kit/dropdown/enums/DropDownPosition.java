@@ -5,5 +5,5 @@ package com.sungrowpower.kit.dropdown.enums;
  * Create by hyk
  */
 public enum DropDownPosition {
-    Left, Right, Top, Bottom
+     Top, Bottom
 }

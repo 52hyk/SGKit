@@ -1,7 +1,7 @@
 package com.sungrowpower.kit.dropdown.enums;
 
 /**
- * Description: Popup显示和隐藏状态
+ * Description: DropDown显示和隐藏状态
  * Create by hyk
  */
 public enum DropDownStatus {

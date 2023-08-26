@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Description: Popup的属性封装
+ * Description: DropDown的属性封装
  * Create by hyk
  */
 public class SGDropDownInfoBean {
@@ -31,7 +31,7 @@ public class SGDropDownInfoBean {
     public Boolean hasShadowBg = true;
     // 依附于那个View
     public View atView = null;
-    // 动画执行器，如果不指定，则会根据窗体类型popupType字段生成默认合适的动画执行器
+    // 动画执行器，如果不指定，则会根据窗体类型dropDownType字段生成默认合适的动画执行器
     public SGDropDownAnimation SGDropDownAnimation = null;
     public DropDownAnimator customAnimator = null;
     // 触摸的点

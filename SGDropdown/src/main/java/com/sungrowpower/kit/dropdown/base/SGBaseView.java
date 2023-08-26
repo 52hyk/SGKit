@@ -183,11 +183,11 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
             shadowBgAnimator = new ShadowBgAnimator(this, getAnimationDuration(), getShadowBgColor());
         }
 
-        //1. 初始化Popup
+        //1. 初始化DropDown
         if (this instanceof SGDropDownBaseView) {
-            initPopupContent();
+            initDropDownContent();
         } else if (!isCreated) {
-            initPopupContent();
+            initDropDownContent();
         }
         if (!isCreated) {
             isCreated = true;
@@ -228,8 +228,8 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
             dropDownAnimator = SGDropDownInfoBean.customAnimator;
             dropDownAnimator.targetView = getDropDownContentView();
         } else {
-            // 根据SGDropDownInfo的popupAnimation字段来生成对应的动画执行器，如果popupAnimation字段为null，则返回null
-            dropDownAnimator = genAnimatorByPopupType();
+            // 根据SGDropDownInfo的dropDownAnimation字段来生成对应的动画执行器，如果dropDownAnimation字段为null，则返回null
+            dropDownAnimator = genAnimatorByDropDownType();
             if (dropDownAnimator == null) {
                 dropDownAnimator = getPopupAnimator();
             }
@@ -321,7 +321,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
     /**
      * 根据DropDownInfo的DropDownAnimation字段来生成对应的内置的动画执行器
      */
-    protected DropDownAnimator genAnimatorByPopupType() {
+    protected DropDownAnimator genAnimatorByDropDownType() {
         if (SGDropDownInfoBean == null || SGDropDownInfoBean.SGDropDownAnimation == null) {
             return null;
         }
@@ -389,7 +389,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
     /**
      * 请使用onCreate，主要给弹窗内部用，不要去重写。
      */
-    protected void initPopupContent() {
+    protected void initDropDownContent() {
     }
 
     /**

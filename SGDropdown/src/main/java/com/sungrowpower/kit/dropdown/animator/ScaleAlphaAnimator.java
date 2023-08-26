@@ -34,7 +34,7 @@ public class ScaleAlphaAnimator extends DropDownAnimator {
     }
 
     /**
-     * 根据不同的PopupAnimation来设定对应的pivot
+     * 根据不同的DropDownAnimation来设定对应的pivot
      */
     private void applyPivot() {
         switch (SGDropDownAnimation) {

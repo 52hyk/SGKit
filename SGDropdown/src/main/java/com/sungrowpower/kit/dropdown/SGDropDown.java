@@ -202,7 +202,7 @@ public class SGDropDown {
         }
 
         /**
-         * 设置高度，如果重写了弹窗的getPopupHeight，则以重写的为准
+         * 设置高度，如果重写了弹窗的getDropDownHeight，则以重写的为准
          * 并且受最大高度限制
          *
          * @param height

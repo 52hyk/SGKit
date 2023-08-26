@@ -45,7 +45,7 @@ public abstract class SGDropDownBaseView extends SGBaseView {
     }
 
     @Override
-    protected void initPopupContent() {
+    protected void initDropDownContent() {
         if (sgDropDownContainer.getChildCount() == 0) {
             addInnerContent();
         }

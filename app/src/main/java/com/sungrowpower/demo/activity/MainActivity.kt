@@ -57,6 +57,7 @@ class MainActivity : Activity() {
             SGDropDown.Builder(this@MainActivity)
                 .atView(v)
                 .setOptions(data as List<Any>?)
+                .dismissOnBackPressed(false)
                 .dropDownPosition(DropDownPosition.Bottom)
                 .setOnClickOptionListener(object :SGOnClickOptionListener{
 
