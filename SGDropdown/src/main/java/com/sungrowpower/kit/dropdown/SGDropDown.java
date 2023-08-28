@@ -72,8 +72,6 @@ public class SGDropDown {
 
         public Builder(Context context) {
             this.context = context;
-//            SGKit.getInstance().setContext(context);
-
         }
 
 
