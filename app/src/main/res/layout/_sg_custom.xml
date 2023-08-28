@@ -11,7 +11,7 @@
        android:layout_height="wrap_content"
        android:text="Here is the dropdown box content"
        android:textSize="@dimen/sgkit_textSize_12"
-       android:padding="@dimen/sgkit_textSize_12"
+       android:padding="@dimen/sgkit_textSize_16"
        />
 
 </LinearLayout>

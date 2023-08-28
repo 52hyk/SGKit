@@ -27,6 +27,35 @@ public class SGDropDownColorMap {
      */
     public int fontIconTextSize =SGKit.getInstance().getContext().getResources().getDimensionPixelSize(R.dimen.sgkit_textSize_16);
 
+    //动画时间
+    public static int animationDuration = 300;
+    //50%的透明度
+    public static int shadowBgColor = Color.parseColor("#7F000000");
+
+    public static void setShadowBgColor(int color) {
+        shadowBgColor = color;
+    }
+
+    public static int getShadowBgColor() {
+        return shadowBgColor;
+    }
+
+
+    /**
+     * 设置全局动画时长
+     *
+     * @param duration
+     */
+    public static void setAnimationDuration(int duration) {
+        if (duration >= 0) {
+            animationDuration = duration;
+        }
+    }
+
+    public static int getAnimationDuration() {
+        return animationDuration;
+    }
+
     private static class Holder {
         private static final SGDropDownColorMap INSTANCE = new SGDropDownColorMap();
     }

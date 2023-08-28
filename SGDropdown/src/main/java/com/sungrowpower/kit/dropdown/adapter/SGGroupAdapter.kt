@@ -12,6 +12,7 @@ import com.sungrowpower.kit.R
 import com.sungrowpower.kit.dropdown.bean.SGDropDownInfoBean
 import com.sungrowpower.kit.dropdown.bean.SGGroupDataBean
 import com.sungrowpower.kit.dropdown.interfaces.SGGroupOnClickListener
+import com.sungrowpower.kit.dropdown.util.SGDropDownUtils
 
 /**
  * 创建日期：2023/8/25 on 9:28
@@ -33,6 +34,8 @@ class SGGroupAdapter(mData:MutableList<SGGroupDataBean>, var sgDropDownInfoBean:
         }
 
         holder.getView<RecyclerView>(R.id.rv).layoutManager=GridLayoutManager(context,3)
+        val params = holder.getView<RecyclerView>(R.id.rv).layoutParams as ViewGroup.MarginLayoutParams
+        params.bottomMargin = SGDropDownUtils.dp2px(context, 4F)
         holder.getView<RecyclerView>(R.id.rv).adapter=SGColumnAdapter(item!!.childData,sgDropDownInfoBean).apply {
             setOnItemClickListener { adapter, view, position ->
                 if (item.childData[position].isDisabled) {

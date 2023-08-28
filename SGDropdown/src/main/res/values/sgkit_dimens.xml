@@ -17,5 +17,7 @@
   <dimen name="sgkit_4dp">4dp</dimen>
   <dimen name="sgkit_6dp">6dp</dimen>
   <dimen name="sgkit_8dp">8dp</dimen>
+  <dimen name="sgkit_12dp">12dp</dimen>
+  <dimen name="sgkit_16dp">16dp</dimen>
   <dimen name="sgkit_18dp">18dp</dimen>
 </resources>
