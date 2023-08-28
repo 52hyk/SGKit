@@ -65,35 +65,6 @@ public class SGDropDown {
         return animationDuration;
     }
 
-    /**
-     * 在长按弹出弹窗后，能保证下层View不能滑动
-     *
-     * @param v
-     */
-    public static PointF longClickPoint = null;
-
-    public static void fixLongClick(View v) {
-        v.setOnTouchListener(new View.OnTouchListener() {
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    longClickPoint = new PointF(event.getRawX(), event.getRawY());
-                }
-                if ("dropdown".equals(v.getTag()) && event.getAction() == MotionEvent.ACTION_MOVE) {
-                    //长按发送，阻断父View拦截
-                    v.getParent().requestDisallowInterceptTouchEvent(true);
-                }
-                if (event.getAction() == MotionEvent.ACTION_UP) {
-                    //长按结束，恢复阻断
-                    v.getParent().requestDisallowInterceptTouchEvent(false);
-                    v.setTag(null);
-                }
-                return false;
-            }
-        });
-        v.setTag("dropdown");
-    }
 
     public static class Builder {
         private final SGDropDownInfoBean SGDropDownInfoBean = new SGDropDownInfoBean();
@@ -182,11 +153,11 @@ public class SGDropDown {
         /**
          * 为弹窗设置内置的动画器，默认情况下，已经为每种弹窗设置了效果最佳的动画器；如果你不喜欢，仍然可以修改。
          *
-         * @param SGDropDownAnimation
+         * @param sGDropDownAnimation
          * @return
          */
-        public Builder dropDownAnimation(SGDropDownAnimation SGDropDownAnimation) {
-            this.SGDropDownInfoBean.SGDropDownAnimation = SGDropDownAnimation;
+        public Builder dropDownAnimation(SGDropDownAnimation sGDropDownAnimation) {
+            this.SGDropDownInfoBean.sGDropDownAnimation = sGDropDownAnimation;
             return this;
         }
 
@@ -382,11 +353,11 @@ public class SGDropDown {
         /**
          * 设置弹窗显示和隐藏的回调监听
          *
-         * @param SGDropDownCallback
+         * @param sGDropDownCallback
          * @return
          */
-        public Builder setDropDownViewCallback(SGDropDownCallback SGDropDownCallback) {
-            this.SGDropDownInfoBean.SGDropDownCallback = SGDropDownCallback;
+        public Builder setDropDownViewCallback(SGDropDownCallback sGDropDownCallback) {
+            this.SGDropDownInfoBean.sGDropDownCallback = sGDropDownCallback;
             return this;
         }
 

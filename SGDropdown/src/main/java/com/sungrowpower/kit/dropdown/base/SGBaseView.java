@@ -110,8 +110,8 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
                 @Override
                 public void onSoftInputChanged(int height) {
                     onKeyboardHeightChange(height);
-                    if (SGDropDownInfoBean != null && SGDropDownInfoBean.SGDropDownCallback != null) {
-                        SGDropDownInfoBean.SGDropDownCallback.onKeyBoardStateChanged(SGBaseView.this, height);
+                    if (SGDropDownInfoBean != null && SGDropDownInfoBean.sGDropDownCallback != null) {
+                        SGDropDownInfoBean.sGDropDownCallback.onKeyBoardStateChanged(SGBaseView.this, height);
                     }
                     if (height == 0) { // 说明输入法隐藏
                         SGDropDownUtils.moveDown(SGBaseView.this);
@@ -198,8 +198,8 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
             isCreated = true;
             onCreate();
             lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_CREATE);
-            if (SGDropDownInfoBean.SGDropDownCallback != null) {
-                SGDropDownInfoBean.SGDropDownCallback.onCreated(this);
+            if (SGDropDownInfoBean.sGDropDownCallback != null) {
+                SGDropDownInfoBean.sGDropDownCallback.onCreated(this);
             }
         }
         handler.postDelayed(initTask, 10);
@@ -217,8 +217,8 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
             if (getHostWindow() == null) {
                 return;
             }
-            if (SGDropDownInfoBean.SGDropDownCallback != null) {
-                SGDropDownInfoBean.SGDropDownCallback.beforeShow(SGBaseView.this);
+            if (SGDropDownInfoBean.sGDropDownCallback != null) {
+                SGDropDownInfoBean.sGDropDownCallback.beforeShow(SGBaseView.this);
             }
             beforeShow();
             lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_START);
@@ -279,8 +279,8 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
             onShow();
 
 
-            if (SGDropDownInfoBean != null && SGDropDownInfoBean.SGDropDownCallback != null) {
-                SGDropDownInfoBean.SGDropDownCallback.onShow(SGBaseView.this);
+            if (SGDropDownInfoBean != null && SGDropDownInfoBean.sGDropDownCallback != null) {
+                SGDropDownInfoBean.sGDropDownCallback.onShow(SGBaseView.this);
             }
             //再次检测移动距离
             if (getHostWindow() != null && SGDropDownUtils.getDecorViewInvisibleHeight(getHostWindow()) > 0 && !hasMoveUp) {
@@ -308,7 +308,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
     protected boolean processKeyEvent(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP && SGDropDownInfoBean != null) {
             if (SGDropDownInfoBean.isDismissOnBackPressed &&
-                    (SGDropDownInfoBean.SGDropDownCallback == null || !SGDropDownInfoBean.SGDropDownCallback.onBackPressed(SGBaseView.this))) {
+                    (SGDropDownInfoBean.sGDropDownCallback == null || !SGDropDownInfoBean.sGDropDownCallback.onBackPressed(SGBaseView.this))) {
                 dismissOrHideSoftInput();
             }
             return true;
@@ -327,28 +327,28 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
      * 根据DropDownInfo的DropDownAnimation字段来生成对应的内置的动画执行器
      */
     protected DropDownAnimator genAnimatorByDropDownType() {
-        if (SGDropDownInfoBean == null || SGDropDownInfoBean.SGDropDownAnimation == null) {
+        if (SGDropDownInfoBean == null || SGDropDownInfoBean.sGDropDownAnimation == null) {
             return null;
         }
-        switch (SGDropDownInfoBean.SGDropDownAnimation) {
+        switch (SGDropDownInfoBean.sGDropDownAnimation) {
             case ScaleAlphaFromCenter:
             case ScaleAlphaFromLeftTop:
             case ScaleAlphaFromRightTop:
             case ScaleAlphaFromLeftBottom:
             case ScaleAlphaFromRightBottom:
-                return new ScaleAlphaAnimator(getDropDownContentView(), getAnimationDuration(), SGDropDownInfoBean.SGDropDownAnimation);
+                return new ScaleAlphaAnimator(getDropDownContentView(), getAnimationDuration(), SGDropDownInfoBean.sGDropDownAnimation);
 
             case TranslateAlphaFromLeft:
             case TranslateAlphaFromTop:
             case TranslateAlphaFromRight:
             case TranslateAlphaFromBottom:
-                return new TranslateAlphaAnimator(getDropDownContentView(), getAnimationDuration(), SGDropDownInfoBean.SGDropDownAnimation);
+                return new TranslateAlphaAnimator(getDropDownContentView(), getAnimationDuration(), SGDropDownInfoBean.sGDropDownAnimation);
 
             case TranslateFromLeft:
             case TranslateFromTop:
             case TranslateFromRight:
             case TranslateFromBottom:
-                return new TranslateAnimator(getDropDownContentView(), getAnimationDuration(), SGDropDownInfoBean.SGDropDownAnimation);
+                return new TranslateAnimator(getDropDownContentView(), getAnimationDuration(), SGDropDownInfoBean.sGDropDownAnimation);
 
             case ScrollAlphaFromLeft:
             case ScrollAlphaFromLeftTop:
@@ -358,7 +358,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
             case ScrollAlphaFromRightBottom:
             case ScrollAlphaFromBottom:
             case ScrollAlphaFromLeftBottom:
-                return new ScrollScaleAnimator(getDropDownContentView(), getAnimationDuration(), SGDropDownInfoBean.SGDropDownAnimation);
+                return new ScrollScaleAnimator(getDropDownContentView(), getAnimationDuration(), SGDropDownInfoBean.sGDropDownAnimation);
 
             case NoAnimation:
                 return new EmptyAnimator(getDropDownContentView(), getAnimationDuration());
@@ -455,7 +455,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
         if (SGDropDownInfoBean == null) {
             return 0;
         }
-        if (SGDropDownInfoBean.SGDropDownAnimation == NoAnimation) {
+        if (SGDropDownInfoBean.sGDropDownAnimation == NoAnimation) {
             return 1;
         }
         return SGDropDownInfoBean.animationDuration >= 0 ? SGDropDownInfoBean.animationDuration : SGDropDown.getAnimationDuration() + 1;
@@ -517,8 +517,8 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
         }
         dropDownStatus = DropDownStatus.Dismissing;
         clearFocus();
-        if (SGDropDownInfoBean != null && SGDropDownInfoBean.SGDropDownCallback != null) {
-            SGDropDownInfoBean.SGDropDownCallback.beforeDismiss(this);
+        if (SGDropDownInfoBean != null && SGDropDownInfoBean.sGDropDownCallback != null) {
+            SGDropDownInfoBean.sGDropDownCallback.beforeDismiss(this);
         }
         beforeDismiss();
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_PAUSE);
@@ -576,9 +576,9 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
                 SGKeyboardUtils.hideSoftInput(SGBaseView.this);
             }
             onDismiss();
-            SGDropDown.longClickPoint = null;
-            if (SGDropDownInfoBean.SGDropDownCallback != null) {
-                SGDropDownInfoBean.SGDropDownCallback.onDismiss(SGBaseView.this);
+           // SGDropDown.longClickPoint = null;
+            if (SGDropDownInfoBean.sGDropDownCallback != null) {
+                SGDropDownInfoBean.sGDropDownCallback.onDismiss(SGBaseView.this);
             }
             if (dismissWithRunnable != null) {
                 dismissWithRunnable.run();
@@ -693,7 +693,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY);
         if (SGDropDownInfoBean != null) {
             SGDropDownInfoBean.atView = null;
-            SGDropDownInfoBean.SGDropDownCallback = null;
+            SGDropDownInfoBean.sGDropDownCallback = null;
             SGDropDownInfoBean.hostLifecycle = null;
             if (SGDropDownInfoBean.customAnimator != null && SGDropDownInfoBean.customAnimator.targetView != null) {
                 SGDropDownInfoBean.customAnimator.targetView.animate().cancel();

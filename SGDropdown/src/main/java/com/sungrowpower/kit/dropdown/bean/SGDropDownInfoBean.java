@@ -32,7 +32,7 @@ public class SGDropDownInfoBean {
     // 依附于那个View
     public View atView = null;
     // 动画执行器，如果不指定，则会根据窗体类型dropDownType字段生成默认合适的动画执行器
-    public SGDropDownAnimation SGDropDownAnimation = null;
+    public SGDropDownAnimation sGDropDownAnimation = null;
     public DropDownAnimator customAnimator = null;
     // 触摸的点
     public PointF touchPoint = null;
@@ -40,11 +40,13 @@ public class SGDropDownInfoBean {
     public int maxWidth;
     // 最大高度
     public int maxHeight;
-    // 指定弹窗的宽高，受max的宽高限制
-    public int dropDownWidth, dropDownHeight;
+    // 指定弹窗的宽，受max的宽高限制
+    public int dropDownWidth;
+    // 指定弹窗的高，受max的宽高限制
+    public int dropDownHeight;
     //是否自动打开输入法
     public Boolean autoOpenSoftInput = false;
-    public SGDropDownCallback SGDropDownCallback;
+    public SGDropDownCallback sGDropDownCallback;
     //是否移动到软键盘上面，默认弹窗会移到软键盘上面
     public Boolean isMoveUpToKeyboard = true;
     //弹窗出现在目标的什么位置
