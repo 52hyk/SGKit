@@ -37,7 +37,23 @@ class MainActivity : Activity() {
         SGSimpleDataBean("option", false, false),
         SGSimpleDataBean("option", true, false),
         SGSimpleDataBean("option", true, false))
-    private val groupData = mutableListOf(SGGroupDataBean("Group1", data))
+    private val data2 = mutableListOf(SGSimpleDataBean("option", false, true),
+        SGSimpleDataBean("option", false, false),
+        SGSimpleDataBean("option", false, false),
+        SGSimpleDataBean("option", true, false),
+        SGSimpleDataBean("option", true, false))
+    private val data3 = mutableListOf(SGSimpleDataBean("option", false, true),
+        SGSimpleDataBean("option", false, false),
+        SGSimpleDataBean("option", false, false),
+        SGSimpleDataBean("option", true, false),
+        SGSimpleDataBean("option", true, false))
+    private val data4 = mutableListOf(SGSimpleDataBean("option", false, true),
+        SGSimpleDataBean("option", false, false),
+        SGSimpleDataBean("option", false, false),
+        SGSimpleDataBean("option", true, false),
+        SGSimpleDataBean("option", true, false))
+
+    private val groupData = mutableListOf(SGGroupDataBean("Group1", data4))
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -83,7 +99,7 @@ class MainActivity : Activity() {
             SGDropDown.Builder(this@MainActivity)
                 .atView(v)
                 .setUseColumn(3)
-                .setOptions(data as List<Any>?)
+                .setOptions(data2 as List<Any>?)
                 .setMultiple(false)
                 .dropDownPosition(DropDownPosition.Bottom)
                 .customView(SGBuiltDropDownView(this@MainActivity))
@@ -93,7 +109,7 @@ class MainActivity : Activity() {
         findViewById<View>(R.id.tv_click3).setOnClickListener { v ->
             SGDropDown.Builder(this@MainActivity)
                 .atView(v)
-                .setOptions(data as List<Any>?)
+                .setOptions(data3 as List<Any>?)
                 .dropDownPosition(DropDownPosition.Top)
                 .dropDownView()
                 .show()
@@ -102,7 +118,6 @@ class MainActivity : Activity() {
         findViewById<View>(R.id.tv_click4).setOnClickListener { v ->
             SGDropDown.Builder(this@MainActivity)
                 .atView(v)
-                .setOptions(groupData as List<Any>?)
                 .dropDownHeight(300)
                 .dropDownPosition(DropDownPosition.Bottom)
                 .customView(CustomDropDown(this@MainActivity))
