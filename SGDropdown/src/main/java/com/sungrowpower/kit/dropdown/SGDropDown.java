@@ -409,8 +409,8 @@ public class SGDropDown {
          * @param sgKitTextColor
          * @return
          */
-        public Builder setSgFontIconColor(int sgKitTextColor){
-            this.sgDropDownInfoBean.setSgFontIconColor(sgKitTextColor);
+        public Builder setSgFontIconTextColor(int sgKitTextColor){
+            this.sgDropDownInfoBean.setSgFontIconTextColor(sgKitTextColor);
             return this;
         }
         /**
@@ -420,6 +420,17 @@ public class SGDropDown {
          */
         public Builder setSgFontIconTextSize(float sgKitTextSize){
             this.sgDropDownInfoBean.setSgFontIconTextSize(sgKitTextSize);
+            return this;
+        }
+
+
+        /**
+         * 设置FontIcon的Text
+         * @param sgFontIconText
+         * @return
+         */
+        public Builder setSgFontIconText(CharSequence sgFontIconText){
+            this.sgDropDownInfoBean.setSgFontIconText(sgFontIconText);
             return this;
         }
 

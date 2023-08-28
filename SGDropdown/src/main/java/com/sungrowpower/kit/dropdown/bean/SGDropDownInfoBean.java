@@ -90,7 +90,18 @@ public class SGDropDownInfoBean {
     //设置fontIcon文本大小
     private float sgFontIconTextSize = SGDropDownColorMap.getInstance().fontIconTextSize;
     //设置fontIcon文本颜色
-    private int sgFontIconColor = SGDropDownColorMap.getInstance().fontIconTextColor;
+    private int sgFontIconTextColor = SGDropDownColorMap.getInstance().fontIconTextColor;
+
+    //设置fontIcon Text文本，支持富文本
+    private CharSequence sgFontIconText = "&#xe98d;";
+
+    public CharSequence getSgFontIconText() {
+        return sgFontIconText;
+    }
+
+    public void setSgFontIconText(CharSequence sgFontIconText) {
+        this.sgFontIconText = sgFontIconText;
+    }
 
     public float getSgFontIconTextSize() {
         return sgFontIconTextSize;
@@ -100,12 +111,12 @@ public class SGDropDownInfoBean {
         this.sgFontIconTextSize = sgFontIconTextSize;
     }
 
-    public int getSgFontIconColor() {
-        return sgFontIconColor;
+    public int getSgFontIconTextColor() {
+        return sgFontIconTextColor;
     }
 
-    public void setSgFontIconColor(int sgFontIconColor) {
-        this.sgFontIconColor = sgFontIconColor;
+    public void setSgFontIconTextColor(int sgFontIconColor) {
+        this.sgFontIconTextColor = sgFontIconColor;
     }
 
     public CharSequence getSgKitText() {

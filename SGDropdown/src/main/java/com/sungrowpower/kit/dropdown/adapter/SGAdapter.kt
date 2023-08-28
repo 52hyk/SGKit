@@ -31,8 +31,9 @@ class SGAdapter(mData:MutableList<SGSimpleDataBean>, var sgDropDownInfoBean:SGDr
             holder.setText(R.id.tv_name,item!!.label)
         }
 
-        holder.getView<TextView>(R.id.sg_font).setTextSize(TypedValue.COMPLEX_UNIT_PX, sgDropDownInfoBean.sgFontIconTextSize);
-        holder.getView<TextView>(R.id.sg_font).setTextColor(sgDropDownInfoBean.sgFontIconColor)
+        holder.getView<TextView>(R.id.sg_font).setTextSize(TypedValue.COMPLEX_UNIT_PX, sgDropDownInfoBean.sgFontIconTextSize)
+        holder.getView<TextView>(R.id.sg_font).setTextColor(sgDropDownInfoBean.sgFontIconTextColor)
+        holder.getView<TextView>(R.id.sg_font).setText(sgDropDownInfoBean.sgFontIconText)
 
         if (item!!.isChecked){
             holder.getView<SGFontIcon>(R.id.sg_font).visibility=View.VISIBLE
