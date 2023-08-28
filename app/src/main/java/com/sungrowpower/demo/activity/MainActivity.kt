@@ -31,28 +31,36 @@ import com.sungrowpower.kit.dropdown.view.SGBuiltDropDownView
  */
 class MainActivity : Activity() {
 
-    private val data = mutableListOf(SGSimpleDataBean("option", false, true),
+    private val data = mutableListOf(
+        SGSimpleDataBean("option", false, true),
         SGSimpleDataBean("option", false, false),
         SGSimpleDataBean("option", false, false),
         SGSimpleDataBean("option", true, false),
         SGSimpleDataBean("option", true, false))
-    private val data2 = mutableListOf(SGSimpleDataBean("option", false, true),
+    private val data2 = mutableListOf(
+        SGSimpleDataBean("option", false, true),
         SGSimpleDataBean("option", false, false),
         SGSimpleDataBean("option", false, false),
         SGSimpleDataBean("option", true, false),
         SGSimpleDataBean("option", true, false))
-    private val data3 = mutableListOf(SGSimpleDataBean("option", false, true),
+    private val data3 = mutableListOf(
+        SGSimpleDataBean("option", false, true),
         SGSimpleDataBean("option", false, false),
         SGSimpleDataBean("option", false, false),
         SGSimpleDataBean("option", true, false),
         SGSimpleDataBean("option", true, false))
-    private val data4 = mutableListOf(SGSimpleDataBean("option", false, true),
+    private val data4 = mutableListOf(
+        SGSimpleDataBean("option", false, true),
         SGSimpleDataBean("option", false, false),
         SGSimpleDataBean("option", false, false),
         SGSimpleDataBean("option", true, false),
         SGSimpleDataBean("option", true, false))
 
-    private val groupData = mutableListOf(SGGroupDataBean("Group1", data4))
+    private val mData1 = mutableListOf(SGGroupDataBean( data,false))
+    private val mData2 = mutableListOf(SGGroupDataBean( data2,false))
+    private val mData3 = mutableListOf(SGGroupDataBean( data3,false))
+
+    private val groupData = mutableListOf(SGGroupDataBean("Group1", data4,true))
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,7 +79,7 @@ class MainActivity : Activity() {
         findViewById<View>(R.id.tv_click).setOnClickListener { v ->
             SGDropDown.Builder(this@MainActivity)
                 .atView(v)
-                .setOptions(data as List<Any>?)
+                .setOptions(mData1 as List<Any>?)
                 .dismissOnBackPressed(false)
                 .dropDownPosition(DropDownPosition.Bottom)
                 .setOnClickOptionListener(object :SGOnClickOptionListener{
@@ -101,7 +109,7 @@ class MainActivity : Activity() {
             SGDropDown.Builder(this@MainActivity)
                 .atView(v)
                 .setUseColumn(3)
-                .setOptions(data2 as List<Any>?)
+                .setOptions(mData2 as List<Any>?)
                 .setMultiple(false)
                 .dropDownPosition(DropDownPosition.Bottom)
                 .customView(SGBuiltDropDownView(this@MainActivity))
@@ -111,7 +119,7 @@ class MainActivity : Activity() {
         findViewById<View>(R.id.tv_click3).setOnClickListener { v ->
             var sgDropDownInfoBean= SGDropDownInfoBean()
             sgDropDownInfoBean.atView=v
-            sgDropDownInfoBean.options=data3 as List<Any>?
+            sgDropDownInfoBean.options=mData3 as List<Any>?
             sgDropDownInfoBean.dropDownPosition=DropDownPosition.Top
 
             SGDropDown.Builder(this@MainActivity)

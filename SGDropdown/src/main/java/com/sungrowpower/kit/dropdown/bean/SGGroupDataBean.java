@@ -10,10 +10,25 @@ import java.util.List;
 public class SGGroupDataBean {
     private String title;
     private List<SGSimpleDataBean> childData;
+    private boolean isGroup=false;
 
-    public SGGroupDataBean(String title, List<SGSimpleDataBean> childData) {
+    public boolean isGroup() {
+        return isGroup;
+    }
+
+    public void setGroup(boolean group) {
+        isGroup = group;
+    }
+
+    public SGGroupDataBean(List<SGSimpleDataBean> childData, boolean isGroup) {
+        this.childData = childData;
+        this.isGroup = isGroup;
+    }
+
+    public SGGroupDataBean(String title, List<SGSimpleDataBean> childData, boolean isGroup) {
         this.title = title;
         this.childData = childData;
+        this.isGroup=isGroup;
     }
 
     @Override
