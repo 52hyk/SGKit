@@ -1,7 +1,9 @@
 package com.sungrowpower.kit.dropdown.adapter
 
 import android.content.Context
+import android.util.TypedValue
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -19,9 +21,19 @@ import com.sungrowpower.kit.dropdown.interfaces.SGGroupOnClickListener
 class MyGroupAdapter(mData:MutableList<SGGroupDataBean>,var sgDropDownInfoBean: SGDropDownInfoBean):
     BaseQuickAdapter<SGGroupDataBean, QuickViewHolder>(mData) {
     override fun onBindViewHolder(holder: QuickViewHolder, position: Int, item: SGGroupDataBean?) {
-        holder.setText(R.id.tv_name,item!!.title)
+        //holder.setText(R.id.tv_name,item!!.title)
+        holder.getView<TextView>(R.id.tv_name).setTextSize(TypedValue.COMPLEX_UNIT_PX, sgDropDownInfoBean.sgKitTextSize);
+        holder.getView<TextView>(R.id.tv_name).setTextColor(sgDropDownInfoBean.sgKitTextColor)
+        holder.getView<TextView>(R.id.tv_name).typeface = sgDropDownInfoBean.sgKitTypeface
+
+        if (sgDropDownInfoBean.sgKitText.isNullOrEmpty()){
+            holder.setText(R.id.tv_name,sgDropDownInfoBean.sgKitText)
+        }else{
+            holder.setText(R.id.tv_name,item!!.title)
+        }
+
         holder.getView<RecyclerView>(R.id.rv).layoutManager=GridLayoutManager(context,3)
-        holder.getView<RecyclerView>(R.id.rv).adapter=MyColumnAdapter(item.childData).apply {
+        holder.getView<RecyclerView>(R.id.rv).adapter=MyColumnAdapter(item!!.childData,sgDropDownInfoBean).apply {
             setOnItemClickListener { adapter, view, position ->
                 if (item.childData[position].isDisabled) {
                     return@setOnItemClickListener

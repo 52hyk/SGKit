@@ -14,13 +14,12 @@ import android.widget.Toast
 import com.sungrowpower.demo.R
 import com.sungrowpower.demo.dropdown.CustomDropDown
 import com.sungrowpower.kit.dropdown.SGDropDown
-import com.sungrowpower.kit.dropdown.base.SGBaseView
+import com.sungrowpower.kit.dropdown.SGKit
+import com.sungrowpower.kit.dropdown.bean.SGDropDownInfoBean
 import com.sungrowpower.kit.dropdown.bean.SGGroupBackDataBean
 import com.sungrowpower.kit.dropdown.bean.SGGroupDataBean
 import com.sungrowpower.kit.dropdown.bean.SGSimpleDataBean
 import com.sungrowpower.kit.dropdown.enums.DropDownPosition
-import com.sungrowpower.kit.dropdown.enums.SGDropDownAnimation
-import com.sungrowpower.kit.dropdown.interfaces.SGDropDownCallback
 import com.sungrowpower.kit.dropdown.interfaces.SGOnClickOptionListener
 import com.sungrowpower.kit.dropdown.view.SGBuiltDropDownView
 
@@ -59,7 +58,7 @@ class MainActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_main)
-
+        SGKit.getInstance().context = application
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             val window: Window = window
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
@@ -77,7 +76,10 @@ class MainActivity : Activity() {
                 .dropDownPosition(DropDownPosition.Bottom)
                 .setOnClickOptionListener(object :SGOnClickOptionListener{
 
-                    override fun selectedValue(columnData: MutableList<Int>?, groupBackDataBeanList: MutableList<SGGroupBackDataBean>?, ) {
+                    override fun selectedValue(
+                        columnData: MutableList<Int>?,
+                        groupBackDataBeanList: MutableList<SGGroupBackDataBean>?
+                    ) {
 
                     }
 
@@ -107,10 +109,13 @@ class MainActivity : Activity() {
         }
 
         findViewById<View>(R.id.tv_click3).setOnClickListener { v ->
+            var sgDropDownInfoBean= SGDropDownInfoBean()
+            sgDropDownInfoBean.atView=v
+            sgDropDownInfoBean.options=data3 as List<Any>?
+            sgDropDownInfoBean.dropDownPosition=DropDownPosition.Top
+
             SGDropDown.Builder(this@MainActivity)
-                .atView(v)
-                .setOptions(data3 as List<Any>?)
-                .dropDownPosition(DropDownPosition.Top)
+                .setDropDownAttrs(sgDropDownInfoBean)
                 .dropDownView()
                 .show()
 
@@ -131,7 +136,10 @@ class MainActivity : Activity() {
                 .dropDownPosition(DropDownPosition.Bottom)
                 .setOnClickOptionListener(object :SGOnClickOptionListener{
 
-                    override fun selectedValue(columnData: MutableList<Int>?, groupBackDataBeanList: MutableList<SGGroupBackDataBean>?, ) {
+                    override fun selectedValue(
+                        columnData: MutableList<Int>?,
+                        groupBackDataBeanList: MutableList<SGGroupBackDataBean>?
+                    ) {
                         Log.i("changer-value", groupBackDataBeanList.toString())
                     }
 

@@ -2,11 +2,13 @@ package com.sungrowpower.kit.dropdown.adapter
 
 import android.content.Context
 import android.graphics.Color
+import android.util.TypedValue
 import android.view.ViewGroup
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.QuickViewHolder
 import com.sungrowpower.kit.R
+import com.sungrowpower.kit.dropdown.bean.SGDropDownInfoBean
 import com.sungrowpower.kit.dropdown.bean.SGSimpleDataBean
 
 /**
@@ -14,10 +16,20 @@ import com.sungrowpower.kit.dropdown.bean.SGSimpleDataBean
  * 描述:
  * 作者:hyk
  */
-class MyColumnAdapter(mData:MutableList<SGSimpleDataBean>):BaseQuickAdapter<SGSimpleDataBean, QuickViewHolder>(mData) {
+class MyColumnAdapter(mData:MutableList<SGSimpleDataBean>,var sgDropDownInfoBean:SGDropDownInfoBean):BaseQuickAdapter<SGSimpleDataBean, QuickViewHolder>(mData) {
     override fun onBindViewHolder(holder: QuickViewHolder, position: Int, item: SGSimpleDataBean?) {
-        holder.setText(R.id.tv_name,item!!.label)
-        if (item.isChecked){
+       // holder.getView<TextView>(R.id.tv_name).text=sgDropDownInfoBean.sgKitText
+        holder.getView<TextView>(R.id.tv_name).setTextSize(TypedValue.COMPLEX_UNIT_PX, sgDropDownInfoBean.sgKitTextSize);
+        holder.getView<TextView>(R.id.tv_name).setTextColor(sgDropDownInfoBean.sgKitTextColor)
+        holder.getView<TextView>(R.id.tv_name).typeface = sgDropDownInfoBean.sgKitTypeface
+
+        if (sgDropDownInfoBean.sgKitText.isNullOrEmpty()){
+            holder.setText(R.id.tv_name,sgDropDownInfoBean.sgKitText)
+        }else{
+            holder.setText(R.id.tv_name,item!!.label)
+        }
+
+        if (item!!.isChecked){
             holder.getView<TextView>(R.id.tv_name).setBackgroundResource(R.drawable.selected_bg)
             holder.getView<TextView>(R.id.tv_name).setTextColor(context.resources.getColor(R.color.sgkit_brand_routine))
         }else{

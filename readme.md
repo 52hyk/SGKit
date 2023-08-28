@@ -18,6 +18,10 @@
 | notDismissWhenTouchInArea | 当触摸在这个区域时，不消失   | ArrayList<Rect> | null |
 | useColumn | 使用多列标签样式     | int          | 3     |
 | multiple | 是否支持多选       | boolean      | false |
+| sgKitText | 设置Text文本，支持富文本 | CharSequence | 内容 |
+| sgKitTextSize | 设置Title文本大小 | float | 18sp |
+| sgKitTextColor | 设置Title文本颜色 | int | #222222 |
+| sgKitTypeface | 设置Title文本Typeface(如“加粗”) | Typeface | Typeface.DEFAULT |
 
 ## 内置UI方法，不适用自定义UI
 | 方法名 | 描述 | 返回类形 | 型默认值 |

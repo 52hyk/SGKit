@@ -3,6 +3,7 @@ package com.sungrowpower.kit.dropdown;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PointF;
+import android.graphics.Typeface;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -64,16 +65,15 @@ public class SGDropDown {
     }
     private final SGDropDownInfoBean sgDropDownInfoBean = new SGDropDownInfoBean();
 
-    private void setAttrs(Builder builder) {
-        sgDropDownInfoBean.setDismissOnBackPressed(builder.SGDropDownInfoBean.getDismissOnBackPressed());
 
-    }
     public static class Builder {
-        private final SGDropDownInfoBean SGDropDownInfoBean = new SGDropDownInfoBean();
+        private  SGDropDownInfoBean sgDropDownInfoBean = new SGDropDownInfoBean();
         private Context context;
 
         public Builder(Context context) {
             this.context = context;
+//            SGKit.getInstance().setContext(context);
+
         }
 
 
@@ -84,7 +84,7 @@ public class SGDropDown {
          * @return
          */
         public Builder dismissOnBackPressed(Boolean isDismissOnBackPressed) {
-            this.SGDropDownInfoBean.setDismissOnBackPressed(isDismissOnBackPressed);
+            this.sgDropDownInfoBean.setDismissOnBackPressed(isDismissOnBackPressed);
             return this;
         }
 
@@ -95,7 +95,7 @@ public class SGDropDown {
          * @return
          */
         public Builder dismissOnTouchOutside(Boolean isDismissOnTouchOutside) {
-            this.SGDropDownInfoBean.setDismissOnTouchOutside(isDismissOnTouchOutside);
+            this.sgDropDownInfoBean.setDismissOnTouchOutside(isDismissOnTouchOutside);
             return this;
         }
 
@@ -106,7 +106,7 @@ public class SGDropDown {
          * @return
          */
         public Builder autoDismiss(Boolean autoDismiss) {
-            this.SGDropDownInfoBean.setAutoDismiss(autoDismiss) ;
+            this.sgDropDownInfoBean.setAutoDismiss(autoDismiss) ;
             return this;
         }
 
@@ -117,7 +117,7 @@ public class SGDropDown {
          * @return
          */
         public Builder hasShadowBg(Boolean hasShadowBg) {
-            this.SGDropDownInfoBean.setHasShadowBg(hasShadowBg) ;
+            this.sgDropDownInfoBean.setHasShadowBg(hasShadowBg) ;
             return this;
         }
 
@@ -129,7 +129,7 @@ public class SGDropDown {
          * @return
          */
         public Builder atView(View atView) {
-            SGDropDownInfoBean.setAtView(atView);
+            sgDropDownInfoBean.setAtView(atView);
             return this;
         }
 
@@ -144,7 +144,7 @@ public class SGDropDown {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
                     if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                        SGDropDownInfoBean.setTouchPoint(new PointF(event.getRawX(), event.getRawY())) ;
+                        sgDropDownInfoBean.setTouchPoint(new PointF(event.getRawX(), event.getRawY())) ;
                     }
                     return false;
                 }
@@ -159,7 +159,7 @@ public class SGDropDown {
          * @return
          */
         public Builder dropDownAnimation(SGDropDownAnimation sgDropDownAnimation) {
-            this.SGDropDownInfoBean.setSgDropDownAnimation(sgDropDownAnimation);
+            this.sgDropDownInfoBean.setSgDropDownAnimation(sgDropDownAnimation);
             return this;
         }
 
@@ -170,7 +170,7 @@ public class SGDropDown {
          * @return
          */
         public Builder customAnimator(DropDownAnimator customAnimator) {
-            this.SGDropDownInfoBean.setCustomAnimator(customAnimator) ;
+            this.sgDropDownInfoBean.setCustomAnimator(customAnimator) ;
             return this;
         }
 
@@ -182,7 +182,7 @@ public class SGDropDown {
          * @return
          */
         public Builder dropDownHeight(int height) {
-            this.SGDropDownInfoBean.setDropDownHeight(height);
+            this.sgDropDownInfoBean.setDropDownHeight(height);
             return this;
         }
 
@@ -194,7 +194,7 @@ public class SGDropDown {
          * @return
          */
         public Builder dropDownWidth(int width) {
-            this.SGDropDownInfoBean.setDropDownWidth(width);
+            this.sgDropDownInfoBean.setDropDownWidth(width);
             return this;
         }
 
@@ -205,7 +205,7 @@ public class SGDropDown {
          * @return
          */
         public Builder maxWidth(int maxWidth) {
-            this.SGDropDownInfoBean.setMaxWidth(maxWidth);
+            this.sgDropDownInfoBean.setMaxWidth(maxWidth);
             return this;
         }
 
@@ -216,7 +216,7 @@ public class SGDropDown {
          * @return
          */
         public Builder maxHeight(int maxHeight) {
-            this.SGDropDownInfoBean.setMaxHeight(maxHeight);
+            this.sgDropDownInfoBean.setMaxHeight(maxHeight);
             return this;
         }
 
@@ -228,7 +228,7 @@ public class SGDropDown {
          * @return
          */
         public Builder autoOpenSoftInput(Boolean autoOpenSoftInput) {
-            this.SGDropDownInfoBean.setAutoOpenSoftInput(autoOpenSoftInput);
+            this.sgDropDownInfoBean.setAutoOpenSoftInput(autoOpenSoftInput);
             return this;
         }
 
@@ -239,7 +239,7 @@ public class SGDropDown {
          * @return
          */
         public Builder moveUpToKeyboard(Boolean isMoveUpToKeyboard) {
-            this.SGDropDownInfoBean.setMoveUpToKeyboard(isMoveUpToKeyboard);
+            this.sgDropDownInfoBean.setMoveUpToKeyboard(isMoveUpToKeyboard);
             return this;
         }
 
@@ -249,7 +249,7 @@ public class SGDropDown {
          * @return
          */
         public Builder dropDownPosition(DropDownPosition dropDownPosition) {
-            this.SGDropDownInfoBean.setDropDownPosition(dropDownPosition) ;
+            this.sgDropDownInfoBean.setDropDownPosition(dropDownPosition) ;
             return this;
         }
 
@@ -261,7 +261,7 @@ public class SGDropDown {
          * @return
          */
         public Builder isRequestFocus(boolean isRequestFocus) {
-            this.SGDropDownInfoBean.setRequestFocus(isRequestFocus);
+            this.sgDropDownInfoBean.setRequestFocus(isRequestFocus);
             return this;
         }
 
@@ -272,7 +272,7 @@ public class SGDropDown {
          * @return
          */
         public Builder autoFocusEditText(boolean autoFocusEditText) {
-            this.SGDropDownInfoBean.setAutoFocusEditText(autoFocusEditText);
+            this.sgDropDownInfoBean.setAutoFocusEditText(autoFocusEditText);
             return this;
         }
 
@@ -285,7 +285,7 @@ public class SGDropDown {
          * @return
          */
         public Builder isClickThrough(boolean isClickThrough) {
-            this.SGDropDownInfoBean.setClickThrough(isClickThrough);
+            this.sgDropDownInfoBean.setClickThrough(isClickThrough);
             return this;
         }
 
@@ -298,7 +298,7 @@ public class SGDropDown {
          * @return
          */
         public Builder isDestroyOnDismiss(boolean isDestroyOnDismiss) {
-            this.SGDropDownInfoBean.setDestroyOnDismiss(isDestroyOnDismiss);
+            this.sgDropDownInfoBean.setDestroyOnDismiss(isDestroyOnDismiss);
             return this;
         }
 
@@ -310,7 +310,7 @@ public class SGDropDown {
          * @return
          */
         public Builder shadowBgColor(int shadowBgColor) {
-            this.SGDropDownInfoBean.setShadowBgColor(shadowBgColor);
+            this.sgDropDownInfoBean.setShadowBgColor(shadowBgColor);
             return this;
         }
 
@@ -321,7 +321,7 @@ public class SGDropDown {
          * @return
          */
         public Builder animationDuration(int animationDuration) {
-            this.SGDropDownInfoBean.setAnimationDuration(animationDuration);
+            this.sgDropDownInfoBean.setAnimationDuration(animationDuration);
             return this;
         }
 
@@ -333,10 +333,10 @@ public class SGDropDown {
          * @return
          */
         public Builder notDismissWhenTouchInView(View view) {
-            if (this.SGDropDownInfoBean.getNotDismissWhenTouchInArea() == null) {
-                this.SGDropDownInfoBean.setNotDismissWhenTouchInArea(new ArrayList<>());
+            if (this.sgDropDownInfoBean.getNotDismissWhenTouchInArea() == null) {
+                this.sgDropDownInfoBean.setNotDismissWhenTouchInArea(new ArrayList<>());
             }
-            this.SGDropDownInfoBean.getNotDismissWhenTouchInArea().add(SGDropDownUtils.getViewRect(view));
+            this.sgDropDownInfoBean.getNotDismissWhenTouchInArea().add(SGDropDownUtils.getViewRect(view));
             return this;
         }
 
@@ -348,7 +348,7 @@ public class SGDropDown {
          * @return
          */
         public Builder customHostLifecycle(Lifecycle lifecycle) {
-            this.SGDropDownInfoBean.setHostLifecycle(lifecycle);
+            this.sgDropDownInfoBean.setHostLifecycle(lifecycle);
             return this;
         }
 
@@ -359,7 +359,7 @@ public class SGDropDown {
          * @return
          */
         public Builder setDropDownViewCallback(SGDropDownCallback sgDropDownCallback) {
-            this.SGDropDownInfoBean.setSgDropDownCallback(sgDropDownCallback);
+            this.sgDropDownInfoBean.setSgDropDownCallback(sgDropDownCallback);
             return this;
         }
 
@@ -367,7 +367,7 @@ public class SGDropDown {
          *置弹数据点击、变化等监听
          */
         public Builder setOnClickOptionListener( SGOnClickOptionListener sgOnClickOptionListener) {
-            this.SGDropDownInfoBean.setSGOnClickOptionListener(sgOnClickOptionListener);
+            this.sgDropDownInfoBean.setSGOnClickOptionListener(sgOnClickOptionListener);
             return this;
         }
 
@@ -379,7 +379,7 @@ public class SGDropDown {
          * @return
          */
         public Builder setUseColumn(int useColumn) {
-            this.SGDropDownInfoBean.setUseColumn(useColumn) ;
+            this.sgDropDownInfoBean.setUseColumn(useColumn) ;
             return this;
         }
 
@@ -389,7 +389,7 @@ public class SGDropDown {
          * @return
          */
         public Builder setOptions(List<Object> dataBean) {
-            this.SGDropDownInfoBean.setOptions(dataBean);
+            this.sgDropDownInfoBean.setOptions(dataBean);
             return this;
         }
 
@@ -399,20 +399,64 @@ public class SGDropDown {
          * @return
          */
         public Builder setMultiple(Boolean multiple){
-            this.SGDropDownInfoBean.setMultiple(multiple);
+            this.sgDropDownInfoBean.setMultiple(multiple);
             return this;
         }
 
+        /**
+         * 设置TextView文本内容
+         * @param sgKitText
+         * @return
+         */
+        public Builder setSgKitText(CharSequence sgKitText){
+            this.sgDropDownInfoBean.setSgKitText(sgKitText);
+            return this;
+        }
+        /**
+         * 设置文TextView颜色
+         * @param sgKitTextColor
+         * @return
+         */
+        public Builder setSgKitTextColor(int sgKitTextColor){
+            this.sgDropDownInfoBean.setSgKitTextColor(sgKitTextColor);
+            return this;
+        }
+        /**
+         * 设置文TextView的文字大小
+         * @param sgKitTextSize
+         * @return
+         */
+        public Builder setSgKitTextSize(float sgKitTextSize){
+            this.sgDropDownInfoBean.setSgKitTextSize(sgKitTextSize);
+            return this;
+        }
+
+        /**
+         * 设置TextView的字体
+         * @param sgKitTypeface
+         * @return
+         */
+        public Builder setSgKitText(Typeface sgKitTypeface){
+            this.sgDropDownInfoBean.setSgKitTypeface(sgKitTypeface);
+            return this;
+        }
+
+
         public SGBaseView customView(SGBaseView dropDownView) {
 
-            dropDownView.sgDropDownInfoBean = this.SGDropDownInfoBean;
+            dropDownView.sgDropDownInfoBean = this.sgDropDownInfoBean;
             return dropDownView;
         }
 
         public SGBaseView dropDownView() {
             SGBuiltDropDownView sgBuiltDropDownView=new SGBuiltDropDownView(context);
-            sgBuiltDropDownView.sgDropDownInfoBean=this.SGDropDownInfoBean;
+            sgBuiltDropDownView.sgDropDownInfoBean=this.sgDropDownInfoBean;
             return sgBuiltDropDownView;
+        }
+
+        public Builder setDropDownAttrs(SGDropDownInfoBean sgDropDownInfoBean) {
+            this.sgDropDownInfoBean=sgDropDownInfoBean;
+            return this;
         }
     }
 

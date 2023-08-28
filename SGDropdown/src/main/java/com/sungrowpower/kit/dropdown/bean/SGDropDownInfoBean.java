@@ -2,6 +2,8 @@ package com.sungrowpower.kit.dropdown.bean;
 
 import android.graphics.PointF;
 import android.graphics.Rect;
+import android.graphics.Typeface;
+import android.util.TypedValue;
 import android.view.View;
 
 import androidx.lifecycle.Lifecycle;
@@ -12,6 +14,7 @@ import com.sungrowpower.kit.dropdown.enums.SGDropDownAnimation;
 import com.sungrowpower.kit.dropdown.enums.DropDownPosition;
 import com.sungrowpower.kit.dropdown.interfaces.SGDropDownCallback;
 import com.sungrowpower.kit.dropdown.interfaces.SGOnClickOptionListener;
+import com.sungrowpower.kit.dropdown.widget.SGDropDownColorMap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,6 +78,47 @@ public class SGDropDownInfoBean {
     private SGOnClickOptionListener sgOnClickOptionListener;
     //自定义的宿主生命周期
     private Lifecycle hostLifecycle;
+
+    //设置Text文本，支持富文本
+    private CharSequence sgKitText = "内容";
+    //设置Title文本大小
+    private float sgKitTextSize = SGDropDownColorMap.getInstance().textSize;
+    //设置Title文本颜色
+    private int sgKitTextColor = SGDropDownColorMap.getInstance().textColor;
+    //设置Title文本Typeface(如“加粗”)
+    private Typeface sgKitTypeface = Typeface.DEFAULT;
+
+    public CharSequence getSgKitText() {
+        return sgKitText;
+    }
+
+    public void setSgKitText(CharSequence sgKitText) {
+        this.sgKitText = sgKitText;
+    }
+
+    public float getSgKitTextSize() {
+        return sgKitTextSize;
+    }
+
+    public void setSgKitTextSize(float sgKitTextSize) {
+        this.sgKitTextSize = sgKitTextSize;
+    }
+
+    public int getSgKitTextColor() {
+        return sgKitTextColor;
+    }
+
+    public void setSgKitTextColor(int sgKitTextColor) {
+        this.sgKitTextColor = sgKitTextColor;
+    }
+
+    public Typeface getSgKitTypeface() {
+        return sgKitTypeface;
+    }
+
+    public void setSgKitTypeface(Typeface sgKitTitleTypeface) {
+        this.sgKitTypeface = sgKitTitleTypeface;
+    }
 
     public Rect getAtViewRect() {
         int[] locations = new int[2];

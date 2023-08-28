@@ -27,7 +27,7 @@ class SGBuiltDropDownView(context: Context) : SGDropDownBaseView(context) {
     private var mGroupData = mutableListOf<SGGroupDataBean>()
 
     private val adapter by lazy {
-        MyAdapter(mData).apply {
+        MyAdapter(mData,sgDropDownInfoBean).apply {
             setOnItemClickListener { adapter, view, position ->
                 if (mData[position].isDisabled) {
                     return@setOnItemClickListener
@@ -59,7 +59,7 @@ class SGBuiltDropDownView(context: Context) : SGDropDownBaseView(context) {
         }
     }
     private val adapterColumn by lazy {
-        MyColumnAdapter(mData).apply {
+        MyColumnAdapter(mData,sgDropDownInfoBean).apply {
             setOnItemClickListener { adapter, view, position ->
                 if (sgDropDownInfoBean.sgOnClickOptionListener != null) {
                     sgDropDownInfoBean.sgOnClickOptionListener!!.onOptionClick(position, -1)
