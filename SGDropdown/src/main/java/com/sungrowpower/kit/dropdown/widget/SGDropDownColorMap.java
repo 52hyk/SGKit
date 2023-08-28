@@ -19,6 +19,12 @@ public class SGDropDownColorMap {
      */
     public int textSize =SGKit.getInstance().getContext().getResources().getDimensionPixelSize(R.dimen.sgkit_textSize_16);
 
+    public int fontIconTextColor =  SGKit.getInstance().getContext().getResources().getColor(R.color.sgkit_brand_routine);
+    /**
+     * 字体大小
+     */
+    public int fontIconTextSize =SGKit.getInstance().getContext().getResources().getDimensionPixelSize(R.dimen.sgkit_textSize_16);
+
     private static class Holder {
         private static final SGDropDownColorMap INSTANCE = new SGDropDownColorMap();
     }

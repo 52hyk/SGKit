@@ -9,6 +9,7 @@ import android.view.View;
 
 import androidx.lifecycle.Lifecycle;
 
+import com.sungrowpower.kit.R;
 import com.sungrowpower.kit.dropdown.animator.DropDownAnimator;
 import com.sungrowpower.kit.dropdown.base.SGBaseView;
 import com.sungrowpower.kit.dropdown.bean.SGDropDownInfoBean;
@@ -71,6 +72,8 @@ public class SGDropDown {
         private Context context;
 
         public Builder(Context context) {
+//            sgDropDownInfoBean.setSgFontIconTextSize(context.getResources().getDimension(R.dimen.sgkit_textSize_18));
+//            sgDropDownInfoBean.setSgFontIconColor(context.getResources().getColor(R.color.sgkit_brand_routine));
             this.context = context;
         }
 
@@ -439,6 +442,24 @@ public class SGDropDown {
             return this;
         }
 
+        /**
+         * 设置文FontIcon颜色
+         * @param sgKitTextColor
+         * @return
+         */
+        public Builder setSgFontIconColor(int sgKitTextColor){
+            this.sgDropDownInfoBean.setSgFontIconColor(sgKitTextColor);
+            return this;
+        }
+        /**
+         * 设置文FontIcon的文字大小
+         * @param sgKitTextSize
+         * @return
+         */
+        public Builder setSgFontIconTextSize(float sgKitTextSize){
+            this.sgDropDownInfoBean.setSgFontIconTextSize(sgKitTextSize);
+            return this;
+        }
 
         public SGBaseView customView(SGBaseView dropDownView) {
 

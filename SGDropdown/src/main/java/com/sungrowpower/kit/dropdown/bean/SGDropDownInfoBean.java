@@ -87,6 +87,26 @@ public class SGDropDownInfoBean {
     private int sgKitTextColor = SGDropDownColorMap.getInstance().textColor;
     //设置Title文本Typeface(如“加粗”)
     private Typeface sgKitTypeface = Typeface.DEFAULT;
+    //设置fontIcon文本大小
+    private float sgFontIconTextSize = SGDropDownColorMap.getInstance().fontIconTextSize;
+    //设置fontIcon文本颜色
+    private int sgFontIconColor = SGDropDownColorMap.getInstance().fontIconTextColor;
+
+    public float getSgFontIconTextSize() {
+        return sgFontIconTextSize;
+    }
+
+    public void setSgFontIconTextSize(float sgFontIconTextSize) {
+        this.sgFontIconTextSize = sgFontIconTextSize;
+    }
+
+    public int getSgFontIconColor() {
+        return sgFontIconColor;
+    }
+
+    public void setSgFontIconColor(int sgFontIconColor) {
+        this.sgFontIconColor = sgFontIconColor;
+    }
 
     public CharSequence getSgKitText() {
         return sgKitText;
