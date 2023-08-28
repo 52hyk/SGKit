@@ -18,7 +18,7 @@ import com.sungrowpower.kit.dropdown.interfaces.SGGroupOnClickListener
  * 描述:
  * 作者:hyk
  */
-class MyGroupAdapter(mData:MutableList<SGGroupDataBean>,var sgDropDownInfoBean: SGDropDownInfoBean):
+class SGGroupAdapter(mData:MutableList<SGGroupDataBean>, var sgDropDownInfoBean: SGDropDownInfoBean):
     BaseQuickAdapter<SGGroupDataBean, QuickViewHolder>(mData) {
     override fun onBindViewHolder(holder: QuickViewHolder, position: Int, item: SGGroupDataBean?) {
         //holder.setText(R.id.tv_name,item!!.title)
@@ -33,7 +33,7 @@ class MyGroupAdapter(mData:MutableList<SGGroupDataBean>,var sgDropDownInfoBean: 
         }
 
         holder.getView<RecyclerView>(R.id.rv).layoutManager=GridLayoutManager(context,3)
-        holder.getView<RecyclerView>(R.id.rv).adapter=MyColumnAdapter(item!!.childData,sgDropDownInfoBean).apply {
+        holder.getView<RecyclerView>(R.id.rv).adapter=SGColumnAdapter(item!!.childData,sgDropDownInfoBean).apply {
             setOnItemClickListener { adapter, view, position ->
                 if (item.childData[position].isDisabled) {
                     return@setOnItemClickListener

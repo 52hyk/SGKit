@@ -1,7 +1,6 @@
 package com.sungrowpower.kit.dropdown.adapter
 
 import android.content.Context
-import android.graphics.Color
 import android.util.TypedValue
 import android.view.ViewGroup
 import android.widget.TextView
@@ -16,7 +15,7 @@ import com.sungrowpower.kit.dropdown.bean.SGSimpleDataBean
  * 描述:
  * 作者:hyk
  */
-class MyColumnAdapter(mData:MutableList<SGSimpleDataBean>,var sgDropDownInfoBean:SGDropDownInfoBean):BaseQuickAdapter<SGSimpleDataBean, QuickViewHolder>(mData) {
+class SGColumnAdapter(mData:MutableList<SGSimpleDataBean>, var sgDropDownInfoBean:SGDropDownInfoBean):BaseQuickAdapter<SGSimpleDataBean, QuickViewHolder>(mData) {
     override fun onBindViewHolder(holder: QuickViewHolder, position: Int, item: SGSimpleDataBean?) {
        // holder.getView<TextView>(R.id.tv_name).text=sgDropDownInfoBean.sgKitText
         holder.getView<TextView>(R.id.tv_name).setTextSize(TypedValue.COMPLEX_UNIT_PX, sgDropDownInfoBean.sgKitTextSize);

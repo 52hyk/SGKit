@@ -17,7 +17,7 @@ import com.sungrowpower.kit.fonticon.SGFontIcon
  * 描述:
  * 作者:hyk
  */
-class MyAdapter(mData:MutableList<SGSimpleDataBean>,var sgDropDownInfoBean:SGDropDownInfoBean):BaseQuickAdapter<SGSimpleDataBean, QuickViewHolder>(mData) {
+class SGAdapter(mData:MutableList<SGSimpleDataBean>, var sgDropDownInfoBean:SGDropDownInfoBean):BaseQuickAdapter<SGSimpleDataBean, QuickViewHolder>(mData) {
     override fun onBindViewHolder(holder: QuickViewHolder, position: Int, item: SGSimpleDataBean?) {
         //holder.setText(R.id.tv_name,item!!.label)
 

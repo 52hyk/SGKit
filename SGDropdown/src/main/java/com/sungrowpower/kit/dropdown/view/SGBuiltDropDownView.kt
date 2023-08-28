@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.sungrowpower.kit.R
-import com.sungrowpower.kit.dropdown.adapter.MyAdapter
-import com.sungrowpower.kit.dropdown.adapter.MyColumnAdapter
-import com.sungrowpower.kit.dropdown.adapter.MyGroupAdapter
+import com.sungrowpower.kit.dropdown.adapter.SGAdapter
+import com.sungrowpower.kit.dropdown.adapter.SGColumnAdapter
+import com.sungrowpower.kit.dropdown.adapter.SGGroupAdapter
 import com.sungrowpower.kit.dropdown.bean.SGGroupBackDataBean
 import com.sungrowpower.kit.dropdown.bean.SGGroupBackDataBean.SGGroupChildBackDataBean
 import com.sungrowpower.kit.dropdown.bean.SGGroupDataBean
@@ -27,7 +27,7 @@ class SGBuiltDropDownView(context: Context) : SGDropDownBaseView(context) {
     private var mGroupData = mutableListOf<SGGroupDataBean>()
 
     private val adapter by lazy {
-        MyAdapter(mData,sgDropDownInfoBean).apply {
+        SGAdapter(mData,sgDropDownInfoBean).apply {
             setOnItemClickListener { adapter, view, position ->
                 if (mData[position].isDisabled) {
                     return@setOnItemClickListener
@@ -59,7 +59,7 @@ class SGBuiltDropDownView(context: Context) : SGDropDownBaseView(context) {
         }
     }
     private val adapterColumn by lazy {
-        MyColumnAdapter(mData,sgDropDownInfoBean).apply {
+        SGColumnAdapter(mData,sgDropDownInfoBean).apply {
             setOnItemClickListener { adapter, view, position ->
                 if (sgDropDownInfoBean.sgOnClickOptionListener != null) {
                     sgDropDownInfoBean.sgOnClickOptionListener!!.onOptionClick(position, -1)
@@ -91,7 +91,7 @@ class SGBuiltDropDownView(context: Context) : SGDropDownBaseView(context) {
     }
 
     private val adapterGroup by lazy {
-        MyGroupAdapter(mGroupData,sgDropDownInfoBean)
+        SGGroupAdapter(mGroupData,sgDropDownInfoBean)
     }
 
     override fun getImplLayoutId(): Int {
