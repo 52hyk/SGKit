@@ -63,9 +63,9 @@ public class SGDropDownInfoBean {
     //是否关闭后进行资源释放
     private boolean isDestroyOnDismiss = false;
     //阴影背景的颜色
-    private int shadowBgColor = 0;
+    private int shadowBgColor = GlobalBean.getShadowBgColor();
     //动画的时长
-    private int animationDuration = -1;
+    private int animationDuration = GlobalBean.getAnimationDuration();
     //当触摸在这个区域时，不消失
     private ArrayList<Rect> notDismissWhenTouchInArea;
     //使用多列

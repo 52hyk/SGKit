@@ -461,11 +461,15 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
         if (sgDropDownInfoBean.getSgDropDownAnimation() == NoAnimation) {
             return 1;
         }
-        return sgDropDownInfoBean.getAnimationDuration() >= 0 ? sgDropDownInfoBean.getAnimationDuration() : GlobalBean.getAnimationDuration() + 1;
+        return sgDropDownInfoBean.getAnimationDuration();
+
+        //return sgDropDownInfoBean.getAnimationDuration() >= 0 ? sgDropDownInfoBean.getAnimationDuration() : GlobalBean.getAnimationDuration() + 1;
     }
 
     public int getShadowBgColor() {
-        return sgDropDownInfoBean != null && sgDropDownInfoBean.getShadowBgColor() != 0 ? sgDropDownInfoBean.getShadowBgColor()  : GlobalBean.getShadowBgColor();
+        return sgDropDownInfoBean.getShadowBgColor();
+
+        //return sgDropDownInfoBean != null && sgDropDownInfoBean.getShadowBgColor() != 0 ? sgDropDownInfoBean.getShadowBgColor()  : GlobalBean.getShadowBgColor();
     }
 
 
