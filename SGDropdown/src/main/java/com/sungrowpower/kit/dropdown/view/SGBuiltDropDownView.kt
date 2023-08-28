@@ -33,11 +33,11 @@ class SGBuiltDropDownView(context: Context) : SGDropDownBaseView(context) {
                     return@setOnItemClickListener
                 }
 
-                if (SGDropDownInfoBean.sgOnClickOptionListener != null) {
-                    SGDropDownInfoBean.sgOnClickOptionListener!!.onOptionClick(position, -1)
+                if (sgDropDownInfoBean.sgOnClickOptionListener != null) {
+                    sgDropDownInfoBean.sgOnClickOptionListener!!.onOptionClick(position, -1)
                 }
 
-                if (SGDropDownInfoBean.multiple) {
+                if (sgDropDownInfoBean.isMultiple) {
                     mData[position].isChecked = !mData[position].isChecked
                     notifyItemChanged(position)
 
@@ -52,8 +52,8 @@ class SGBuiltDropDownView(context: Context) : SGDropDownBaseView(context) {
                     setSelect()
                 }
 
-                if (SGDropDownInfoBean.sgOnClickOptionListener != null) {
-                    SGDropDownInfoBean.sgOnClickOptionListener!!.onOptionChange(position, -1)
+                if (sgDropDownInfoBean.sgOnClickOptionListener != null) {
+                    sgDropDownInfoBean.sgOnClickOptionListener!!.onOptionChange(position, -1)
                 }
             }
         }
@@ -61,14 +61,14 @@ class SGBuiltDropDownView(context: Context) : SGDropDownBaseView(context) {
     private val adapterColumn by lazy {
         MyColumnAdapter(mData).apply {
             setOnItemClickListener { adapter, view, position ->
-                if (SGDropDownInfoBean.sgOnClickOptionListener != null) {
-                    SGDropDownInfoBean.sgOnClickOptionListener!!.onOptionClick(position, -1)
+                if (sgDropDownInfoBean.sgOnClickOptionListener != null) {
+                    sgDropDownInfoBean.sgOnClickOptionListener!!.onOptionClick(position, -1)
                 }
 
                 if (mData[position].isDisabled) {
                     return@setOnItemClickListener
                 }
-                if (SGDropDownInfoBean.multiple) {
+                if (sgDropDownInfoBean.isMultiple) {
                     mData[position].isChecked = !mData[position].isChecked
                     notifyItemChanged(position)
 
@@ -83,15 +83,15 @@ class SGBuiltDropDownView(context: Context) : SGDropDownBaseView(context) {
                     setSelect()
                 }
 
-                if (SGDropDownInfoBean.sgOnClickOptionListener != null) {
-                    SGDropDownInfoBean.sgOnClickOptionListener!!.onOptionChange(position, -1)
+                if (sgDropDownInfoBean.sgOnClickOptionListener != null) {
+                    sgDropDownInfoBean.sgOnClickOptionListener!!.onOptionChange(position, -1)
                 }
             }
         }
     }
 
     private val adapterGroup by lazy {
-        MyGroupAdapter(mGroupData,SGDropDownInfoBean)
+        MyGroupAdapter(mGroupData,sgDropDownInfoBean)
     }
 
     override fun getImplLayoutId(): Int {
@@ -101,16 +101,16 @@ class SGBuiltDropDownView(context: Context) : SGDropDownBaseView(context) {
     override fun onCreate() {
         super.onCreate()
 
-        if (SGDropDownInfoBean.options.toString().contains("title")) {
-            mGroupData = SGDropDownInfoBean.options as MutableList<SGGroupDataBean>
+        if (sgDropDownInfoBean.options.toString().contains("title")) {
+            mGroupData = sgDropDownInfoBean.options as MutableList<SGGroupDataBean>
         } else {
-            mData = SGDropDownInfoBean.options as MutableList<SGSimpleDataBean>
+            mData = sgDropDownInfoBean.options as MutableList<SGSimpleDataBean>
         }
 
 
         if (mData.size != 0) {
 
-            if (SGDropDownInfoBean.useColumn == 0) {
+            if (sgDropDownInfoBean.useColumn == 0) {
                 val params = findViewById<RecyclerView>(R.id.rv).layoutParams as MarginLayoutParams
                 params.bottomMargin = SGDropDownUtils.dp2px(context, 4F)
                 params.topMargin = SGDropDownUtils.dp2px(context, 4F)
@@ -124,7 +124,7 @@ class SGBuiltDropDownView(context: Context) : SGDropDownBaseView(context) {
                 params.topMargin = SGDropDownUtils.dp2px(context, 12F)
 
                 findViewById<RecyclerView>(R.id.rv).layoutManager =
-                    GridLayoutManager(context, SGDropDownInfoBean.useColumn)
+                    GridLayoutManager(context, sgDropDownInfoBean.useColumn)
                 findViewById<RecyclerView>(R.id.rv).adapter = adapterColumn
             }
         } else {
@@ -154,8 +154,8 @@ class SGBuiltDropDownView(context: Context) : SGDropDownBaseView(context) {
                             parentDataList.add(SGGroupBackDataBean(i,parentData))
                         }
                     }
-                    if (SGDropDownInfoBean.sgOnClickOptionListener != null) {
-                        SGDropDownInfoBean.sgOnClickOptionListener!!.selectedValue(null,parentDataList)
+                    if (sgDropDownInfoBean.sgOnClickOptionListener != null) {
+                        sgDropDownInfoBean.sgOnClickOptionListener!!.selectedValue(null,parentDataList)
                     }
 
                 }
@@ -173,8 +173,8 @@ class SGBuiltDropDownView(context: Context) : SGDropDownBaseView(context) {
                 tempSelect.add(i)
             }
         }
-        if (SGDropDownInfoBean.sgOnClickOptionListener != null) {
-            SGDropDownInfoBean.sgOnClickOptionListener!!.selectedValue(tempSelect,null)
+        if (sgDropDownInfoBean.sgOnClickOptionListener != null) {
+            sgDropDownInfoBean.sgOnClickOptionListener!!.selectedValue(tempSelect,null)
         }
     }
 }

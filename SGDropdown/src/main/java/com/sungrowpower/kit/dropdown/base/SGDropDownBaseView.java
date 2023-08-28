@@ -50,7 +50,7 @@ public abstract class SGDropDownBaseView extends SGBaseView {
             addInnerContent();
         }
         // 指定阴影动画的目标View
-        if (SGDropDownInfoBean.hasShadowBg) {
+        if (sgDropDownInfoBean.getHasShadowBg()) {
             shadowBgAnimator.targetView = getDropDownContentView();
         }
 
@@ -73,7 +73,7 @@ public abstract class SGDropDownBaseView extends SGBaseView {
 
     public boolean isShowUp;
     public void doAttach() {
-        if (SGDropDownInfoBean.atView == null) {
+        if (sgDropDownInfoBean.getAtView() == null) {
             throw new IllegalArgumentException("atView must not be null for DropDownView！");
         }
 
@@ -83,7 +83,7 @@ public abstract class SGDropDownBaseView extends SGBaseView {
 
 
         //1. 获取atView在屏幕上的位置
-        Rect rect = SGDropDownInfoBean.getAtViewRect();
+        Rect rect = sgDropDownInfoBean.getAtViewRect();
         rect.left -= getActivityContentLeft();
         rect.right -= getActivityContentLeft();
 
@@ -91,7 +91,7 @@ public abstract class SGDropDownBaseView extends SGBaseView {
         int centerY = rect.top + rect.height() / 2;
         View implView = getDropDownImplView();
         FrameLayout.LayoutParams implParams = (FrameLayout.LayoutParams) implView.getLayoutParams();
-        if ((centerY > getMeasuredHeight() / 2 || SGDropDownInfoBean.dropDownPosition == DropDownPosition.Top) && SGDropDownInfoBean.dropDownPosition != DropDownPosition.Bottom) {
+        if ((centerY > getMeasuredHeight() / 2 || sgDropDownInfoBean.getDropDownPosition() == DropDownPosition.Top) && sgDropDownInfoBean.getDropDownPosition() != DropDownPosition.Bottom) {
             // 说明atView在Window下半部分，dropdown应该显示在它上方，计算atView之上的高度
             params.height = rect.top;
             isShowUp = true;
@@ -121,7 +121,7 @@ public abstract class SGDropDownBaseView extends SGBaseView {
         sgDropDownContainer.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                if (SGDropDownInfoBean.isDismissOnTouchOutside) {
+                if (sgDropDownInfoBean.getDismissOnTouchOutside()) {
                     dismiss();
                 }
                 return false;
@@ -130,7 +130,7 @@ public abstract class SGDropDownBaseView extends SGBaseView {
         sgDropDownContainer.setOnClickOutsideListener(new SGOnClickOutsideListener() {
             @Override
             public void onClickOutside() {
-                if (SGDropDownInfoBean.isDismissOnTouchOutside) {
+                if (sgDropDownInfoBean.getDismissOnTouchOutside()) {
                     dismiss();
                 }
             }

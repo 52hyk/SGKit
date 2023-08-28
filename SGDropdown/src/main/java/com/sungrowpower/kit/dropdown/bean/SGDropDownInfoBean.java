@@ -22,64 +22,288 @@ import java.util.List;
  */
 public class SGDropDownInfoBean {
     //按返回键是否消失
-    public Boolean isDismissOnBackPressed = true;
+    private Boolean isDismissOnBackPressed = true;
     //点击外部消失
-    public Boolean isDismissOnTouchOutside = true;
+    private Boolean isDismissOnTouchOutside = true;
     //操作完毕后是否自动关闭
-    public Boolean autoDismiss = true;
+    private Boolean autoDismiss = true;
     // 是否有半透明的背景
-    public Boolean hasShadowBg = true;
+    private Boolean hasShadowBg = true;
     // 依附于那个View
-    public View atView = null;
+    private View atView = null;
     // 动画执行器，如果不指定，则会根据窗体类型dropDownType字段生成默认合适的动画执行器
-    public SGDropDownAnimation sGDropDownAnimation = null;
-    public DropDownAnimator customAnimator = null;
+    private SGDropDownAnimation sgDropDownAnimation = null;
+    private DropDownAnimator customAnimator = null;
     // 触摸的点
-    public PointF touchPoint = null;
+    private PointF touchPoint = null;
     // 最大宽度
-    public int maxWidth;
+    private int maxWidth;
     // 最大高度
-    public int maxHeight;
+    private int maxHeight;
     // 指定弹窗的宽，受max的宽高限制
-    public int dropDownWidth;
+    private int dropDownWidth;
     // 指定弹窗的高，受max的宽高限制
-    public int dropDownHeight;
+    private int dropDownHeight;
     //是否自动打开输入法
-    public Boolean autoOpenSoftInput = false;
-    public SGDropDownCallback sGDropDownCallback;
+    private Boolean autoOpenSoftInput = false;
+    private SGDropDownCallback sgDropDownCallback;
     //是否移动到软键盘上面，默认弹窗会移到软键盘上面
-    public Boolean isMoveUpToKeyboard = true;
+    private Boolean isMoveUpToKeyboard = true;
     //弹窗出现在目标的什么位置
-    public DropDownPosition dropDownPosition = null;
+    private DropDownPosition dropDownPosition = null;
     //弹窗是否强制抢占焦点
-    public boolean isRequestFocus = true;
+    private boolean isRequestFocus = true;
     //是否让输入框自动获取焦点
-    public boolean autoFocusEditText = true;
+    private boolean autoFocusEditText = true;
     //是否点击透传，默认弹背景点击是拦截的
-    public boolean isClickThrough = false;
+    private boolean isClickThrough = false;
     //是否关闭后进行资源释放
-    public boolean isDestroyOnDismiss = false;
+    private boolean isDestroyOnDismiss = false;
     //阴影背景的颜色
-    public int shadowBgColor = 0;
+    private int shadowBgColor = 0;
     //动画的时长
-    public int animationDuration = -1;
+    private int animationDuration = -1;
     //当触摸在这个区域时，不消失
-    public ArrayList<Rect> notDismissWhenTouchInArea;
+    private ArrayList<Rect> notDismissWhenTouchInArea;
     //使用多列
-    public int useColumn = 0;
+    private int useColumn = 0;
     //数据集合
-    public List<Object> options;
+    private List<Object> options;
     //是否支持多选
-    public boolean multiple = false;
+    private boolean multiple = false;
     //数据监听回调
-    public SGOnClickOptionListener sgOnClickOptionListener;
+    private SGOnClickOptionListener sgOnClickOptionListener;
     //自定义的宿主生命周期
-    public Lifecycle hostLifecycle;
+    private Lifecycle hostLifecycle;
 
     public Rect getAtViewRect() {
         int[] locations = new int[2];
         atView.getLocationInWindow(locations);
         return new Rect(locations[0], locations[1], locations[0] + atView.getMeasuredWidth(),
                 locations[1] + atView.getMeasuredHeight());
+    }
+
+    public Boolean getDismissOnBackPressed() {
+        return isDismissOnBackPressed;
+    }
+
+    public void setDismissOnBackPressed(Boolean dismissOnBackPressed) {
+        isDismissOnBackPressed = dismissOnBackPressed;
+    }
+
+    public Boolean getDismissOnTouchOutside() {
+        return isDismissOnTouchOutside;
+    }
+
+    public void setDismissOnTouchOutside(Boolean dismissOnTouchOutside) {
+        isDismissOnTouchOutside = dismissOnTouchOutside;
+    }
+
+    public Boolean getAutoDismiss() {
+        return autoDismiss;
+    }
+
+    public void setAutoDismiss(Boolean autoDismiss) {
+        this.autoDismiss = autoDismiss;
+    }
+
+    public Boolean getHasShadowBg() {
+        return hasShadowBg;
+    }
+
+    public void setHasShadowBg(Boolean hasShadowBg) {
+        this.hasShadowBg = hasShadowBg;
+    }
+
+    public View getAtView() {
+        return atView;
+    }
+
+    public void setAtView(View atView) {
+        this.atView = atView;
+    }
+
+    public SGDropDownAnimation getSgDropDownAnimation() {
+        return sgDropDownAnimation;
+    }
+
+    public void setSgDropDownAnimation(SGDropDownAnimation sgDropDownAnimation) {
+        this.sgDropDownAnimation = sgDropDownAnimation;
+    }
+
+    public DropDownAnimator getCustomAnimator() {
+        return customAnimator;
+    }
+
+    public void setCustomAnimator(DropDownAnimator customAnimator) {
+        this.customAnimator = customAnimator;
+    }
+
+    public PointF getTouchPoint() {
+        return touchPoint;
+    }
+
+    public void setTouchPoint(PointF touchPoint) {
+        this.touchPoint = touchPoint;
+    }
+
+    public int getMaxWidth() {
+        return maxWidth;
+    }
+
+    public void setMaxWidth(int maxWidth) {
+        this.maxWidth = maxWidth;
+    }
+
+    public int getMaxHeight() {
+        return maxHeight;
+    }
+
+    public void setMaxHeight(int maxHeight) {
+        this.maxHeight = maxHeight;
+    }
+
+    public int getDropDownWidth() {
+        return dropDownWidth;
+    }
+
+    public void setDropDownWidth(int dropDownWidth) {
+        this.dropDownWidth = dropDownWidth;
+    }
+
+    public int getDropDownHeight() {
+        return dropDownHeight;
+    }
+
+    public void setDropDownHeight(int dropDownHeight) {
+        this.dropDownHeight = dropDownHeight;
+    }
+
+    public Boolean getAutoOpenSoftInput() {
+        return autoOpenSoftInput;
+    }
+
+    public void setAutoOpenSoftInput(Boolean autoOpenSoftInput) {
+        this.autoOpenSoftInput = autoOpenSoftInput;
+    }
+
+    public SGDropDownCallback getSgDropDownCallback() {
+        return sgDropDownCallback;
+    }
+
+    public void setSgDropDownCallback(SGDropDownCallback sgDropDownCallback) {
+        this.sgDropDownCallback = sgDropDownCallback;
+    }
+
+    public Boolean getMoveUpToKeyboard() {
+        return isMoveUpToKeyboard;
+    }
+
+    public void setMoveUpToKeyboard(Boolean moveUpToKeyboard) {
+        isMoveUpToKeyboard = moveUpToKeyboard;
+    }
+
+    public DropDownPosition getDropDownPosition() {
+        return dropDownPosition;
+    }
+
+    public void setDropDownPosition(DropDownPosition dropDownPosition) {
+        this.dropDownPosition = dropDownPosition;
+    }
+
+    public boolean isRequestFocus() {
+        return isRequestFocus;
+    }
+
+    public void setRequestFocus(boolean requestFocus) {
+        isRequestFocus = requestFocus;
+    }
+
+    public boolean isAutoFocusEditText() {
+        return autoFocusEditText;
+    }
+
+    public void setAutoFocusEditText(boolean autoFocusEditText) {
+        this.autoFocusEditText = autoFocusEditText;
+    }
+
+    public boolean isClickThrough() {
+        return isClickThrough;
+    }
+
+    public void setClickThrough(boolean clickThrough) {
+        isClickThrough = clickThrough;
+    }
+
+    public boolean isDestroyOnDismiss() {
+        return isDestroyOnDismiss;
+    }
+
+    public void setDestroyOnDismiss(boolean destroyOnDismiss) {
+        isDestroyOnDismiss = destroyOnDismiss;
+    }
+
+    public int getShadowBgColor() {
+        return shadowBgColor;
+    }
+
+    public void setShadowBgColor(int shadowBgColor) {
+        this.shadowBgColor = shadowBgColor;
+    }
+
+    public int getAnimationDuration() {
+        return animationDuration;
+    }
+
+    public void setAnimationDuration(int animationDuration) {
+        this.animationDuration = animationDuration;
+    }
+
+    public ArrayList<Rect> getNotDismissWhenTouchInArea() {
+        return notDismissWhenTouchInArea;
+    }
+
+    public void setNotDismissWhenTouchInArea(ArrayList<Rect> notDismissWhenTouchInArea) {
+        this.notDismissWhenTouchInArea = notDismissWhenTouchInArea;
+    }
+
+    public int getUseColumn() {
+        return useColumn;
+    }
+
+    public void setUseColumn(int useColumn) {
+        this.useColumn = useColumn;
+    }
+
+    public List<Object> getOptions() {
+        return options;
+    }
+
+    public void setOptions(List<Object> options) {
+        this.options = options;
+    }
+
+    public boolean isMultiple() {
+        return multiple;
+    }
+
+    public void setMultiple(boolean multiple) {
+        this.multiple = multiple;
+    }
+
+    public SGOnClickOptionListener getSGOnClickOptionListener() {
+        return sgOnClickOptionListener;
+    }
+
+    public void setSGOnClickOptionListener(SGOnClickOptionListener sgOnClickOptionListener) {
+        this.sgOnClickOptionListener = sgOnClickOptionListener;
+    }
+
+    public Lifecycle getHostLifecycle() {
+        return hostLifecycle;
+    }
+
+    public void setHostLifecycle(Lifecycle hostLifecycle) {
+        this.hostLifecycle = hostLifecycle;
     }
 }

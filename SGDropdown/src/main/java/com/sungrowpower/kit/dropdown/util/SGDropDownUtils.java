@@ -8,6 +8,7 @@ import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.inputmethodservice.Keyboard;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
@@ -193,7 +194,7 @@ public class SGDropDownUtils {
     }
 
     private static void moveUpToKeyboardInternal(int keyboardHeight, SGBaseView pv) {
-        if (pv.SGDropDownInfoBean == null || !pv.SGDropDownInfoBean.isMoveUpToKeyboard) {
+        if (pv.sgDropDownInfoBean == null || !pv.sgDropDownInfoBean.getMoveUpToKeyboard()) {
             return;
         }
 

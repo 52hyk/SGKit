@@ -50,7 +50,7 @@ import java.util.List;
  */
 public abstract class SGBaseView extends FrameLayout implements LifecycleObserver, LifecycleOwner,
         ViewCompat.OnUnhandledKeyEventListenerCompat {
-    public com.sungrowpower.kit.dropdown.bean.SGDropDownInfoBean SGDropDownInfoBean;
+    public com.sungrowpower.kit.dropdown.bean.SGDropDownInfoBean sgDropDownInfoBean;
     protected DropDownAnimator dropDownAnimator;
     protected ShadowBgAnimator shadowBgAnimator;
     private final int touchSlop;
@@ -84,15 +84,17 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
     }
 
     public SGBaseView show() {
+
         Activity activity = SGDropDownUtils.context2Activity(this);
-        if (activity == null || activity.isFinishing() || SGDropDownInfoBean == null) {
+        if (activity == null || activity.isFinishing() || sgDropDownInfoBean == null) {
             return this;
         }
         if (dropDownStatus == DropDownStatus.Showing || dropDownStatus == DropDownStatus.Dismissing) {
             return this;
         }
+
         dropDownStatus = DropDownStatus.Showing;
-        if (SGDropDownInfoBean.isRequestFocus) {
+        if (sgDropDownInfoBean.isRequestFocus()) {
             SGKeyboardUtils.hideSoftInput(activity.getWindow());
         }
 
@@ -110,8 +112,8 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
                 @Override
                 public void onSoftInputChanged(int height) {
                     onKeyboardHeightChange(height);
-                    if (SGDropDownInfoBean != null && SGDropDownInfoBean.sGDropDownCallback != null) {
-                        SGDropDownInfoBean.sGDropDownCallback.onKeyBoardStateChanged(SGBaseView.this, height);
+                    if (sgDropDownInfoBean != null && sgDropDownInfoBean.getSgDropDownCallback() != null) {
+                        sgDropDownInfoBean.getSgDropDownCallback().onKeyBoardStateChanged(SGBaseView.this, height);
                     }
                     if (height == 0) { // 说明输入法隐藏
                         SGDropDownUtils.moveDown(SGBaseView.this);
@@ -135,11 +137,11 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
 
 
     private void attachToHost() {
-        if (SGDropDownInfoBean == null) {
+        if (sgDropDownInfoBean == null) {
             throw new IllegalArgumentException("如果弹窗对象是复用的，则不要设置isDestroyOnDismiss(true)");
         }
-        if (SGDropDownInfoBean.hostLifecycle != null) {
-            SGDropDownInfoBean.hostLifecycle.addObserver(this);
+        if (sgDropDownInfoBean.getHostLifecycle()!= null) {
+            sgDropDownInfoBean.getHostLifecycle().addObserver(this);
         } else {
             if (getContext() instanceof FragmentActivity) {
                 ((FragmentActivity) getContext()).getLifecycle().addObserver(this);
@@ -198,8 +200,8 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
             isCreated = true;
             onCreate();
             lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_CREATE);
-            if (SGDropDownInfoBean.sGDropDownCallback != null) {
-                SGDropDownInfoBean.sGDropDownCallback.onCreated(this);
+            if (sgDropDownInfoBean.getSgDropDownCallback() != null) {
+                sgDropDownInfoBean.getSgDropDownCallback().onCreated(this);
             }
         }
         handler.postDelayed(initTask, 10);
@@ -217,8 +219,8 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
             if (getHostWindow() == null) {
                 return;
             }
-            if (SGDropDownInfoBean.sGDropDownCallback != null) {
-                SGDropDownInfoBean.sGDropDownCallback.beforeShow(SGBaseView.this);
+            if (sgDropDownInfoBean.getSgDropDownCallback() != null) {
+                sgDropDownInfoBean.getSgDropDownCallback().beforeShow(SGBaseView.this);
             }
             beforeShow();
             lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_START);
@@ -229,8 +231,8 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
     protected void initAnimator() {
         getDropDownContentView().setAlpha(1f);
         // 优先使用自定义的动画器
-        if (SGDropDownInfoBean.customAnimator != null) {
-            dropDownAnimator = SGDropDownInfoBean.customAnimator;
+        if (sgDropDownInfoBean.getCustomAnimator() != null) {
+            dropDownAnimator = sgDropDownInfoBean.getCustomAnimator();
             dropDownAnimator.targetView = getDropDownContentView();
         } else {
             // 根据SGDropDownInfo的dropDownAnimation字段来生成对应的动画执行器，如果dropDownAnimation字段为null，则返回null
@@ -241,7 +243,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
         }
 
         //3. 初始化动画执行器
-        if (SGDropDownInfoBean.hasShadowBg) {
+        if (sgDropDownInfoBean.getHasShadowBg()) {
             shadowBgAnimator.initAnimator();
         }
 
@@ -251,7 +253,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
     }
 
     private void detachFromHost() {
-        if (SGDropDownInfoBean != null) {
+        if (sgDropDownInfoBean != null) {
             ViewGroup decorView = (ViewGroup) getParent();
             if (decorView != null) {
                 decorView.removeView(this);
@@ -260,7 +262,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
     }
 
     public Window getHostWindow() {
-        if (SGDropDownInfoBean != null) {
+        if (sgDropDownInfoBean != null) {
             return ((Activity) getContext()).getWindow();
         }
         return null;
@@ -279,8 +281,8 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
             onShow();
 
 
-            if (SGDropDownInfoBean != null && SGDropDownInfoBean.sGDropDownCallback != null) {
-                SGDropDownInfoBean.sGDropDownCallback.onShow(SGBaseView.this);
+            if (sgDropDownInfoBean != null && sgDropDownInfoBean.getSgDropDownCallback() != null) {
+                sgDropDownInfoBean.getSgDropDownCallback().onShow(SGBaseView.this);
             }
             //再次检测移动距离
             if (getHostWindow() != null && SGDropDownUtils.getDecorViewInvisibleHeight(getHostWindow()) > 0 && !hasMoveUp) {
@@ -306,9 +308,9 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
 
 
     protected boolean processKeyEvent(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP && SGDropDownInfoBean != null) {
-            if (SGDropDownInfoBean.isDismissOnBackPressed &&
-                    (SGDropDownInfoBean.sGDropDownCallback == null || !SGDropDownInfoBean.sGDropDownCallback.onBackPressed(SGBaseView.this))) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP && sgDropDownInfoBean != null) {
+            if (sgDropDownInfoBean.getDismissOnBackPressed() &&
+                    (sgDropDownInfoBean.getSgDropDownCallback() == null || !sgDropDownInfoBean.getSgDropDownCallback().onBackPressed(SGBaseView.this))) {
                 dismissOrHideSoftInput();
             }
             return true;
@@ -327,28 +329,28 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
      * 根据DropDownInfo的DropDownAnimation字段来生成对应的内置的动画执行器
      */
     protected DropDownAnimator genAnimatorByDropDownType() {
-        if (SGDropDownInfoBean == null || SGDropDownInfoBean.sGDropDownAnimation == null) {
+        if (sgDropDownInfoBean == null || sgDropDownInfoBean.getSgDropDownAnimation() == null) {
             return null;
         }
-        switch (SGDropDownInfoBean.sGDropDownAnimation) {
+        switch (sgDropDownInfoBean.getSgDropDownAnimation()) {
             case ScaleAlphaFromCenter:
             case ScaleAlphaFromLeftTop:
             case ScaleAlphaFromRightTop:
             case ScaleAlphaFromLeftBottom:
             case ScaleAlphaFromRightBottom:
-                return new ScaleAlphaAnimator(getDropDownContentView(), getAnimationDuration(), SGDropDownInfoBean.sGDropDownAnimation);
+                return new ScaleAlphaAnimator(getDropDownContentView(), getAnimationDuration(), sgDropDownInfoBean.getSgDropDownAnimation());
 
             case TranslateAlphaFromLeft:
             case TranslateAlphaFromTop:
             case TranslateAlphaFromRight:
             case TranslateAlphaFromBottom:
-                return new TranslateAlphaAnimator(getDropDownContentView(), getAnimationDuration(), SGDropDownInfoBean.sGDropDownAnimation);
+                return new TranslateAlphaAnimator(getDropDownContentView(), getAnimationDuration(), sgDropDownInfoBean.getSgDropDownAnimation());
 
             case TranslateFromLeft:
             case TranslateFromTop:
             case TranslateFromRight:
             case TranslateFromBottom:
-                return new TranslateAnimator(getDropDownContentView(), getAnimationDuration(), SGDropDownInfoBean.sGDropDownAnimation);
+                return new TranslateAnimator(getDropDownContentView(), getAnimationDuration(), sgDropDownInfoBean.getSgDropDownAnimation());
 
             case ScrollAlphaFromLeft:
             case ScrollAlphaFromLeftTop:
@@ -358,7 +360,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
             case ScrollAlphaFromRightBottom:
             case ScrollAlphaFromBottom:
             case ScrollAlphaFromLeftBottom:
-                return new ScrollScaleAnimator(getDropDownContentView(), getAnimationDuration(), SGDropDownInfoBean.sGDropDownAnimation);
+                return new ScrollScaleAnimator(getDropDownContentView(), getAnimationDuration(), sgDropDownInfoBean.getSgDropDownAnimation());
 
             case NoAnimation:
                 return new EmptyAnimator(getDropDownContentView(), getAnimationDuration());
@@ -409,10 +411,10 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
      * 背景动画由父类实现，Content由子类实现
      */
     protected void doShowAnimation() {
-        if (SGDropDownInfoBean == null) {
+        if (sgDropDownInfoBean == null) {
             return;
         }
-        if (SGDropDownInfoBean.hasShadowBg && shadowBgAnimator != null) {
+        if (sgDropDownInfoBean.getHasShadowBg() && shadowBgAnimator != null) {
             shadowBgAnimator.animateShow();
         }
         if (dropDownAnimator != null) {
@@ -425,10 +427,10 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
      * 背景动画由父类实现，Content由子类实现
      */
     protected void doDismissAnimation() {
-        if (SGDropDownInfoBean == null) {
+        if (sgDropDownInfoBean == null) {
             return;
         }
-        if (SGDropDownInfoBean.hasShadowBg && shadowBgAnimator != null) {
+        if (sgDropDownInfoBean.getHasShadowBg() && shadowBgAnimator != null) {
             shadowBgAnimator.animateDismiss();
         }
 
@@ -452,17 +454,17 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
     }
 
     public int getAnimationDuration() {
-        if (SGDropDownInfoBean == null) {
+        if (sgDropDownInfoBean == null) {
             return 0;
         }
-        if (SGDropDownInfoBean.sGDropDownAnimation == NoAnimation) {
+        if (sgDropDownInfoBean.getSgDropDownAnimation() == NoAnimation) {
             return 1;
         }
-        return SGDropDownInfoBean.animationDuration >= 0 ? SGDropDownInfoBean.animationDuration : SGDropDown.getAnimationDuration() + 1;
+        return sgDropDownInfoBean.getAnimationDuration() >= 0 ? sgDropDownInfoBean.getAnimationDuration() : SGDropDown.getAnimationDuration() + 1;
     }
 
     public int getShadowBgColor() {
-        return SGDropDownInfoBean != null && SGDropDownInfoBean.shadowBgColor != 0 ? SGDropDownInfoBean.shadowBgColor : SGDropDown.getShadowBgColor();
+        return sgDropDownInfoBean != null && sgDropDownInfoBean.getShadowBgColor() != 0 ? sgDropDownInfoBean.getShadowBgColor()  : SGDropDown.getShadowBgColor();
     }
 
 
@@ -473,7 +475,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
      * @return
      */
     protected int getMaxWidth() {
-        return SGDropDownInfoBean.maxWidth;
+        return sgDropDownInfoBean.getMaxWidth();
     }
 
     /**
@@ -483,7 +485,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
      * @return
      */
     protected int getMaxHeight() {
-        return SGDropDownInfoBean.maxHeight;
+        return sgDropDownInfoBean.getMaxHeight();
     }
 
     /**
@@ -493,7 +495,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
      * @return
      */
     protected int getDropDownWidth() {
-        return SGDropDownInfoBean.dropDownWidth;
+        return sgDropDownInfoBean.getDropDownWidth();
     }
 
     /**
@@ -503,7 +505,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
      * @return
      */
     protected int getDropDownHeight() {
-        return SGDropDownInfoBean.dropDownHeight;
+        return sgDropDownInfoBean.getDropDownHeight();
     }
 
     /**
@@ -517,8 +519,8 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
         }
         dropDownStatus = DropDownStatus.Dismissing;
         clearFocus();
-        if (SGDropDownInfoBean != null && SGDropDownInfoBean.sGDropDownCallback != null) {
-            SGDropDownInfoBean.sGDropDownCallback.beforeDismiss(this);
+        if (sgDropDownInfoBean != null && sgDropDownInfoBean.getSgDropDownCallback() != null) {
+            sgDropDownInfoBean.getSgDropDownCallback().beforeDismiss(this);
         }
         beforeDismiss();
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_PAUSE);
@@ -557,7 +559,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
 
     protected void doAfterDismiss() {
         //SGDropDownBaseView要等到完全关闭再关闭输入法，不然有问题
-        if (SGDropDownInfoBean != null && SGDropDownInfoBean.autoOpenSoftInput && !(this instanceof SGDropDownBaseView)) {
+        if (sgDropDownInfoBean != null && sgDropDownInfoBean.getAutoOpenSoftInput() && !(this instanceof SGDropDownBaseView)) {
             SGKeyboardUtils.hideSoftInput(this);
         }
         handler.removeCallbacks(doAfterDismissTask);
@@ -569,22 +571,22 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
         public void run() {
             dropDownStatus = DropDownStatus.Dismiss;
             lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_STOP);
-            if (SGDropDownInfoBean == null) {
+            if (sgDropDownInfoBean == null) {
                 return;
             }
-            if (SGDropDownInfoBean.autoOpenSoftInput && SGBaseView.this instanceof SGDropDownBaseView) {
+            if (sgDropDownInfoBean.getAutoOpenSoftInput() && SGBaseView.this instanceof SGDropDownBaseView) {
                 SGKeyboardUtils.hideSoftInput(SGBaseView.this);
             }
             onDismiss();
            // SGDropDown.longClickPoint = null;
-            if (SGDropDownInfoBean.sGDropDownCallback != null) {
-                SGDropDownInfoBean.sGDropDownCallback.onDismiss(SGBaseView.this);
+            if (sgDropDownInfoBean.getSgDropDownCallback() != null) {
+                sgDropDownInfoBean.getSgDropDownCallback().onDismiss(SGBaseView.this);
             }
             if (dismissWithRunnable != null) {
                 dismissWithRunnable.run();
                 dismissWithRunnable = null;//no cache, avoid some bad edge effect.
             }
-            if (SGDropDownInfoBean.isRequestFocus) {
+            if (sgDropDownInfoBean.isRequestFocus()) {
                 // 让根布局拿焦点，避免布局内RecyclerView类似布局获取焦点导致布局滚动
                 if (getWindowDecorView() != null) {
                     View needFocusView = getWindowDecorView().findViewById(android.R.id.content);
@@ -691,17 +693,17 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
 
     public void destroy() {
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY);
-        if (SGDropDownInfoBean != null) {
-            SGDropDownInfoBean.atView = null;
-            SGDropDownInfoBean.sGDropDownCallback = null;
-            SGDropDownInfoBean.hostLifecycle = null;
-            if (SGDropDownInfoBean.customAnimator != null && SGDropDownInfoBean.customAnimator.targetView != null) {
-                SGDropDownInfoBean.customAnimator.targetView.animate().cancel();
+        if (sgDropDownInfoBean != null) {
+            sgDropDownInfoBean.setAtView (null);
+            sgDropDownInfoBean.setSgDropDownCallback(null);
+            sgDropDownInfoBean.setHostLifecycle (null);
+            if (sgDropDownInfoBean.getCustomAnimator() != null && sgDropDownInfoBean.getCustomAnimator().targetView != null) {
+                sgDropDownInfoBean.getCustomAnimator().targetView.animate().cancel();
             }
             tryRemoveFragments();
 
-            if (SGDropDownInfoBean.isDestroyOnDismiss) {
-                SGDropDownInfoBean = null;
+            if (sgDropDownInfoBean.isDestroyOnDismiss()) {
+                sgDropDownInfoBean = null;
             }
         }
 
@@ -715,7 +717,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         handler.removeCallbacksAndMessages(null);
-        if (SGDropDownInfoBean != null) {
+        if (sgDropDownInfoBean != null) {
             if (getWindowDecorView() != null) {
                 SGKeyboardUtils.removeLayoutChangeListener(getHostWindow(), SGBaseView.this);
             }
@@ -724,12 +726,12 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
                 getHostWindow().setSoftInputMode(preSoftMode);
                 hasModifySoftMode = false;
             }
-            if (SGDropDownInfoBean.isDestroyOnDismiss) {
+            if (sgDropDownInfoBean.isDestroyOnDismiss()) {
                 destroy();//如果开启isDestroyOnDismiss，强制释放资源
             }
         }
-        if (SGDropDownInfoBean != null && SGDropDownInfoBean.hostLifecycle != null) {
-            SGDropDownInfoBean.hostLifecycle.removeObserver(this);
+        if (sgDropDownInfoBean != null && sgDropDownInfoBean.getHostLifecycle() != null) {
+            sgDropDownInfoBean.getHostLifecycle().removeObserver(this);
         } else {
             if (getContext() != null && getContext() instanceof FragmentActivity) {
                 ((FragmentActivity) getContext()).getLifecycle().removeObserver(this);
@@ -740,7 +742,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
     }
 
     private void passClickThrough(MotionEvent event) {
-        if (SGDropDownInfoBean != null && SGDropDownInfoBean.isClickThrough) {
+        if (sgDropDownInfoBean != null && sgDropDownInfoBean.isClickThrough()) {
                 getActivityContentView().dispatchTouchEvent(event);
         }
     }
@@ -760,7 +762,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
                     passClickThrough(event);
                     break;
                 case MotionEvent.ACTION_MOVE:
-                    if (SGDropDownInfoBean != null && SGDropDownInfoBean.isDismissOnTouchOutside) {
+                    if (sgDropDownInfoBean != null && sgDropDownInfoBean.getDismissOnTouchOutside()) {
                         dismiss();
                     }
                     break;
@@ -770,9 +772,9 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
                     float dy = event.getY() - y;
                     float distance = (float) Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
                     passClickThrough(event);
-                    if (distance < touchSlop && SGDropDownInfoBean != null && SGDropDownInfoBean.isDismissOnTouchOutside) {
+                    if (distance < touchSlop && sgDropDownInfoBean != null && sgDropDownInfoBean.getDismissOnTouchOutside()) {
                         //查看是否在排除区域外
-                        ArrayList<Rect> rects = SGDropDownInfoBean.notDismissWhenTouchInArea;
+                        ArrayList<Rect> rects = sgDropDownInfoBean.getNotDismissWhenTouchInArea();
                         if (rects != null && rects.size() > 0) {
                             boolean inRect = false;
                             for (Rect r : rects) {
