@@ -37,6 +37,7 @@ import com.sungrowpower.kit.dropdown.animator.ScrollScaleAnimator;
 import com.sungrowpower.kit.dropdown.animator.ShadowBgAnimator;
 import com.sungrowpower.kit.dropdown.animator.TranslateAlphaAnimator;
 import com.sungrowpower.kit.dropdown.animator.TranslateAnimator;
+import com.sungrowpower.kit.dropdown.bean.GlobalBean;
 import com.sungrowpower.kit.dropdown.enums.DropDownStatus;
 import com.sungrowpower.kit.dropdown.util.SGDropDownUtils;
 import com.sungrowpower.kit.dropdown.util.SGKeyboardUtils;
@@ -460,11 +461,11 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
         if (sgDropDownInfoBean.getSgDropDownAnimation() == NoAnimation) {
             return 1;
         }
-        return sgDropDownInfoBean.getAnimationDuration() >= 0 ? sgDropDownInfoBean.getAnimationDuration() : SGDropDown.getAnimationDuration() + 1;
+        return sgDropDownInfoBean.getAnimationDuration() >= 0 ? sgDropDownInfoBean.getAnimationDuration() : GlobalBean.getAnimationDuration() + 1;
     }
 
     public int getShadowBgColor() {
-        return sgDropDownInfoBean != null && sgDropDownInfoBean.getShadowBgColor() != 0 ? sgDropDownInfoBean.getShadowBgColor()  : SGDropDown.getShadowBgColor();
+        return sgDropDownInfoBean != null && sgDropDownInfoBean.getShadowBgColor() != 0 ? sgDropDownInfoBean.getShadowBgColor()  : GlobalBean.getShadowBgColor();
     }
 
 
