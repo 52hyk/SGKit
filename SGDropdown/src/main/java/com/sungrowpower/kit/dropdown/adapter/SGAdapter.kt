@@ -37,15 +37,17 @@ class SGAdapter(mData:MutableList<SGSimpleDataBean>, var sgDropDownInfoBean:SGDr
 
         if (item!!.isChecked){
             holder.getView<SGFontIcon>(R.id.sg_font).visibility=View.VISIBLE
-            holder.getView<TextView>(R.id.tv_name).setTextColor(context.resources.getColor(R.color.sgkit_brand_routine))
+            holder.getView<TextView>(R.id.tv_name).setTextColor(sgDropDownInfoBean.sgItemCheckedTextColor)
+
         }else{
             holder.getView<SGFontIcon>(R.id.sg_font).visibility=View.GONE
             if (!item.isDisabled){
-                holder.getView<TextView>(R.id.tv_name).setTextColor(context.resources.getColor(R.color.sgkit_text_title))
+                holder.getView<TextView>(R.id.tv_name).setTextColor(sgDropDownInfoBean.sgItemUnCheckedTextColor)
             }else{
-                holder.getView<TextView>(R.id.tv_name).setTextColor(context.resources.getColor(R.color.sgkit_text_disabled))
+                holder.getView<TextView>(R.id.tv_name).setTextColor(sgDropDownInfoBean.sgItemDisableTextColor)
             }
         }
+
     }
 
     override fun onCreateViewHolder(
