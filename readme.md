@@ -28,8 +28,8 @@
 | sgItemCheckedTextColor | item选中文本颜色 | int | #FF8100 |
 | sgItemUnCheckedTextColor | item未选中文本颜色 | int | #222222 |
 | sgItemDisableTextColor | item中Disable文本颜色 | int | #CCCCCC |
-| sgItemCheckedTextBgColor | item选中后的背景颜色 | Drawable |  |
-| sgItemUnCheckedTextBgColor | item未选中后的背景颜色 | Drawable |  |
+| sgItemCheckedTextBgColor | item选中后的背景颜色 | Drawable | - |
+| sgItemUnCheckedTextBgColor | item未选中后的背景颜色 | Drawable | - |
 
 ## 内置UI方法，不适用自定义UI
 | 方法名 | 描述 | 返回类形 | 型默认值 |
