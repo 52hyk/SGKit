@@ -1,6 +1,7 @@
 package com.sungrowpower.kit.dropdown.widget;
 
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 
 import com.sungrowpower.kit.R;
 import com.sungrowpower.kit.dropdown.SGKit;
@@ -40,6 +41,12 @@ public class SGDropDownColorMap {
         return shadowBgColor;
     }
 
+    public int itemCheckedTextColor =  SGKit.getInstance().getContext().getResources().getColor(R.color.sgkit_brand_routine);
+    public int itemUnCheckedTextColor =  SGKit.getInstance().getContext().getResources().getColor(R.color.sgkit_text_title);
+    public int itemDisableTextColor =  SGKit.getInstance().getContext().getResources().getColor(R.color.sgkit_text_disabled);
+
+    public Drawable itemCheckedTextBgColor=SGKit.getInstance().getContext().getResources().getDrawable(R.drawable.selected_bg);
+    public Drawable itemUnCheckedTextBgColor=SGKit.getInstance().getContext().getResources().getDrawable(R.drawable.unselected_bg);
 
     /**
      * 设置全局动画时长

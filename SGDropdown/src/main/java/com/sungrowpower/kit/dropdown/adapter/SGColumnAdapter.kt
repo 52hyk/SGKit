@@ -29,14 +29,14 @@ class SGColumnAdapter(mData:MutableList<SGSimpleDataBean>, var sgDropDownInfoBea
         }
 
         if (item!!.isChecked){
-            holder.getView<TextView>(R.id.tv_name).setBackgroundResource(R.drawable.selected_bg)
-            holder.getView<TextView>(R.id.tv_name).setTextColor(context.resources.getColor(R.color.sgkit_brand_routine))
+            holder.getView<TextView>(R.id.tv_name).background=sgDropDownInfoBean.sgItemCheckedTextBgColor
+            holder.getView<TextView>(R.id.tv_name).setTextColor(sgDropDownInfoBean.sgItemCheckedTextColor)
         }else{
-            holder.getView<TextView>(R.id.tv_name).setBackgroundResource(R.drawable.unselected_bg)
+            holder.getView<TextView>(R.id.tv_name).background=sgDropDownInfoBean.sgItemUnCheckedTextBgColor
             if (!item.isDisabled){
-                holder.getView<TextView>(R.id.tv_name).setTextColor(context.resources.getColor(R.color.sgkit_text_dark_gray))
+                holder.getView<TextView>(R.id.tv_name).setTextColor(sgDropDownInfoBean.sgItemUnCheckedTextColor)
             }else{
-                holder.getView<TextView>(R.id.tv_name).setTextColor(context.resources.getColor(R.color.sgkit_text_disabled))
+                holder.getView<TextView>(R.id.tv_name).setTextColor(sgDropDownInfoBean.sgItemDisableTextColor)
             }
         }
 

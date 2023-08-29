@@ -3,6 +3,7 @@ package com.sungrowpower.kit.dropdown.bean;
 import android.graphics.PointF;
 import android.graphics.Rect;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.util.TypedValue;
 import android.view.View;
 
@@ -94,6 +95,58 @@ public class SGDropDownInfoBean {
 
     //设置fontIcon Text文本，支持富文本
     private CharSequence sgFontIconText = "&#xe98d;";
+
+    //设置item选中文本颜色
+    private int sgItemCheckedTextColor = SGDropDownColorMap.getInstance().itemCheckedTextColor;
+    //设置item 未选中文本颜色
+    private int sgItemUnCheckedTextColor = SGDropDownColorMap.getInstance().itemUnCheckedTextColor;
+    //设置item 不能点击中文本颜色
+    private int sgItemDisableTextColor = SGDropDownColorMap.getInstance().itemDisableTextColor;
+    //设置item 选中背景颜色
+    private Drawable sgItemCheckedTextBgColor= SGDropDownColorMap.getInstance().itemCheckedTextBgColor;
+    //设置item 未选中背景颜色
+    private Drawable sgItemUnCheckedTextBgColor = SGDropDownColorMap.getInstance().itemUnCheckedTextBgColor;
+
+
+    public int getSgItemCheckedTextColor() {
+        return sgItemCheckedTextColor;
+    }
+
+    public void setSgItemCheckedTextColor(int sgItemCheckedTextColor) {
+        this.sgItemCheckedTextColor = sgItemCheckedTextColor;
+    }
+
+    public int getSgItemUnCheckedTextColor() {
+        return sgItemUnCheckedTextColor;
+    }
+
+    public void setSgItemUnCheckedTextColor(int sgItemUnCheckedTextColor) {
+        this.sgItemUnCheckedTextColor = sgItemUnCheckedTextColor;
+    }
+
+    public int getSgItemDisableTextColor() {
+        return sgItemDisableTextColor;
+    }
+
+    public void setSgItemDisableTextColor(int sgItemDisableTextColor) {
+        this.sgItemDisableTextColor = sgItemDisableTextColor;
+    }
+
+    public Drawable getSgItemCheckedTextBgColor() {
+        return sgItemCheckedTextBgColor;
+    }
+
+    public void setSgItemCheckedTextBgColor(Drawable sgItemCheckedTextBgColor) {
+        this.sgItemCheckedTextBgColor = sgItemCheckedTextBgColor;
+    }
+
+    public Drawable getSgItemUnCheckedTextBgColor() {
+        return sgItemUnCheckedTextBgColor;
+    }
+
+    public void setSgItemUnCheckedTextBgColor(Drawable sgItemUnCheckedTextBgColor) {
+        this.sgItemUnCheckedTextBgColor = sgItemUnCheckedTextBgColor;
+    }
 
     public CharSequence getSgFontIconText() {
         return sgFontIconText;
