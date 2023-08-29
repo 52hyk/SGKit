@@ -1,60 +1,82 @@
 package com.sungrowpower.kit.dropdown.adapter
 
-import android.content.Context
 import android.util.TypedValue
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.viewholder.QuickViewHolder
+import androidx.recyclerview.widget.RecyclerView
 import com.sungrowpower.kit.R
 import com.sungrowpower.kit.dropdown.bean.SGDropDownInfoBean
 import com.sungrowpower.kit.dropdown.bean.SGSimpleDataBean
+import com.sungrowpower.kit.dropdown.interfaces.OnItemClickListener
 import com.sungrowpower.kit.fonticon.SGFontIcon
 
 /**
- * 创建日期：2023/8/15 on 17:25
+ * 创建日期：2023/8/29 on 15:52
  * 描述:
  * 作者:hyk
  */
-class SGAdapter(mData:MutableList<SGSimpleDataBean>, var sgDropDownInfoBean:SGDropDownInfoBean):BaseQuickAdapter<SGSimpleDataBean, QuickViewHolder>(mData) {
-    override fun onBindViewHolder(holder: QuickViewHolder, position: Int, item: SGSimpleDataBean?) {
-        //holder.setText(R.id.tv_name,item!!.label)
+class SGAdapter(
+    private val sgSimpleDataBeans: List<SGSimpleDataBean>,
+    private val sgDropDownInfoBean: SGDropDownInfoBean,
+) : RecyclerView.Adapter<SGAdapter.ViewHolder>() {
 
-        holder.getView<TextView>(R.id.tv_name).setTextSize(TypedValue.COMPLEX_UNIT_PX, sgDropDownInfoBean.sgKitTextSize);
-        holder.getView<TextView>(R.id.tv_name).setTextColor(sgDropDownInfoBean.sgKitTextColor)
-        holder.getView<TextView>(R.id.tv_name).typeface = sgDropDownInfoBean.sgKitTypeface
-
-        if (sgDropDownInfoBean.sgKitText.isNullOrEmpty()){
-            holder.setText(R.id.tv_name,sgDropDownInfoBean.sgKitText)
-        }else{
-            holder.setText(R.id.tv_name,item!!.label)
-        }
-
-        holder.getView<TextView>(R.id.sg_font).setTextSize(TypedValue.COMPLEX_UNIT_PX, sgDropDownInfoBean.sgFontIconTextSize)
-        holder.getView<TextView>(R.id.sg_font).setTextColor(sgDropDownInfoBean.sgFontIconTextColor)
-        holder.getView<TextView>(R.id.sg_font).setText(sgDropDownInfoBean.sgFontIconText)
-
-        if (item!!.isChecked){
-            holder.getView<SGFontIcon>(R.id.sg_font).visibility=View.VISIBLE
-            holder.getView<TextView>(R.id.tv_name).setTextColor(sgDropDownInfoBean.sgItemCheckedTextColor)
-
-        }else{
-            holder.getView<SGFontIcon>(R.id.sg_font).visibility=View.GONE
-            if (!item.isDisabled){
-                holder.getView<TextView>(R.id.tv_name).setTextColor(sgDropDownInfoBean.sgItemUnCheckedTextColor)
-            }else{
-                holder.getView<TextView>(R.id.tv_name).setTextColor(sgDropDownInfoBean.sgItemDisableTextColor)
-            }
-        }
-
+    var mClickListener: OnItemClickListener? = null
+    fun setOnItemClickListener(listener: OnItemClickListener?) {
+        mClickListener = listener
+    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val itemView = LayoutInflater.from(parent.context)
+            .inflate(R.layout._sg_simple_item, parent, false)
+        return ViewHolder(itemView, mClickListener!!)
     }
 
-    override fun onCreateViewHolder(
-        context: Context,
-        parent: ViewGroup,
-        viewType: Int,
-    ): QuickViewHolder {
-        return QuickViewHolder(R.layout._sg_simple_item, parent)
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        var item = sgSimpleDataBeans[position]
+        holder.tvName.setTextSize(TypedValue.COMPLEX_UNIT_PX, sgDropDownInfoBean.sgKitTextSize);
+        holder.tvName.setTextColor(sgDropDownInfoBean.sgKitTextColor)
+        holder.tvName.typeface = sgDropDownInfoBean.sgKitTypeface
+        if (sgDropDownInfoBean.sgKitText.isNullOrEmpty()) {
+            holder.tvName.setText(sgDropDownInfoBean.sgKitText)
+        } else {
+            holder.tvName.setText(item!!.label)
+        }
+
+        holder.sgFont.setTextSize(TypedValue.COMPLEX_UNIT_PX, sgDropDownInfoBean.sgFontIconTextSize)
+        holder.sgFont.setTextColor(sgDropDownInfoBean.sgFontIconTextColor)
+        holder.sgFont.setText(sgDropDownInfoBean.sgFontIconText)
+
+        if (item!!.isChecked) {
+            holder.sgFont.visibility = View.VISIBLE
+            holder.tvName.setTextColor(sgDropDownInfoBean.sgItemCheckedTextColor)
+
+        } else {
+            holder.sgFont.visibility = View.GONE
+            if (!item.isDisabled) {
+                holder.tvName.setTextColor(sgDropDownInfoBean.sgItemUnCheckedTextColor)
+            } else {
+                holder.tvName.setTextColor(sgDropDownInfoBean.sgItemDisableTextColor)
+            }
+        }
+    }
+
+    override fun getItemCount(): Int {
+        return sgSimpleDataBeans.size
+    }
+
+    class ViewHolder(view: View,private val mListener: OnItemClickListener) : RecyclerView.ViewHolder(view),View.OnClickListener {
+        var tvName: TextView
+        val sgFont: SGFontIcon
+
+        init {
+            itemView.setOnClickListener(this)
+            tvName = view.findViewById<View>(R.id.tv_name) as TextView
+            sgFont = view.findViewById<View>(R.id.sg_font) as SGFontIcon
+        }
+
+        override fun onClick(v: View?) {
+            mListener.onItemClick(v,position)
+        }
     }
 }

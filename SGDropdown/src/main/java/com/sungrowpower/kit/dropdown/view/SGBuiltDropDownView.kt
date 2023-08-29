@@ -28,7 +28,8 @@ class SGBuiltDropDownView(context: Context) : SGDropDownBaseView(context) {
 
     private val adapter by lazy {
         SGAdapter(mData, sgDropDownInfoBean).apply {
-            setOnItemClickListener { adapter, view, position ->
+            setOnItemClickListener { view, position ->
+                Log.i("postion==", position.toString())
                 if (mData[position].isDisabled) {
                     return@setOnItemClickListener
                 }
@@ -57,9 +58,70 @@ class SGBuiltDropDownView(context: Context) : SGDropDownBaseView(context) {
                 }
             }
         }
+
+//        SGAdapter(mData, sgDropDownInfoBean).apply {
+//            setOnItemClickListener { adapter, view, position ->
+//                if (mData[position].isDisabled) {
+//                    return@setOnItemClickListener
+//                }
+//
+//                if (sgDropDownInfoBean.sgOnClickOptionListener != null) {
+//                    sgDropDownInfoBean.sgOnClickOptionListener!!.onOptionClick(position, -1)
+//                }
+//
+//                if (sgDropDownInfoBean.isMultiple) {
+//                    mData[position].isChecked = !mData[position].isChecked
+//                    notifyItemChanged(position)
+//
+//                    setSelect()
+//                } else {
+//                    for (i in mData.indices) {
+//                        mData[i].isChecked = false
+//                    }
+//                    mData[position].isChecked = true
+//                    notifyDataSetChanged()
+//
+//                    setSelect()
+//                }
+//
+//                if (sgDropDownInfoBean.sgOnClickOptionListener != null) {
+//                    sgDropDownInfoBean.sgOnClickOptionListener!!.onOptionChange(position, -1)
+//                }
+//            }
+//        }
     }
     private val adapterColumn by lazy {
         SGColumnAdapter(mData, sgDropDownInfoBean).apply {
+            setOnItemClickListener { view, position ->
+                if (sgDropDownInfoBean.sgOnClickOptionListener != null) {
+                    sgDropDownInfoBean.sgOnClickOptionListener!!.onOptionClick(position, -1)
+                }
+
+                if (mData[position].isDisabled) {
+                    return@setOnItemClickListener
+                }
+                if (sgDropDownInfoBean.isMultiple) {
+                    mData[position].isChecked = !mData[position].isChecked
+                    notifyItemChanged(position)
+
+                    setSelect()
+                } else {
+                    for (i in mData.indices) {
+                        mData[i].isChecked = false
+                    }
+                    mData[position].isChecked = true
+                    notifyDataSetChanged()
+
+                    setSelect()
+                }
+
+                if (sgDropDownInfoBean.sgOnClickOptionListener != null) {
+                    sgDropDownInfoBean.sgOnClickOptionListener!!.onOptionChange(position, -1)
+                }
+
+            }
+        }
+        /*SGColumnAdapter(mData, sgDropDownInfoBean).apply {
             setOnItemClickListener { adapter, view, position ->
                 if (sgDropDownInfoBean.sgOnClickOptionListener != null) {
                     sgDropDownInfoBean.sgOnClickOptionListener!!.onOptionClick(position, -1)
@@ -87,11 +149,11 @@ class SGBuiltDropDownView(context: Context) : SGDropDownBaseView(context) {
                     sgDropDownInfoBean.sgOnClickOptionListener!!.onOptionChange(position, -1)
                 }
             }
-        }
+        }*/
     }
 
     private val adapterGroup by lazy {
-        SGGroupAdapter(mGroupData, sgDropDownInfoBean)
+        SGGroupAdapter(mGroupData, sgDropDownInfoBean,context)
     }
 
     override fun getImplLayoutId(): Int {
@@ -103,7 +165,7 @@ class SGBuiltDropDownView(context: Context) : SGDropDownBaseView(context) {
 
 
         mGroupData = sgDropDownInfoBean.options as MutableList<SGGroupDataBean>
-        if (mGroupData.size != 0){
+        if (mGroupData.size != 0) {
             if (!mGroupData[0].isGroup) {
                 mData = mGroupData[0].childData
             }

@@ -2,12 +2,12 @@ package com.sungrowpower.kit.dropdown.adapter
 
 import android.content.Context
 import android.util.TypedValue
+import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.viewholder.QuickViewHolder
 import com.sungrowpower.kit.R
 import com.sungrowpower.kit.dropdown.bean.SGDropDownInfoBean
 import com.sungrowpower.kit.dropdown.bean.SGGroupDataBean
@@ -15,29 +15,40 @@ import com.sungrowpower.kit.dropdown.interfaces.SGGroupOnClickListener
 import com.sungrowpower.kit.dropdown.util.SGDropDownUtils
 
 /**
- * 创建日期：2023/8/25 on 9:28
+ * 创建日期：2023/8/29 on 15:52
  * 描述:
  * 作者:hyk
  */
-class SGGroupAdapter(mData:MutableList<SGGroupDataBean>, var sgDropDownInfoBean: SGDropDownInfoBean):
-    BaseQuickAdapter<SGGroupDataBean, QuickViewHolder>(mData) {
-    override fun onBindViewHolder(holder: QuickViewHolder, position: Int, item: SGGroupDataBean?) {
-        //holder.setText(R.id.tv_name,item!!.title)
-        holder.getView<TextView>(R.id.tv_name).setTextSize(TypedValue.COMPLEX_UNIT_PX, sgDropDownInfoBean.sgKitTextSize);
-        holder.getView<TextView>(R.id.tv_name).setTextColor(sgDropDownInfoBean.sgKitTextColor)
-        holder.getView<TextView>(R.id.tv_name).typeface = sgDropDownInfoBean.sgKitTypeface
+class SGGroupAdapter(
+    private val sgGroupDataBean:  List<SGGroupDataBean>,
+    private val sgDropDownInfoBean: SGDropDownInfoBean,
+     var context: Context
+) : RecyclerView.Adapter<SGGroupAdapter.ViewHolder>() {
 
-        if (sgDropDownInfoBean.sgKitText.isNullOrEmpty()){
-            holder.setText(R.id.tv_name,sgDropDownInfoBean.sgKitText)
-        }else{
-            holder.setText(R.id.tv_name,item!!.title)
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val itemView = LayoutInflater.from(parent.context)
+            .inflate(R.layout._sg_group_item, parent, false)
+        return ViewHolder(itemView)
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        var item = sgGroupDataBean[position]
+        holder.tvName.setTextSize(TypedValue.COMPLEX_UNIT_PX, sgDropDownInfoBean.sgKitTextSize);
+        holder.tvName.setTextColor(sgDropDownInfoBean.sgKitTextColor)
+        holder.tvName.typeface = sgDropDownInfoBean.sgKitTypeface
+
+        if (sgDropDownInfoBean.sgKitText.isNullOrEmpty()) {
+            holder.tvName.text = sgDropDownInfoBean.sgKitText
+        } else {
+            holder.tvName.setText(item!!.title)
         }
 
-        holder.getView<RecyclerView>(R.id.rv).layoutManager=GridLayoutManager(context,3)
-        val params = holder.getView<RecyclerView>(R.id.rv).layoutParams as ViewGroup.MarginLayoutParams
+        holder.recyclerView!!.layoutManager= GridLayoutManager(context,3)
+        val params = holder.recyclerView!!.layoutParams as ViewGroup.MarginLayoutParams
         params.bottomMargin = SGDropDownUtils.dp2px(context, 4F)
-        holder.getView<RecyclerView>(R.id.rv).adapter=SGColumnAdapter(item!!.childData,sgDropDownInfoBean).apply {
-            setOnItemClickListener { adapter, view, position ->
+        holder.recyclerView!!.adapter=SGColumnAdapter(item!!.childData,sgDropDownInfoBean).apply {
+            setOnItemClickListener { view, position ->
                 if (item.childData[position].isDisabled) {
                     return@setOnItemClickListener
                 }
@@ -50,25 +61,30 @@ class SGGroupAdapter(mData:MutableList<SGGroupDataBean>, var sgDropDownInfoBean:
                 if (listener!=null){
                     listener!!.onGroupChange(position,holder.layoutPosition)
                 }
-
                 if (sgDropDownInfoBean.sgOnClickOptionListener != null) {
                     sgDropDownInfoBean.sgOnClickOptionListener!!.onOptionChange(position, holder.layoutPosition)
                 }
             }
         }
     }
-
-    override fun onCreateViewHolder(
-        context: Context,
-        parent: ViewGroup,
-        viewType: Int,
-    ): QuickViewHolder {
-        return QuickViewHolder(R.layout._sg_group_item, parent)
-    }
-
     private var listener: SGGroupOnClickListener? = null
 
-   public fun setGroupOnClickListener(listener: SGGroupOnClickListener?) {
+    public fun setGroupOnClickListener(listener: SGGroupOnClickListener?) {
         this.listener = listener
+    }
+    override fun getItemCount(): Int {
+        return sgGroupDataBean.size
+    }
+
+    class ViewHolder(view: View) :
+        RecyclerView.ViewHolder(view) {
+        var tvName: TextView
+        var recyclerView: RecyclerView? = null
+
+        init {
+            tvName = view.findViewById<View>(R.id.tv_name) as TextView
+            recyclerView = view.findViewById(R.id.rv)
+        }
+
     }
 }
