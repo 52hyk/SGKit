@@ -59,36 +59,7 @@ class SGBuiltDropDownView(context: Context) : SGDropDownBaseView(context) {
             }
         }
 
-//        SGAdapter(mData, sgDropDownInfoBean).apply {
-//            setOnItemClickListener { adapter, view, position ->
-//                if (mData[position].isDisabled) {
-//                    return@setOnItemClickListener
-//                }
-//
-//                if (sgDropDownInfoBean.sgOnClickOptionListener != null) {
-//                    sgDropDownInfoBean.sgOnClickOptionListener!!.onOptionClick(position, -1)
-//                }
-//
-//                if (sgDropDownInfoBean.isMultiple) {
-//                    mData[position].isChecked = !mData[position].isChecked
-//                    notifyItemChanged(position)
-//
-//                    setSelect()
-//                } else {
-//                    for (i in mData.indices) {
-//                        mData[i].isChecked = false
-//                    }
-//                    mData[position].isChecked = true
-//                    notifyDataSetChanged()
-//
-//                    setSelect()
-//                }
-//
-//                if (sgDropDownInfoBean.sgOnClickOptionListener != null) {
-//                    sgDropDownInfoBean.sgOnClickOptionListener!!.onOptionChange(position, -1)
-//                }
-//            }
-//        }
+
     }
     private val adapterColumn by lazy {
         SGColumnAdapter(mData, sgDropDownInfoBean).apply {
@@ -121,35 +92,7 @@ class SGBuiltDropDownView(context: Context) : SGDropDownBaseView(context) {
 
             }
         }
-        /*SGColumnAdapter(mData, sgDropDownInfoBean).apply {
-            setOnItemClickListener { adapter, view, position ->
-                if (sgDropDownInfoBean.sgOnClickOptionListener != null) {
-                    sgDropDownInfoBean.sgOnClickOptionListener!!.onOptionClick(position, -1)
-                }
 
-                if (mData[position].isDisabled) {
-                    return@setOnItemClickListener
-                }
-                if (sgDropDownInfoBean.isMultiple) {
-                    mData[position].isChecked = !mData[position].isChecked
-                    notifyItemChanged(position)
-
-                    setSelect()
-                } else {
-                    for (i in mData.indices) {
-                        mData[i].isChecked = false
-                    }
-                    mData[position].isChecked = true
-                    notifyDataSetChanged()
-
-                    setSelect()
-                }
-
-                if (sgDropDownInfoBean.sgOnClickOptionListener != null) {
-                    sgDropDownInfoBean.sgOnClickOptionListener!!.onOptionChange(position, -1)
-                }
-            }
-        }*/
     }
 
     private val adapterGroup by lazy {
