@@ -96,24 +96,6 @@ public class SGDropDown {
             return this;
         }
 
-        /**
-         * 设置弹窗监视的View
-         *
-         * @param watchView
-         * @return
-         */
-        public Builder watchView(View watchView) {
-            watchView.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                        sgDropDownInfoBean.setTouchPoint(new PointF(event.getRawX(), event.getRawY())) ;
-                    }
-                    return false;
-                }
-            });
-            return this;
-        }
 
         /**
          * 为弹窗设置内置的动画器，默认情况下，已经为每种弹窗设置了效果最佳的动画器；如果你不喜欢，仍然可以修改。

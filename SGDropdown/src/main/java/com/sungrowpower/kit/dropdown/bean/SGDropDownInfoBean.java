@@ -38,8 +38,7 @@ public class SGDropDownInfoBean {
     // 动画执行器，如果不指定，则会根据窗体类型dropDownType字段生成默认合适的动画执行器
     private SGDropDownAnimation sgDropDownAnimation = null;
     private DropDownAnimator customAnimator = null;
-    // 触摸的点
-    private PointF touchPoint = null;
+
     // 最大宽度
     private int maxWidth;
     // 最大高度
@@ -265,14 +264,6 @@ public class SGDropDownInfoBean {
 
     public void setCustomAnimator(DropDownAnimator customAnimator) {
         this.customAnimator = customAnimator;
-    }
-
-    public PointF getTouchPoint() {
-        return touchPoint;
-    }
-
-    public void setTouchPoint(PointF touchPoint) {
-        this.touchPoint = touchPoint;
     }
 
     public int getMaxWidth() {
