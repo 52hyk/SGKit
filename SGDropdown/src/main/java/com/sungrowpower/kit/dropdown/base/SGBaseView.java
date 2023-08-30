@@ -319,12 +319,6 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
         return false;
     }
 
-    class BackPressListener implements OnKeyListener {
-        @Override
-        public boolean onKey(View v, int keyCode, KeyEvent event) {
-            return processKeyEvent(keyCode, event);
-        }
-    }
 
     /**
      * 根据DropDownInfo的DropDownAnimation字段来生成对应的内置的动画执行器
