@@ -32,7 +32,7 @@
 | sgItemUnCheckedTextBgColor | item未选中后的背景颜色 | Drawable | - |
 
 ## 内置UI方法，不适用自定义UI
-| 方法名 | 描述 | 返回类形 | 型默认值 |
+| 方法名 | 描述 | 返回类形 | 默认值 |
 | --- | --- | ---| ---|
 | selectedValue | 当前选择的选项标识 | void | null |
 | onOptionClick | 点击选项时触发的回调函数 | void | null |
