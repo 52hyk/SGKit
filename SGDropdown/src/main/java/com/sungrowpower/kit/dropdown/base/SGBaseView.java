@@ -29,7 +29,6 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LifecycleRegistry;
 import androidx.lifecycle.OnLifecycleEvent;
 
-import com.sungrowpower.kit.dropdown.SGDropDown;
 import com.sungrowpower.kit.dropdown.animator.DropDownAnimator;
 import com.sungrowpower.kit.dropdown.animator.EmptyAnimator;
 import com.sungrowpower.kit.dropdown.animator.ScaleAlphaAnimator;
@@ -37,7 +36,6 @@ import com.sungrowpower.kit.dropdown.animator.ScrollScaleAnimator;
 import com.sungrowpower.kit.dropdown.animator.ShadowBgAnimator;
 import com.sungrowpower.kit.dropdown.animator.TranslateAlphaAnimator;
 import com.sungrowpower.kit.dropdown.animator.TranslateAnimator;
-import com.sungrowpower.kit.dropdown.bean.GlobalBean;
 import com.sungrowpower.kit.dropdown.enums.DropDownStatus;
 import com.sungrowpower.kit.dropdown.util.SGDropDownUtils;
 import com.sungrowpower.kit.dropdown.util.SGKeyboardUtils;

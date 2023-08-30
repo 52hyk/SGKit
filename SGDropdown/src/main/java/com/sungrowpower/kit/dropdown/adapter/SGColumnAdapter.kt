@@ -25,6 +25,7 @@ class SGColumnAdapter(
     fun setOnItemClickListener(listener: OnItemClickListener?) {
         mClickListener = listener
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent.context)
             .inflate(R.layout._sg_column_item, parent, false)
@@ -43,10 +44,10 @@ class SGColumnAdapter(
         }
 
         if (item!!.isChecked) {
-            holder.tvName.background=sgDropDownInfoBean.sgItemCheckedTextBgColor
+            holder.tvName.background = sgDropDownInfoBean.sgItemCheckedTextBgColor
             holder.tvName.setTextColor(sgDropDownInfoBean.sgItemCheckedTextColor)
         } else {
-            holder.tvName.background=sgDropDownInfoBean.sgItemUnCheckedTextBgColor
+            holder.tvName.background = sgDropDownInfoBean.sgItemUnCheckedTextBgColor
             if (!item.isDisabled) {
                 holder.tvName.setTextColor(sgDropDownInfoBean.sgItemUnCheckedTextColor)
             } else {
@@ -59,7 +60,8 @@ class SGColumnAdapter(
         return sgSimpleDataBeans.size
     }
 
-    class ViewHolder(view: View,private val mListener: OnItemClickListener) : RecyclerView.ViewHolder(view),View.OnClickListener {
+    class ViewHolder(view: View, private val mListener: OnItemClickListener) :
+        RecyclerView.ViewHolder(view), View.OnClickListener {
         var tvName: TextView
 
         init {
@@ -68,7 +70,7 @@ class SGColumnAdapter(
         }
 
         override fun onClick(v: View?) {
-            mListener.onItemClick(v,position)
+            mListener.onItemClick(v, position)
         }
     }
 }

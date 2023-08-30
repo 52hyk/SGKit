@@ -7,9 +7,10 @@ import android.view.View;
  * Create by hyk
  */
 public class EmptyAnimator extends DropDownAnimator {
-    public EmptyAnimator(View target, int animationDuration){
+    public EmptyAnimator(View target, int animationDuration) {
         super(target, animationDuration);
     }
+
     @Override
     public void initAnimator() {
         targetView.setAlpha(0);
@@ -23,7 +24,7 @@ public class EmptyAnimator extends DropDownAnimator {
 
     @Override
     public void animateDismiss() {
-        if(animating) {
+        if (animating) {
             return;
         }
         observerAnimator(targetView.animate().alpha(0f).setDuration(animationDuration).withLayer())

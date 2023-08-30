@@ -36,31 +36,35 @@ class MainActivity : Activity() {
         SGSimpleDataBean("option", false, false),
         SGSimpleDataBean("option", false, false),
         SGSimpleDataBean("option", true, false),
-        SGSimpleDataBean("option", true, false))
+        SGSimpleDataBean("option", true, false)
+    )
     private val data2 = mutableListOf(
         SGSimpleDataBean("option", false, true),
         SGSimpleDataBean("option", false, false),
         SGSimpleDataBean("option", false, false),
         SGSimpleDataBean("option", true, false),
-        SGSimpleDataBean("option", true, false))
+        SGSimpleDataBean("option", true, false)
+    )
     private val data3 = mutableListOf(
         SGSimpleDataBean("option", false, true),
         SGSimpleDataBean("option", false, false),
         SGSimpleDataBean("option", false, false),
         SGSimpleDataBean("option", true, false),
-        SGSimpleDataBean("option", true, false))
+        SGSimpleDataBean("option", true, false)
+    )
     private val data4 = mutableListOf(
         SGSimpleDataBean("option", false, true),
         SGSimpleDataBean("option", false, false),
         SGSimpleDataBean("option", false, false),
         SGSimpleDataBean("option", true, false),
-        SGSimpleDataBean("option", true, false))
+        SGSimpleDataBean("option", true, false)
+    )
 
-    private val mData1 = mutableListOf(SGGroupDataBean( data,false))
-    private val mData2 = mutableListOf(SGGroupDataBean( data2,false))
-    private val mData3 = mutableListOf(SGGroupDataBean( data3,false))
+    private val mData1 = mutableListOf(SGGroupDataBean(data, false))
+    private val mData2 = mutableListOf(SGGroupDataBean(data2, false))
+    private val mData3 = mutableListOf(SGGroupDataBean(data3, false))
 
-    private val groupData = mutableListOf(SGGroupDataBean("Group1", data4,true))
+    private val groupData = mutableListOf(SGGroupDataBean("Group1", data4, true))
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -82,7 +86,7 @@ class MainActivity : Activity() {
                 .setOptions(mData1 as List<Any>?)
                 .dismissOnBackPressed(false)
                 .dropDownPosition(DropDownPosition.Bottom)
-                .setOnClickOptionListener(object :SGOnClickOptionListener{
+                .setOnClickOptionListener(object : SGOnClickOptionListener {
 
                     override fun selectedValue(
                         columnData: MutableList<Int>?,
@@ -117,10 +121,10 @@ class MainActivity : Activity() {
         }
 
         findViewById<View>(R.id.tv_click3).setOnClickListener { v ->
-            var sgDropDownInfoBean= SGDropDownInfoBean()
-            sgDropDownInfoBean.atView=v
-            sgDropDownInfoBean.options=mData3 as List<Any>?
-            sgDropDownInfoBean.dropDownPosition=DropDownPosition.Top
+            var sgDropDownInfoBean = SGDropDownInfoBean()
+            sgDropDownInfoBean.atView = v
+            sgDropDownInfoBean.options = mData3 as List<Any>?
+            sgDropDownInfoBean.dropDownPosition = DropDownPosition.Top
 
             SGDropDown.Builder(this@MainActivity)
                 .setDropDownAttrs(sgDropDownInfoBean)
@@ -142,7 +146,7 @@ class MainActivity : Activity() {
                 .atView(v)
                 .setOptions(groupData as List<Any>?)
                 .dropDownPosition(DropDownPosition.Bottom)
-                .setOnClickOptionListener(object :SGOnClickOptionListener{
+                .setOnClickOptionListener(object : SGOnClickOptionListener {
 
                     override fun selectedValue(
                         columnData: MutableList<Int>?,

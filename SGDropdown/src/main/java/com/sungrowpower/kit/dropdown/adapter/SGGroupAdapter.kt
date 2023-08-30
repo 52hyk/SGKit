@@ -20,9 +20,9 @@ import com.sungrowpower.kit.dropdown.util.SGDropDownUtils
  * 作者:hyk
  */
 class SGGroupAdapter(
-    private val sgGroupDataBean:  List<SGGroupDataBean>,
+    private val sgGroupDataBean: List<SGGroupDataBean>,
     private val sgDropDownInfoBean: SGDropDownInfoBean,
-     var context: Context
+    var context: Context
 ) : RecyclerView.Adapter<SGGroupAdapter.ViewHolder>() {
 
 
@@ -33,7 +33,7 @@ class SGGroupAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        var item = sgGroupDataBean[position]
+        val item = sgGroupDataBean[position]
         holder.tvName.setTextSize(TypedValue.COMPLEX_UNIT_PX, sgDropDownInfoBean.sgKitTextSize);
         holder.tvName.setTextColor(sgDropDownInfoBean.sgKitTextColor)
         holder.tvName.typeface = sgDropDownInfoBean.sgKitTypeface
@@ -41,37 +41,46 @@ class SGGroupAdapter(
         if (sgDropDownInfoBean.sgKitText.isNullOrEmpty()) {
             holder.tvName.text = sgDropDownInfoBean.sgKitText
         } else {
-            holder.tvName.setText(item!!.title)
+            holder.tvName.setText(item.title)
         }
 
-        holder.recyclerView!!.layoutManager= GridLayoutManager(context,3)
+        holder.recyclerView!!.layoutManager = GridLayoutManager(context, 3)
         val params = holder.recyclerView!!.layoutParams as ViewGroup.MarginLayoutParams
         params.bottomMargin = SGDropDownUtils.dp2px(context, 4F)
-        holder.recyclerView!!.adapter=SGColumnAdapter(item!!.childData,sgDropDownInfoBean).apply {
-            setOnItemClickListener { view, position ->
-                if (item.childData[position].isDisabled) {
-                    return@setOnItemClickListener
-                }
-                if (sgDropDownInfoBean.sgOnClickOptionListener != null) {
-                    sgDropDownInfoBean.sgOnClickOptionListener!!.onOptionClick(position, holder.layoutPosition)
-                }
+        holder.recyclerView!!.adapter =
+            SGColumnAdapter(item.childData, sgDropDownInfoBean).apply {
+                setOnItemClickListener { view, position ->
+                    if (item.childData[position].isDisabled) {
+                        return@setOnItemClickListener
+                    }
+                    if (sgDropDownInfoBean.sgOnClickOptionListener != null) {
+                        sgDropDownInfoBean.sgOnClickOptionListener!!.onOptionClick(
+                            position,
+                            holder.layoutPosition
+                        )
+                    }
 
-                item.childData[position].isChecked = !item.childData[position].isChecked
-                notifyItemChanged(position)
-                if (listener!=null){
-                    listener!!.onGroupChange(position,holder.layoutPosition)
-                }
-                if (sgDropDownInfoBean.sgOnClickOptionListener != null) {
-                    sgDropDownInfoBean.sgOnClickOptionListener!!.onOptionChange(position, holder.layoutPosition)
+                    item.childData[position].isChecked = !item.childData[position].isChecked
+                    notifyItemChanged(position)
+                    if (listener != null) {
+                        listener!!.onGroupChange(position, holder.layoutPosition)
+                    }
+                    if (sgDropDownInfoBean.sgOnClickOptionListener != null) {
+                        sgDropDownInfoBean.sgOnClickOptionListener!!.onOptionChange(
+                            position,
+                            holder.layoutPosition
+                        )
+                    }
                 }
             }
-        }
     }
+
     private var listener: SGGroupOnClickListener? = null
 
     public fun setGroupOnClickListener(listener: SGGroupOnClickListener?) {
         this.listener = listener
     }
+
     override fun getItemCount(): Int {
         return sgGroupDataBean.size
     }

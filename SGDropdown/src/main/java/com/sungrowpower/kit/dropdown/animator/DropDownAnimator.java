@@ -18,31 +18,38 @@ public abstract class DropDownAnimator {
     public View targetView;
     public int animationDuration = 0;
     public SGDropDownAnimation SGDropDownAnimation; // 内置的动画
-    public DropDownAnimator(){}
-    public DropDownAnimator(View target, int animationDuration){
+
+    public DropDownAnimator() {
+    }
+
+    public DropDownAnimator(View target, int animationDuration) {
         this(target, animationDuration, null);
     }
 
-    public DropDownAnimator(View target, int animationDuration, SGDropDownAnimation SGDropDownAnimation){
+    public DropDownAnimator(View target, int animationDuration, SGDropDownAnimation SGDropDownAnimation) {
         this.targetView = target;
         this.animationDuration = animationDuration;
         this.SGDropDownAnimation = SGDropDownAnimation;
     }
 
     public abstract void initAnimator();
+
     public abstract void animateShow();
+
     public abstract void animateDismiss();
-    public int getDuration(){
+
+    public int getDuration() {
         return animationDuration;
     }
 
-    protected ValueAnimator observerAnimator(ValueAnimator animator){
+    protected ValueAnimator observerAnimator(ValueAnimator animator) {
         animator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationStart(Animator animation) {
                 super.onAnimationStart(animation);
                 animating = true;
             }
+
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
@@ -51,13 +58,15 @@ public abstract class DropDownAnimator {
         });
         return animator;
     }
-    protected ViewPropertyAnimator observerAnimator(ViewPropertyAnimator animator){
+
+    protected ViewPropertyAnimator observerAnimator(ViewPropertyAnimator animator) {
         animator.setListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationStart(Animator animation) {
                 super.onAnimationStart(animation);
                 animating = true;
             }
+
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);

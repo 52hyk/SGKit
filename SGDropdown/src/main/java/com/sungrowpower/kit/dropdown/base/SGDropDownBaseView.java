@@ -28,10 +28,11 @@ import com.sungrowpower.kit.dropdown.widget.SGDropDownContainer;
  */
 public abstract class SGDropDownBaseView extends SGBaseView {
     protected SGDropDownContainer sgDropDownContainer;
+
     public SGDropDownBaseView(@NonNull Context context) {
         super(context);
         sgDropDownContainer = findViewById(R.id.attachDropDownContainer);
-        Log.i("content-->==-",findViewById(R.id.attachDropDownContainer).getId()+"");
+        Log.i("content-->==-", findViewById(R.id.attachDropDownContainer).getId() + "");
 
     }
 
@@ -39,6 +40,7 @@ public abstract class SGDropDownBaseView extends SGBaseView {
     final protected int getInnerLayoutId() {
         return R.layout._sg_dropdown_base_view;
     }
+
     protected void addInnerContent() {
         View contentView = LayoutInflater.from(getContext()).inflate(getImplLayoutId(), sgDropDownContainer, false);
         sgDropDownContainer.addView(contentView);
@@ -55,23 +57,24 @@ public abstract class SGDropDownBaseView extends SGBaseView {
         }
 
 //        getDropDownImplView().setVisibility(INVISIBLE);
-        Log.i("content-->",sgDropDownContainer.getChildCount()+"=="+getDropDownImplView().getId()+"=="+getDropDownContentView().getId());
+        Log.i("content-->", sgDropDownContainer.getChildCount() + "==" + getDropDownImplView().getId() + "==" + getDropDownContentView().getId());
         SGDropDownUtils.applyDropDownSize((ViewGroup) getDropDownContentView(), getMaxWidth(), getMaxHeight(),
                 getDropDownWidth(), getDropDownHeight(), new Runnable() {
-            @Override
-            public void run() {
-                doAttach();
-            }
-        });
+                    @Override
+                    public void run() {
+                        doAttach();
+                    }
+                });
     }
 
-    private void initAndStartAnimation(){
+    private void initAndStartAnimation() {
         initAnimator();
         doShowAnimation();
         doAfterShow();
     }
 
     public boolean isShowUp;
+
     public void doAttach() {
         if (sgDropDownInfoBean.getAtView() == null) {
             throw new IllegalArgumentException("atView must not be null for DropDownView！");
@@ -115,7 +118,7 @@ public abstract class SGDropDownBaseView extends SGBaseView {
             @Override
             public void run() {
                 initAndStartAnimation();
-               //getDropDownImplView().setVisibility(VISIBLE);
+                //getDropDownImplView().setVisibility(VISIBLE);
             }
         });
         sgDropDownContainer.setOnLongClickListener(new View.OnLongClickListener() {
@@ -136,6 +139,7 @@ public abstract class SGDropDownBaseView extends SGBaseView {
             }
         });
     }
+
     @Override
     protected DropDownAnimator getDropDownAnimator() {
         return new TranslateAnimator(getDropDownImplView(), getAnimationDuration(), isShowUp ?

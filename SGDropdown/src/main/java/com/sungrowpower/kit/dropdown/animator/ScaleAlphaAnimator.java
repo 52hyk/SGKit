@@ -18,6 +18,7 @@ public class ScaleAlphaAnimator extends DropDownAnimator {
     }
 
     float startScale = .85f;
+
     @Override
     public void initAnimator() {
         targetView.setScaleX(startScale);
@@ -78,7 +79,7 @@ public class ScaleAlphaAnimator extends DropDownAnimator {
 
     @Override
     public void animateDismiss() {
-        if(animating) {
+        if (animating) {
             return;
         }
         observerAnimator(targetView.animate().scaleX(startScale).scaleY(startScale).alpha(0f).setDuration(animationDuration)

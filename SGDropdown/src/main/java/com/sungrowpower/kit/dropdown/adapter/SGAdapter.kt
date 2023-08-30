@@ -26,6 +26,7 @@ class SGAdapter(
     fun setOnItemClickListener(listener: OnItemClickListener?) {
         mClickListener = listener
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent.context)
             .inflate(R.layout._sg_simple_item, parent, false)
@@ -65,7 +66,8 @@ class SGAdapter(
         return sgSimpleDataBeans.size
     }
 
-    class ViewHolder(view: View,private val mListener: OnItemClickListener) : RecyclerView.ViewHolder(view),View.OnClickListener {
+    class ViewHolder(view: View, private val mListener: OnItemClickListener) :
+        RecyclerView.ViewHolder(view), View.OnClickListener {
         var tvName: TextView
         val sgFont: SGFontIcon
 
@@ -76,7 +78,7 @@ class SGAdapter(
         }
 
         override fun onClick(v: View?) {
-            mListener.onItemClick(v,position)
+            mListener.onItemClick(v, position)
         }
     }
 }

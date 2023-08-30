@@ -44,6 +44,7 @@ public class SGDropDownUtils {
         wm.getDefaultDisplay().getSize(point);
         return point.y;
     }
+
     public static int getAppWidth(Context context) {
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         if (wm == null) {
@@ -64,6 +65,7 @@ public class SGDropDownUtils {
         wm.getDefaultDisplay().getRealSize(point);
         return point.y;
     }
+
     public static int getScreenWidth(Context context) {
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         if (wm == null) {
@@ -115,7 +117,7 @@ public class SGDropDownUtils {
     }
 
     public static void applyDropDownSize(final ViewGroup content, final int maxWidth, final int maxHeight,
-                                      final int dropDownWidth, final int dropDownHeight, final Runnable afterApplySize) {
+                                         final int dropDownWidth, final int dropDownHeight, final Runnable afterApplySize) {
         content.post(() -> {
             ViewGroup.LayoutParams params = content.getLayoutParams();
             View implView = content.getChildAt(0);
@@ -126,7 +128,7 @@ public class SGDropDownUtils {
             if (maxWidth > 0) {
                 //指定了最大宽度，就限制最大宽度
                 params.width = Math.min(w, maxWidth);
-                if (implParams.width==ViewGroup.LayoutParams.MATCH_PARENT){
+                if (implParams.width == ViewGroup.LayoutParams.MATCH_PARENT) {
                     implParams.width = Math.min(w, maxWidth);
                 }
                 if (dropDownWidth > 0) {
@@ -260,7 +262,6 @@ public class SGDropDownUtils {
     }
 
 
-
     private static void showToast(final Context context, final String text) {
         final Handler mainHandler = new Handler(Looper.getMainLooper());
         mainHandler.post(new Runnable() {
@@ -274,7 +275,6 @@ public class SGDropDownUtils {
     }
 
 
-
     public static Activity context2Activity(View view) {
         Context context = view.getContext();
         while (context instanceof ContextWrapper) {
@@ -286,7 +286,6 @@ public class SGDropDownUtils {
         }
         return null;
     }
-
 
 
     public static boolean hasSetKeyListener(View view) {
@@ -323,7 +322,7 @@ public class SGDropDownUtils {
         return inSampleSize;
     }
 
-    public static Rect getViewRect(View view){
+    public static Rect getViewRect(View view) {
         Rect rect = new Rect();
         view.getGlobalVisibleRect(rect);
         return rect;
@@ -331,16 +330,18 @@ public class SGDropDownUtils {
 
     /**
      * 判断是否横屏显示
+     *
      * @param context
      * @return
      */
-    public static boolean isLandscape(Context context){
+    public static boolean isLandscape(Context context) {
         return context.getResources().getConfiguration().orientation
                 == Configuration.ORIENTATION_LANDSCAPE;
     }
 
     /**
      * 判断是否是平板
+     *
      * @return
      */
     public static boolean isTablet() {

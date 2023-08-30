@@ -30,7 +30,7 @@ public class SGDropDown {
 
 
     public static class Builder {
-        private  SGDropDownInfoBean sgDropDownInfoBean = new SGDropDownInfoBean();
+        private SGDropDownInfoBean sgDropDownInfoBean = new SGDropDownInfoBean();
         private Context context;
 
         public Builder(Context context) {
@@ -69,7 +69,7 @@ public class SGDropDown {
          * @return
          */
         public Builder autoDismiss(Boolean autoDismiss) {
-            this.sgDropDownInfoBean.setAutoDismiss(autoDismiss) ;
+            this.sgDropDownInfoBean.setAutoDismiss(autoDismiss);
             return this;
         }
 
@@ -80,7 +80,7 @@ public class SGDropDown {
          * @return
          */
         public Builder hasShadowBg(Boolean hasShadowBg) {
-            this.sgDropDownInfoBean.setHasShadowBg(hasShadowBg) ;
+            this.sgDropDownInfoBean.setHasShadowBg(hasShadowBg);
             return this;
         }
 
@@ -115,7 +115,7 @@ public class SGDropDown {
          * @return
          */
         public Builder customAnimator(DropDownAnimator customAnimator) {
-            this.sgDropDownInfoBean.setCustomAnimator(customAnimator) ;
+            this.sgDropDownInfoBean.setCustomAnimator(customAnimator);
             return this;
         }
 
@@ -190,11 +190,12 @@ public class SGDropDown {
 
         /**
          * 设置弹窗出现在目标的什么位置，有两种取值：Top，Bottom。这种手动设置位置的行为
+         *
          * @param dropDownPosition
          * @return
          */
         public Builder dropDownPosition(DropDownPosition dropDownPosition) {
-            this.sgDropDownInfoBean.setDropDownPosition(dropDownPosition) ;
+            this.sgDropDownInfoBean.setDropDownPosition(dropDownPosition);
             return this;
         }
 
@@ -309,9 +310,9 @@ public class SGDropDown {
         }
 
         /**
-         *置弹数据点击、变化等监听
+         * 置弹数据点击、变化等监听
          */
-        public Builder setOnClickOptionListener( SGOnClickOptionListener sgOnClickOptionListener) {
+        public Builder setOnClickOptionListener(SGOnClickOptionListener sgOnClickOptionListener) {
             this.sgDropDownInfoBean.setSGOnClickOptionListener(sgOnClickOptionListener);
             return this;
         }
@@ -324,12 +325,13 @@ public class SGDropDown {
          * @return
          */
         public Builder setUseColumn(int useColumn) {
-            this.sgDropDownInfoBean.setUseColumn(useColumn) ;
+            this.sgDropDownInfoBean.setUseColumn(useColumn);
             return this;
         }
 
         /**
          * 设置数据集合
+         *
          * @param dataBean
          * @return
          */
@@ -340,78 +342,88 @@ public class SGDropDown {
 
         /**
          * 是否支持多选
+         *
          * @param multiple
          * @return
          */
-        public Builder setMultiple(Boolean multiple){
+        public Builder setMultiple(Boolean multiple) {
             this.sgDropDownInfoBean.setMultiple(multiple);
             return this;
         }
 
         /**
          * 设置TextView文本内容
+         *
          * @param sgKitText
          * @return
          */
-        public Builder setSgKitText(CharSequence sgKitText){
+        public Builder setSgKitText(CharSequence sgKitText) {
             this.sgDropDownInfoBean.setSgKitText(sgKitText);
             return this;
         }
+
         /**
          * 设置文TextView颜色
+         *
          * @param sgKitTextColor
          * @return
          */
-        public Builder setSgKitTextColor(int sgKitTextColor){
+        public Builder setSgKitTextColor(int sgKitTextColor) {
             this.sgDropDownInfoBean.setSgKitTextColor(sgKitTextColor);
             return this;
         }
+
         /**
          * 设置文TextView的文字大小
+         *
          * @param sgKitTextSize
          * @return
          */
-        public Builder setSgKitTextSize(float sgKitTextSize){
+        public Builder setSgKitTextSize(float sgKitTextSize) {
             this.sgDropDownInfoBean.setSgKitTextSize(sgKitTextSize);
             return this;
         }
 
         /**
          * 设置TextView的字体
+         *
          * @param sgKitTypeface
          * @return
          */
-        public Builder setSgKitText(Typeface sgKitTypeface){
+        public Builder setSgKitText(Typeface sgKitTypeface) {
             this.sgDropDownInfoBean.setSgKitTypeface(sgKitTypeface);
             return this;
         }
 
         /**
          * 设置文FontIcon颜色
+         *
          * @param sgKitTextColor
          * @return
          */
-        public Builder setSgFontIconTextColor(int sgKitTextColor){
+        public Builder setSgFontIconTextColor(int sgKitTextColor) {
             this.sgDropDownInfoBean.setSgFontIconTextColor(sgKitTextColor);
             return this;
         }
+
         /**
          * 设置文FontIcon的文字大小
+         *
          * @param sgKitTextSize
          * @return
          */
-        public Builder setSgFontIconTextSize(float sgKitTextSize){
+        public Builder setSgFontIconTextSize(float sgKitTextSize) {
             this.sgDropDownInfoBean.setSgFontIconTextSize(sgKitTextSize);
             return this;
         }
 
-
         /**
          * 设置FontIcon的Text
+         *
          * @param sgFontIconText
          * @return
          */
-        public Builder setSgFontIconText(CharSequence sgFontIconText){
+        public Builder setSgFontIconText(CharSequence sgFontIconText) {
             this.sgDropDownInfoBean.setSgFontIconText(sgFontIconText);
             return this;
         }
@@ -423,13 +435,13 @@ public class SGDropDown {
         }
 
         public SGBaseView dropDownView() {
-            SGBuiltDropDownView sgBuiltDropDownView=new SGBuiltDropDownView(context);
-            sgBuiltDropDownView.sgDropDownInfoBean=this.sgDropDownInfoBean;
+            SGBuiltDropDownView sgBuiltDropDownView = new SGBuiltDropDownView(context);
+            sgBuiltDropDownView.sgDropDownInfoBean = this.sgDropDownInfoBean;
             return sgBuiltDropDownView;
         }
 
         public Builder setDropDownAttrs(SGDropDownInfoBean sgDropDownInfoBean) {
-            this.sgDropDownInfoBean=sgDropDownInfoBean;
+            this.sgDropDownInfoBean = sgDropDownInfoBean;
             return this;
         }
     }

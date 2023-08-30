@@ -63,9 +63,9 @@ public class SGDropDownInfoBean {
     //是否关闭后进行资源释放
     private boolean isDestroyOnDismiss = false;
     //阴影背景的颜色
-    private int shadowBgColor = SGDropDownColorMap.getShadowBgColor();
+    private int shadowBgColor = SGDropDownColorMap.getInstance().shadowBgColor;
     //动画的时长
-    private int animationDuration = SGDropDownColorMap.getAnimationDuration();
+    private int animationDuration = SGDropDownColorMap.getInstance().animationDuration;
     //当触摸在这个区域时，不消失
     private ArrayList<Rect> notDismissWhenTouchInArea;
     //使用多列
@@ -102,7 +102,7 @@ public class SGDropDownInfoBean {
     //设置item 不能点击中文本颜色
     private int sgItemDisableTextColor = SGDropDownColorMap.getInstance().itemDisableTextColor;
     //设置item 选中背景颜色
-    private Drawable sgItemCheckedTextBgColor= SGDropDownColorMap.getInstance().itemCheckedTextBgColor;
+    private Drawable sgItemCheckedTextBgColor = SGDropDownColorMap.getInstance().itemCheckedTextBgColor;
     //设置item 未选中背景颜色
     private Drawable sgItemUnCheckedTextBgColor = SGDropDownColorMap.getInstance().itemUnCheckedTextBgColor;
 

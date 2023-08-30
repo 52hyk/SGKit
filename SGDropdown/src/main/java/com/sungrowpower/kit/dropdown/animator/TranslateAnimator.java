@@ -60,7 +60,7 @@ public class TranslateAnimator extends DropDownAnimator {
                 animator = targetView.animate().translationY(endTranslationY);
                 break;
         }
-        if(animator!=null) {
+        if (animator != null) {
             animator.setInterpolator(new FastOutSlowInInterpolator())
                     .setDuration(animationDuration)
                     .withLayer()
@@ -70,7 +70,7 @@ public class TranslateAnimator extends DropDownAnimator {
 
     @Override
     public void animateDismiss() {
-        if(animating) {
+        if (animating) {
             return;
         }
         ViewPropertyAnimator animator = null;
@@ -92,9 +92,9 @@ public class TranslateAnimator extends DropDownAnimator {
                 animator = targetView.animate().translationY(startTranslationY);
                 break;
         }
-        if(animator!=null) {
+        if (animator != null) {
             observerAnimator(animator.setInterpolator(new FastOutSlowInInterpolator())
-                    .setDuration((long) (animationDuration*.8))
+                    .setDuration((long) (animationDuration * .8))
                     .withLayer())
                     .start();
         }

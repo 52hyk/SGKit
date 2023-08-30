@@ -35,6 +35,7 @@ public class SGDropDownContainer extends FrameLayout {
     }
 
     private float x, y;
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         // 计算implView的Rect

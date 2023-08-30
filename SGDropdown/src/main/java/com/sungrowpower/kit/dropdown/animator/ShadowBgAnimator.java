@@ -17,11 +17,15 @@ public class ShadowBgAnimator extends DropDownAnimator {
     public int startColor = Color.TRANSPARENT;
     public boolean isZeroDuration = false;
     public int shadowColor;
+
     public ShadowBgAnimator(View target, int animationDuration, int shadowColor) {
         super(target, animationDuration);
         this.shadowColor = shadowColor;
     }
-    public ShadowBgAnimator() {}
+
+    public ShadowBgAnimator() {
+    }
+
     @Override
     public void initAnimator() {
         targetView.setBackgroundColor(startColor);
@@ -38,12 +42,12 @@ public class ShadowBgAnimator extends DropDownAnimator {
             }
         });
         animator.setInterpolator(new FastOutSlowInInterpolator());
-        animator.setDuration(isZeroDuration? 0: animationDuration).start();
+        animator.setDuration(isZeroDuration ? 0 : animationDuration).start();
     }
 
     @Override
     public void animateDismiss() {
-        if(animating) {
+        if (animating) {
             return;
         }
         ValueAnimator animator = ValueAnimator.ofObject(argbEvaluator, shadowColor, startColor);
@@ -55,14 +59,14 @@ public class ShadowBgAnimator extends DropDownAnimator {
         });
         observerAnimator(animator);
         animator.setInterpolator(new FastOutSlowInInterpolator());
-        animator.setDuration(isZeroDuration ? 0: animationDuration).start();
+        animator.setDuration(isZeroDuration ? 0 : animationDuration).start();
     }
 
-    public void applyColorValue(float val){
+    public void applyColorValue(float val) {
         targetView.setBackgroundColor((Integer) calculateBgColor(val));
     }
 
-    public int calculateBgColor(float fraction){
+    public int calculateBgColor(float fraction) {
         return (int) argbEvaluator.evaluate(fraction, startColor, shadowColor);
     }
 

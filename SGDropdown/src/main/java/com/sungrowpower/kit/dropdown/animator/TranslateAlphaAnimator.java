@@ -15,6 +15,7 @@ public class TranslateAlphaAnimator extends DropDownAnimator {
     //动画起始坐标
     private float startTranslationX, startTranslationY;
     private float defTranslationX, defTranslationY;
+
     public TranslateAlphaAnimator(View target, int animationDuration, SGDropDownAnimation SGDropDownAnimation) {
         super(target, animationDuration, SGDropDownAnimation);
     }
@@ -32,7 +33,7 @@ public class TranslateAlphaAnimator extends DropDownAnimator {
     }
 
     private void applyTranslation() {
-        switch (SGDropDownAnimation){
+        switch (SGDropDownAnimation) {
             case TranslateAlphaFromLeft:
                 targetView.setTranslationX(-(targetView.getMeasuredWidth()/* + halfWidthOffset*/));
                 break;
@@ -59,7 +60,7 @@ public class TranslateAlphaAnimator extends DropDownAnimator {
 
     @Override
     public void animateDismiss() {
-        if(animating) {
+        if (animating) {
             return;
         }
         observerAnimator(targetView.animate().translationX(startTranslationX).translationY(startTranslationY).alpha(0f)
