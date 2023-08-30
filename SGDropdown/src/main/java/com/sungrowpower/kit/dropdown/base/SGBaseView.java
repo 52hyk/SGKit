@@ -615,14 +615,6 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
         return dropDownStatus == DropDownStatus.Dismiss;
     }
 
-    public void toggle() {
-        if (isShow()) {
-            dismiss();
-        } else {
-            show();
-        }
-    }
-
     /**
      * 尝试移除弹窗内的Fragment，如果提供了Fragment的名字
      */
