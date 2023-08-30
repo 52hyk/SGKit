@@ -527,18 +527,6 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
         doAfterDismiss();
     }
 
-    /**
-     * 会等待弹窗show动画执行完毕再消失
-     */
-    public void smartDismiss() {
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                delayDismiss(getAnimationDuration() + 50);
-            }
-        });
-    }
-
     public void delayDismiss(long delay) {
         if (delay < 0) {
             delay = 0;
