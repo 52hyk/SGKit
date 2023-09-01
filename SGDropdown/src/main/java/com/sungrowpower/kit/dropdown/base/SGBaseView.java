@@ -129,7 +129,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
                 }
             });
 
-            // 3. do init，game start.
+            // 3. do init
             init();
         }
     };
