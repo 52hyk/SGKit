@@ -11,6 +11,7 @@
        android:layout_height="wrap_content"
        android:text="Here is the dropdown box content"
        android:textSize="@dimen/sgkit_textSize_12"
+       android:textColor="@color/sgkit_text_title"
        android:padding="@dimen/sgkit_textSize_16"
        />
 
