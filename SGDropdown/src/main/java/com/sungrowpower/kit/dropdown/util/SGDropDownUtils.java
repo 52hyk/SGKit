@@ -118,7 +118,8 @@ public class SGDropDownUtils {
 
     public static void applyDropDownSize(final ViewGroup content, final int maxWidth, final int maxHeight,
                                          final int dropDownWidth, final int dropDownHeight, final Runnable afterApplySize) {
-        content.post(() -> {
+
+        content.post(() -> {//获取宽高需要view执行完才测量所以用post
             ViewGroup.LayoutParams params = content.getLayoutParams();
             View implView = content.getChildAt(0);
             ViewGroup.LayoutParams implParams = implView.getLayoutParams();

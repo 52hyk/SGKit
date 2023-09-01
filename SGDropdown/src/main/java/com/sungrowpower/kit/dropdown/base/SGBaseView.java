@@ -97,7 +97,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
             SGKeyboardUtils.hideSoftInput(activity.getWindow());
         }
 
-        getActivityContentView().post(attachTask);
+        getActivityContentView().post(attachTask);//添加到窗口视图，走绘制流程，执行run()
         return this;
     }
 
