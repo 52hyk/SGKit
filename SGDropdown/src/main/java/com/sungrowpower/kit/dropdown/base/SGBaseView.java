@@ -97,42 +97,39 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
             SGKeyboardUtils.hideSoftInput(activity.getWindow());
         }
 
-        getActivityContentView().post(attachTask);//添加到窗口视图，走绘制流程，执行run()
+        attachTask();
         return this;
     }
 
-    private final Runnable attachTask = new Runnable() {
-        @Override
-        public void run() {
-            // 1. add dropDownView to its host.
-            attachToHost();
-            //2. 注册对话框监听器
-            SGKeyboardUtils.registerSoftInputChangedListener(getHostWindow(), SGBaseView.this, new SGKeyboardUtils.OnSoftInputChangedListener() {
-                @Override
-                public void onSoftInputChanged(int height) {
-                    onKeyboardHeightChange(height);
-                    if (sgDropDownInfoBean != null && sgDropDownInfoBean.getSgDropDownCallback() != null) {
-                        sgDropDownInfoBean.getSgDropDownCallback().onKeyBoardStateChanged(SGBaseView.this, height);
-                    }
-                    if (height == 0) { // 说明输入法隐藏
-                        SGDropDownUtils.moveDown(SGBaseView.this);
-                        hasMoveUp = false;
-                    } else {
-//                        if (hasMoveUp) return;
-                        //when show keyboard, move up
-                        if (SGBaseView.this instanceof SGDropDownBaseView && dropDownStatus == DropDownStatus.Showing) {
-                            return;
-                        }
-                        SGDropDownUtils.moveUpToKeyboard(height, SGBaseView.this);
-                        hasMoveUp = true;
-                    }
+    public void attachTask(){
+        // 1. add dropDownView to its host.
+        attachToHost();
+        //2. 注册对话框监听器
+        SGKeyboardUtils.registerSoftInputChangedListener(getHostWindow(), SGBaseView.this, new SGKeyboardUtils.OnSoftInputChangedListener() {
+            @Override
+            public void onSoftInputChanged(int height) {
+                onKeyboardHeightChange(height);
+                if (sgDropDownInfoBean != null && sgDropDownInfoBean.getSgDropDownCallback() != null) {
+                    sgDropDownInfoBean.getSgDropDownCallback().onKeyBoardStateChanged(SGBaseView.this, height);
                 }
-            });
+                if (height == 0) { // 说明输入法隐藏
+                    SGDropDownUtils.moveDown(SGBaseView.this);
+                    hasMoveUp = false;
+                } else {
+//                        if (hasMoveUp) return;
+                    //when show keyboard, move up
+                    if (SGBaseView.this instanceof SGDropDownBaseView && dropDownStatus == DropDownStatus.Showing) {
+                        return;
+                    }
+                    SGDropDownUtils.moveUpToKeyboard(height, SGBaseView.this);
+                    hasMoveUp = true;
+                }
+            }
+        });
 
-            // 3. do init
-            init();
-        }
-    };
+        // 3. do init
+        init();
+    }
 
 
     private void attachToHost() {
@@ -203,7 +200,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
                 sgDropDownInfoBean.getSgDropDownCallback().onCreated(this);
             }
         }
-        handler.postDelayed(initTask, 10);
+        initTask();
         //添加监听
         addOnUnhandledKeyListener(this);
 
@@ -212,20 +209,17 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
         ViewCompat.removeOnUnhandledKeyEventListener(view, this);
         ViewCompat.addOnUnhandledKeyEventListener(view, this);
     }
-    private final Runnable initTask = new Runnable() {
-        @Override
-        public void run() {
-            if (getHostWindow() == null) {
-                return;
-            }
-            if (sgDropDownInfoBean.getSgDropDownCallback() != null) {
-                sgDropDownInfoBean.getSgDropDownCallback().beforeShow(SGBaseView.this);
-            }
-            beforeShow();
-            lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_START);
 
+    public void initTask(){
+        if (getHostWindow() == null) {
+            return;
         }
-    };
+        if (sgDropDownInfoBean.getSgDropDownCallback() != null) {
+            sgDropDownInfoBean.getSgDropDownCallback().beforeShow(SGBaseView.this);
+        }
+        beforeShow();
+        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_START);
+    }
 
     protected void initAnimator() {
         getDropDownContentView().setAlpha(1f);
@@ -509,8 +503,6 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
      * 消失
      */
     public void dismiss() {
-        handler.removeCallbacks(attachTask);
-        handler.removeCallbacks(initTask);
         if (dropDownStatus == DropDownStatus.Dismissing || dropDownStatus == DropDownStatus.Dismiss) {
             return;
         }
@@ -525,22 +517,6 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
         doAfterDismiss();
     }
 
-    public void delayDismiss(long delay) {
-        if (delay < 0) {
-            delay = 0;
-        }
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                dismiss();
-            }
-        }, delay);
-    }
-
-    public void delayDismissWith(long delay, Runnable runnable) {
-        this.dismissWithRunnable = runnable;
-        delayDismiss(delay);
-    }
 
     protected void doAfterDismiss() {
         //SGDropDownBaseView要等到完全关闭再关闭输入法，不然有问题
@@ -567,10 +543,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
             if (sgDropDownInfoBean.getSgDropDownCallback() != null) {
                 sgDropDownInfoBean.getSgDropDownCallback().onDismiss(SGBaseView.this);
             }
-            if (dismissWithRunnable != null) {
-                dismissWithRunnable.run();
-                dismissWithRunnable = null;//no cache, avoid some bad edge effect.
-            }
+
             if (sgDropDownInfoBean.isRequestFocus()) {
                 // 让根布局拿焦点，避免布局内RecyclerView类似布局获取焦点导致布局滚动
                 if (getWindowDecorView() != null) {
@@ -581,17 +554,11 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
                     }
                 }
             }
-            // 移除弹窗，GameOver
+            // 移除弹窗，Over
             detachFromHost();
         }
     };
 
-    Runnable dismissWithRunnable;
-
-    public void dismissWith(Runnable runnable) {
-        this.dismissWithRunnable = runnable;
-        dismiss();
-    }
 
     public boolean isShow() {
         return dropDownStatus != DropDownStatus.Dismiss;
@@ -601,38 +568,6 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
         return dropDownStatus == DropDownStatus.Dismiss;
     }
 
-    /**
-     * 尝试移除弹窗内的Fragment，如果提供了Fragment的名字
-     */
-    protected void tryRemoveFragments() {
-        if (getContext() instanceof FragmentActivity) {
-            FragmentManager manager = ((FragmentActivity) getContext()).getSupportFragmentManager();
-            List<Fragment> fragments = manager.getFragments();
-            List<String> internalFragmentNames = getInternalFragmentNames();
-            if (fragments != null && fragments.size() > 0 && internalFragmentNames != null) {
-                for (int i = 0; i < fragments.size(); i++) {
-                    String name = fragments.get(i).getClass().getSimpleName();
-                    if (internalFragmentNames.contains(name)) {
-                        manager.beginTransaction()
-                                .remove(fragments.get(i))
-                                .commitAllowingStateLoss();
-                    }
-                }
-            }
-        }
-    }
-
-    /**
-     * 在弹窗内嵌入Fragment的场景中，当弹窗消失后，由于Fragment被Activity的FragmentManager缓存，
-     * 会导致弹窗重新创建的时候，Fragment会命中缓存，生命周期不再执行。为了处理这种情况，只需重写：
-     * getInternalFragmentNames() 方法，返回嵌入的Fragment名称，Dropdown会自动移除Fragment缓存。
-     * 名字是: Fragment.getClass().getSimpleName()
-     *
-     * @return
-     */
-    protected List<String> getInternalFragmentNames() {
-        return null;
-    }
 
     /**
      * 消失动画执行完毕后执行
@@ -677,7 +612,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
             if (sgDropDownInfoBean.getCustomAnimator() != null && sgDropDownInfoBean.getCustomAnimator().targetView != null) {
                 sgDropDownInfoBean.getCustomAnimator().targetView.animate().cancel();
             }
-            tryRemoveFragments();
+//            tryRemoveFragments();
 
             if (sgDropDownInfoBean.isDestroyOnDismiss()) {
                 sgDropDownInfoBean = null;
