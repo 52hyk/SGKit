@@ -153,18 +153,18 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
         decorView.addView(this);
 
     }
-
+    //获取顶级视图
     protected View getWindowDecorView() {
         if (getHostWindow() == null) {
             return null;
         }
         return (ViewGroup) getHostWindow().getDecorView();
     }
-
+    //获取根视图
     public View getActivityContentView() {
         return ((Activity) getContext()).getWindow().getDecorView().findViewById(android.R.id.content);
     }
-
+    //获取在当前窗口的x坐标
     protected int getActivityContentLeft() {
         if (!SGDropDownUtils.isLandscape(getContext())) {
             return 0;
@@ -209,7 +209,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
         ViewCompat.removeOnUnhandledKeyEventListener(view, this);
         ViewCompat.addOnUnhandledKeyEventListener(view, this);
     }
-
+    //初始化任务
     public void initTask(){
         if (getHostWindow() == null) {
             return;
@@ -220,7 +220,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
         beforeShow();
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_START);
     }
-
+    //初始化动画
     protected void initAnimator() {
         getDropDownContentView().setAlpha(1f);
         // 优先使用自定义的动画器
@@ -253,7 +253,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
             }
         }
     }
-
+    //从活动中获取窗口
     public Window getHostWindow() {
         if (sgDropDownInfoBean != null) {
             return ((Activity) getContext()).getWindow();
