@@ -23,7 +23,7 @@ import com.sungrowpower.kit.dropdown.widget.SGDropDownContainer;
 
 
 /**
- * Description: 下拉筛选弹窗
+ * Description: 下拉筛选弹窗阴影层
  * Create by hyk
  */
 public abstract class SGDropDownBaseView extends SGBaseView {
@@ -39,7 +39,7 @@ public abstract class SGDropDownBaseView extends SGBaseView {
     @Override
     final protected int getInnerLayoutId() {
         return R.layout._sg_dropdown_base_view;
-    }
+    }//名称修改
 
     protected void addInnerContent() {
         View contentView = LayoutInflater.from(getContext()).inflate(getImplLayoutId(), sgDropDownContainer, false);
@@ -92,10 +92,10 @@ public abstract class SGDropDownBaseView extends SGBaseView {
 
 
         int centerY = rect.top + rect.height() / 2;
-        View implView = getDropDownImplView();
+        View implView = getDropDownImplView();//数据层
         FrameLayout.LayoutParams implParams = (FrameLayout.LayoutParams) implView.getLayoutParams();
         if ((centerY > getMeasuredHeight() / 2 || sgDropDownInfoBean.getDropDownPosition() == DropDownPosition.Top) && sgDropDownInfoBean.getDropDownPosition() != DropDownPosition.Bottom) {
-            // 说明atView在Window下半部分，dropdown应该显示在它上方，计算atView之上的高度
+            // 说明点击的View在Window下半部分，dropdown应该显示在它上方，计算atView之上的高度
             params.height = rect.top;
             isShowUp = true;
             implParams.gravity = Gravity.BOTTOM;
@@ -103,7 +103,7 @@ public abstract class SGDropDownBaseView extends SGBaseView {
                 implParams.height = Math.min(implView.getMeasuredHeight(), getMaxHeight());
             }
         } else {
-            // atView在上半部分，dropdown应该显示在它下方，计算atView之下的高度
+            // 点击View在上半部分，dropdown应该显示在它下方，计算atView之下的高度
             params.height = getMeasuredHeight() - rect.bottom;
             isShowUp = false;
             params.topMargin = rect.bottom;

@@ -16,7 +16,7 @@ import com.sungrowpower.kit.dropdown.util.SGDropDownUtils;
 
 
 /**
- * Description:
+ * Description://获取点击区域
  * Create by hyk
  */
 public class SGDropDownContainer extends FrameLayout {
@@ -39,12 +39,12 @@ public class SGDropDownContainer extends FrameLayout {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         // 计算implView的Rect
-        View implView = getChildAt(0);
+        View implView = getChildAt(0);//数据层
         int[] location = new int[2];
         implView.getLocationInWindow(location);
         Rect implViewRect = new Rect(location[0], location[1], location[0] + implView.getMeasuredWidth(),
                 location[1] + implView.getMeasuredHeight());
-        if (!SGDropDownUtils.isInRect(event.getRawX(), event.getRawY(), implViewRect)) {
+        if (!SGDropDownUtils.isInRect(event.getRawX(), event.getRawY(), implViewRect)) {//不在矩形中
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     x = event.getX();
@@ -56,7 +56,7 @@ public class SGDropDownContainer extends FrameLayout {
                     float dx = event.getX() - x;
                     float dy = event.getY() - y;
                     float distance = (float) Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
-                    if (distance < ViewConfiguration.get(getContext()).getScaledTouchSlop()) {
+                    if (distance < ViewConfiguration.get(getContext()).getScaledTouchSlop()) {//判断移动距离
                         if (isDismissOnTouchOutside) {
                             if (listener != null) {
                                 listener.onClickOutside();

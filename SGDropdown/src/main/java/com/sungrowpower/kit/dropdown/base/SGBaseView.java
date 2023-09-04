@@ -44,7 +44,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Description: 弹窗基类
+ * Description: 弹窗基类，顶布局
  * Create by hyk
  */
 public abstract class SGBaseView extends FrameLayout implements LifecycleObserver, LifecycleOwner,

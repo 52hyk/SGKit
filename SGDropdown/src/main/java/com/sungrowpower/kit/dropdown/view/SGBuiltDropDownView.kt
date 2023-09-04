@@ -19,7 +19,7 @@ import com.sungrowpower.kit.dropdown.interfaces.SGGroupOnClickListener
 import com.sungrowpower.kit.dropdown.util.SGDropDownUtils
 
 /**
- * Description:内置View显示
+ * Description:内置View显示，数据层
  * Create by dance, at 2018/12/21
  */
 class SGBuiltDropDownView(context: Context) : SGDropDownBaseView(context) {
