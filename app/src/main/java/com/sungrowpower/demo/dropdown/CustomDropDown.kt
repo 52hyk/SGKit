@@ -6,7 +6,7 @@ import com.sungrowpower.kit.dropdown.base.SGDropDownBaseView
 
 /**
  * 创建日期：2023/8/25 on 10:55
- * 描述:
+ * 描述:自定义View
  * 作者:hyk
  */
 public class CustomDropDown(context: Context) : SGDropDownBaseView(context) {

@@ -13,7 +13,7 @@ import com.sungrowpower.kit.dropdown.interfaces.OnItemClickListener
 
 /**
  * 创建日期：2023/8/29 on 15:52
- * 描述:
+ * 描述:多行数据适配器
  * 作者:hyk
  */
 class SGColumnAdapter(

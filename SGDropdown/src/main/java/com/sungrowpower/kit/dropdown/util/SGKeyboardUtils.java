@@ -33,7 +33,11 @@ public final class SGKeyboardUtils {
     }
 
     private static int sDecorViewDelta = 0;
-
+    /**
+     * 获取软键盘高度
+     * @param window
+     * @return
+     */
     private static int getDecorViewInvisibleHeight(final Window window) {
         final View decorView = window.getDecorView();
         final Rect outRect = new Rect();
@@ -88,6 +92,10 @@ public final class SGKeyboardUtils {
         }
     }
 
+    /**
+     * 显示软键盘
+     * @param view
+     */
     public static void showSoftInput(final View view) {
         InputMethodManager imm = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         if (imm == null) {
@@ -100,6 +108,7 @@ public final class SGKeyboardUtils {
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
     }
 
+     //监听调用结果
     private static class SoftInputReceiver extends ResultReceiver{
         private Context context;
         public SoftInputReceiver(Context context) {
@@ -118,6 +127,10 @@ public final class SGKeyboardUtils {
         }
     }
 
+    /**
+     * 如果输入法在窗口上已经显示，则隐藏，反之则显示
+     * @param context
+     */
     public static void toggleSoftInput(Context context) {
         InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
         if (imm == null) {
@@ -126,10 +139,19 @@ public final class SGKeyboardUtils {
         imm.toggleSoftInput(0, 0);
     }
 
+    /**
+     * 隐藏输入法
+     * @param view
+     */
     public static void hideSoftInput(View view) {
         InputMethodManager imm = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
+
+    /**
+     * 隐藏输入法
+     * @param window
+     */
     public static void hideSoftInput(@NonNull final Window window) {
         View view = window.getCurrentFocus();
         if (view == null) {
@@ -146,6 +168,10 @@ public final class SGKeyboardUtils {
         }
         hideSoftInput(view);
     }
+
+    /**
+     * 软键盘改变时的监听
+     */
     public interface OnSoftInputChangedListener {
         void onSoftInputChanged(int height);
     }

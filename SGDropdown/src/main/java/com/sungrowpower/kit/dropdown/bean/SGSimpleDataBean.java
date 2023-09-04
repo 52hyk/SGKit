@@ -2,7 +2,7 @@ package com.sungrowpower.kit.dropdown.bean;
 
 /**
  * 创建日期：2023/8/24 on 8:37
- * 描述:
+ * 描述:单行和多行的数据模型
  * 作者:hyk
  */
 public class SGSimpleDataBean {

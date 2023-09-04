@@ -177,7 +177,9 @@ class SGBuiltDropDownView(context: Context) : SGDropDownBaseView(context) {
         }
     }
 
-
+    /**
+     * 获取选中的item
+     */
     public fun setSelect() {
         var tempSelect = mutableListOf<Int>()
         for (i in mData.indices) {

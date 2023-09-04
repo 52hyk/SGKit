@@ -14,7 +14,7 @@ import com.sungrowpower.kit.fonticon.SGFontIcon
 
 /**
  * 创建日期：2023/8/29 on 15:52
- * 描述:
+ * 描述:单行数据适配器
  * 作者:hyk
  */
 class SGAdapter(

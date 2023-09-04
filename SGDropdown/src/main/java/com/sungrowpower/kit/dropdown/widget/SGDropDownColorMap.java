@@ -9,6 +9,9 @@ import com.sungrowpower.kit.dropdown.SGKit;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * 获取颜色的工具类
+ */
 public class SGDropDownColorMap {
 
     /**
@@ -32,12 +35,15 @@ public class SGDropDownColorMap {
     public int animationDuration = 300;
     //50%的透明度
     public int shadowBgColor = SGKit.getInstance().getContext().getResources().getColor(R.color.sgkit_mask_color);
-
+    //设置item选中文本颜色
     public int itemCheckedTextColor = SGKit.getInstance().getContext().getResources().getColor(R.color.sgkit_brand_routine);
+    //设置item 未选中文本颜色
     public int itemUnCheckedTextColor = SGKit.getInstance().getContext().getResources().getColor(R.color.sgkit_text_title);
+   // 设置item 不能点击中文本颜色
     public int itemDisableTextColor = SGKit.getInstance().getContext().getResources().getColor(R.color.sgkit_text_disabled);
-
+    //设置item 选中背景颜色
     public Drawable itemCheckedTextBgColor = SGKit.getInstance().getContext().getResources().getDrawable(R.drawable.selected_bg);
+    //设置item 未选中背景颜色
     public Drawable itemUnCheckedTextBgColor = SGKit.getInstance().getContext().getResources().getDrawable(R.drawable.unselected_bg);
 
     private static class Holder {

@@ -16,7 +16,7 @@ import com.sungrowpower.kit.dropdown.util.SGDropDownUtils;
 
 
 /**
- * Description://获取点击区域
+ * Description://阴影层，监听点击区域
  * Create by hyk
  */
 public class SGDropDownContainer extends FrameLayout {

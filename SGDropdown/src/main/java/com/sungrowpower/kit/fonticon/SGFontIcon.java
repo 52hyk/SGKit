@@ -12,7 +12,7 @@ import com.sungrowpower.kit.R;
 
 /**
  * 创建日期：2023/8/17 on 11:37
- * 描述:
+ * 描述:FontIcon 类
  * 作者:hyk
  */
 public class SGFontIcon extends AppCompatTextView {

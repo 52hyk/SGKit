@@ -5,7 +5,7 @@ import com.sungrowpower.kit.dropdown.bean.SGGroupBackDataBean;
 import java.util.List;
 
 /**
- * Description:
+ * Description:点击item的时的接口
  * Create by hyk
  */
 public interface SGOnClickOptionListener {

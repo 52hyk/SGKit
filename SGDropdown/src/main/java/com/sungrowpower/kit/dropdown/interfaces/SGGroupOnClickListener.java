@@ -2,7 +2,7 @@ package com.sungrowpower.kit.dropdown.interfaces;
 
 
 /**
- * Description:
+ * Description:分组item的点击接口
  * Create by hyk
  */
 public interface SGGroupOnClickListener {

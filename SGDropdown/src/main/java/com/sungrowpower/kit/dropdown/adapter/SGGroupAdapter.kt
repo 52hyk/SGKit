@@ -16,7 +16,7 @@ import com.sungrowpower.kit.dropdown.util.SGDropDownUtils
 
 /**
  * 创建日期：2023/8/29 on 15:52
- * 描述:
+ * 描述:分组数据适配器
  * 作者:hyk
  */
 class SGGroupAdapter(

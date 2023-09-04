@@ -29,22 +29,17 @@ import java.util.ArrayList;
 
 
 /**
- * Description:
+ * Description:dropDown 工具类
  * Create by hyk
  */
 public class SGDropDownUtils {
 
-    //应用界面可见高度，可能不包含导航和状态栏，看Rom实现
-    public static int getAppHeight(Context context) {
-        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        if (wm == null) {
-            return -1;
-        }
-        Point point = new Point();
-        wm.getDefaultDisplay().getSize(point);
-        return point.y;
-    }
 
+    /**
+     * 获取屏幕的宽度
+     * @param context
+     * @return
+     */
     public static int getAppWidth(Context context) {
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         if (wm == null) {
@@ -55,32 +50,16 @@ public class SGDropDownUtils {
         return point.x;
     }
 
-    //屏幕的高度，包含状态栏，导航栏，看Rom实现
-    public static int getScreenHeight(Context context) {
-        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        if (wm == null) {
-            return -1;
-        }
-        Point point = new Point();
-        wm.getDefaultDisplay().getRealSize(point);
-        return point.y;
-    }
-
-    public static int getScreenWidth(Context context) {
-        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        if (wm == null) {
-            return -1;
-        }
-        Point point = new Point();
-        wm.getDefaultDisplay().getRealSize(point);
-        return point.x;
-    }
 
     public static int dp2px(Context context, float dipValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dipValue * scale + 0.5f);
     }
 
+    /**
+     * 获取状态栏的高度
+     * @return
+     */
     public static int getStatusBarHeight() {
         Resources resources = Resources.getSystem();
         int resourceId = resources.getIdentifier("status_bar_height", "dimen", "android");
@@ -102,20 +81,16 @@ public class SGDropDownUtils {
         }
     }
 
-    public static void setWidthHeight(View target, int width, int height) {
-        if (width <= 0 && height <= 0) {
-            return;
-        }
-        ViewGroup.LayoutParams params = target.getLayoutParams();
-        if (width > 0) {
-            params.width = width;
-        }
-        if (height > 0) {
-            params.height = height;
-        }
-        target.setLayoutParams(params);
-    }
 
+    /**
+     * 设置弹出层的尺寸
+     * @param content
+     * @param maxWidth
+     * @param maxHeight
+     * @param dropDownWidth
+     * @param dropDownHeight
+     * @param afterApplySize
+     */
     public static void applyDropDownSize(final ViewGroup content, final int maxWidth, final int maxHeight,
                                          final int dropDownWidth, final int dropDownHeight, final Runnable afterApplySize) {
 
@@ -163,13 +138,24 @@ public class SGDropDownUtils {
         });
     }
 
-
+    /**
+     * 是否在当前的矩形中，即是否在数据层
+     * @param x
+     * @param y
+     * @param rect
+     * @return
+     */
     public static boolean isInRect(float x, float y, Rect rect) {
         return x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom;
     }
 
     private static int sDecorViewDelta = 0;
 
+    /**
+     * 获取软键盘高度
+     * @param window
+     * @return
+     */
     public static int getDecorViewInvisibleHeight(final Window window) {
         final View decorView = window.getDecorView();
         final Rect outRect = new Rect();
@@ -186,6 +172,11 @@ public class SGDropDownUtils {
     //这个不是必现的，暂时无解
     private static int preKeyboardHeight = 0;
 
+    /**
+     * 移动到输入法之上
+     * @param keyboardHeight
+     * @param pv
+     */
     public static void moveUpToKeyboard(final int keyboardHeight, final SGBaseView pv) {
         preKeyboardHeight = keyboardHeight;
         pv.post(new Runnable() {
@@ -195,7 +186,11 @@ public class SGDropDownUtils {
             }
         });
     }
-
+    /**
+     * 移动到输入法之上
+     * @param keyboardHeight
+     * @param pv
+     */
     private static void moveUpToKeyboardInternal(int keyboardHeight, SGBaseView pv) {
         if (pv.sgDropDownInfoBean == null || !pv.sgDropDownInfoBean.getMoveUpToKeyboard()) {
             return;
@@ -250,7 +245,11 @@ public class SGDropDownUtils {
                 .setDuration(100).start();
     }
 
-
+    /***
+     * 找到所有的输入框
+     * @param list
+     * @param group
+     */
     public static void findAllEditText(ArrayList<EditText> list, ViewGroup group) {
         for (int i = 0; i < group.getChildCount(); i++) {
             View v = group.getChildAt(i);
@@ -263,17 +262,7 @@ public class SGDropDownUtils {
     }
 
 
-    private static void showToast(final Context context, final String text) {
-        final Handler mainHandler = new Handler(Looper.getMainLooper());
-        mainHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                if (context != null) {
-                    Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
+
 
 
     public static Activity context2Activity(View view) {
@@ -288,40 +277,6 @@ public class SGDropDownUtils {
         return null;
     }
 
-
-    public static boolean hasSetKeyListener(View view) {
-        try {
-            Class viewClazz = Class.forName("android.view.View");
-            Method listenerInfoMethod = viewClazz.getDeclaredMethod("getListenerInfo");
-            if (!listenerInfoMethod.isAccessible()) {
-                listenerInfoMethod.setAccessible(true);
-            }
-            Object listenerInfoObj = listenerInfoMethod.invoke(view);
-            Class listenerInfoClazz = Class.forName("android.view.View$ListenerInfo");
-            Field mOnKeyListenerField = listenerInfoClazz.getDeclaredField("mOnKeyListener");
-            if (!mOnKeyListenerField.isAccessible()) {
-                mOnKeyListenerField.setAccessible(true);
-            }
-            Object keyListener = mOnKeyListenerField.get(listenerInfoObj);
-            return keyListener != null;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    public static int calculateInSampleSize(final BitmapFactory.Options options,
-                                            final int maxWidth,
-                                            final int maxHeight) {
-        int height = options.outHeight;
-        int width = options.outWidth;
-        int inSampleSize = 1;
-        while (height > maxHeight || width > maxWidth) {
-            height >>= 1;
-            width >>= 1;
-            inSampleSize <<= 1;
-        }
-        return inSampleSize;
-    }
 
     public static Rect getViewRect(View view) {
         Rect rect = new Rect();

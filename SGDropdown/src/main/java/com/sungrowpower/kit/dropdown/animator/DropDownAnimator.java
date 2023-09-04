@@ -15,9 +15,12 @@ import com.sungrowpower.kit.dropdown.enums.SGDropDownAnimation;
  */
 public abstract class DropDownAnimator {
     protected boolean animating = false;
+    //执行动画的View
     public View targetView;
+    //动画的时长
     public int animationDuration = 0;
-    public SGDropDownAnimation SGDropDownAnimation; // 内置的动画
+    // 内置的动画
+    public SGDropDownAnimation SGDropDownAnimation;
 
     public DropDownAnimator() {
     }

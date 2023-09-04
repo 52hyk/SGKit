@@ -1,9 +1,11 @@
 package com.sungrowpower.kit.dropdown;
 
 import android.app.Application;
-import android.content.Context;
 import android.content.res.Resources;
 
+/**
+ * 初始化sgKit，获取Application
+ */
 public class SGKit {
     private Application context;
 

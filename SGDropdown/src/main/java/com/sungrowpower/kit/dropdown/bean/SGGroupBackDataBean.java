@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * 创建日期：2023/8/25 on 16:34
- * 描述:
+ * 描述:分组点击的数据临时存储模型
  * 作者:hyk
  */
 public class SGGroupBackDataBean {

@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * 创建日期：2023/8/24 on 8:37
- * 描述:
+ * 描述:分组数据模型
  * 作者:hyk
  */
 public class SGGroupDataBean {

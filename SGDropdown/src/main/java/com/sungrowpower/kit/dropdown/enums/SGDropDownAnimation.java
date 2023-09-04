@@ -1,7 +1,7 @@
 package com.sungrowpower.kit.dropdown.enums;
 
 /**
- * Description:
+ * Description:动画类型的枚举
  * Create by hyk
  */
 public enum SGDropDownAnimation {
