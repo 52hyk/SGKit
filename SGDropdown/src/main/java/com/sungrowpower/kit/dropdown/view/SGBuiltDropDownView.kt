@@ -124,23 +124,24 @@ class SGBuiltDropDownView(context: Context) : SGDropDownBaseView(context) {
                     LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                 recyclerView.adapter = adapter
             } else {
-                val params = recyclerView.layoutParams as MarginLayoutParams
-                params.leftMargin = SGDropDownUtils.dp2px(context, 10F)
-                params.rightMargin = SGDropDownUtils.dp2px(context, 10F)
-                params.topMargin = SGDropDownUtils.dp2px(context, 16F)
-                params.bottomMargin = SGDropDownUtils.dp2px(context, 4F)
-
+               // val params = recyclerView.layoutParams as MarginLayoutParams
+               // params.leftMargin = SGDropDownUtils.dp2px(context, 10F)
+               // params.rightMargin = SGDropDownUtils.dp2px(context, 10F)
+               // params.topMargin = SGDropDownUtils.dp2px(context, 16F)
+               // params.bottomMargin = SGDropDownUtils.dp2px(context, 4F)
+                recyclerView.setPadding(SGDropDownUtils.dp2px(context, 10F),SGDropDownUtils.dp2px(context, 16F),SGDropDownUtils.dp2px(context, 10F),SGDropDownUtils.dp2px(context, 4F))
                 recyclerView.layoutManager =
                     GridLayoutManager(context, sgDropDownInfoBean.useColumn)
                 recyclerView.adapter = adapterColumn
             }
         } else {
-            val params = recyclerView.layoutParams as MarginLayoutParams
-            params.leftMargin = SGDropDownUtils.dp2px(context, 10F)
-            params.rightMargin = SGDropDownUtils.dp2px(context, 10F)
-            params.topMargin = SGDropDownUtils.dp2px(context, 8F)
-            params.bottomMargin = SGDropDownUtils.dp2px(context, 4F)
+//            val params = recyclerView.layoutParams as MarginLayoutParams
+//            params.leftMargin = SGDropDownUtils.dp2px(context, 10F)
+//            params.rightMargin = SGDropDownUtils.dp2px(context, 10F)
+//            params.topMargin = SGDropDownUtils.dp2px(context, 8F)
+//            params.bottomMargin = SGDropDownUtils.dp2px(context, 4F)
 
+            recyclerView.setPadding(SGDropDownUtils.dp2px(context, 10F),SGDropDownUtils.dp2px(context, 8F),SGDropDownUtils.dp2px(context, 10F),SGDropDownUtils.dp2px(context, 4F))
             recyclerView.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             recyclerView.adapter = adapterGroup
@@ -174,7 +175,6 @@ class SGBuiltDropDownView(context: Context) : SGDropDownBaseView(context) {
 
             })
         }
-        Log.i("content-->==", findViewById<LinearLayout>(R.id.layout).id.toString())
     }
 
 
