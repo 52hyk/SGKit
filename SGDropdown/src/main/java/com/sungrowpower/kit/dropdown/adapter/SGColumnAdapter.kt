@@ -28,7 +28,7 @@ class SGColumnAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent.context)
-            .inflate(R.layout._sg_column_item, parent, false)
+            .inflate(R.layout.sg_column_item, parent, false)
         return ViewHolder(itemView, mClickListener!!)
     }
 

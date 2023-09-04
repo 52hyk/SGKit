@@ -11,7 +11,7 @@ import com.sungrowpower.kit.dropdown.base.SGDropDownBaseView
  */
 public class CustomDropDown(context: Context) : SGDropDownBaseView(context) {
     override fun getImplLayoutId(): Int {
-        return R.layout._sg_custom
+        return R.layout.sg_custom
     }
     override fun onCreate() {
         super.onCreate()

@@ -14,7 +14,6 @@ import androidx.annotation.NonNull;
 import com.sungrowpower.kit.R;
 import com.sungrowpower.kit.dropdown.animator.DropDownAnimator;
 import com.sungrowpower.kit.dropdown.animator.TranslateAnimator;
-import com.sungrowpower.kit.dropdown.base.SGBaseView;
 import com.sungrowpower.kit.dropdown.enums.SGDropDownAnimation;
 import com.sungrowpower.kit.dropdown.enums.DropDownPosition;
 import com.sungrowpower.kit.dropdown.interfaces.SGOnClickOutsideListener;
@@ -38,7 +37,7 @@ public abstract class SGDropDownBaseView extends SGBaseView {
 
     @Override
     final protected int getInnerLayoutId() {
-        return R.layout._sg_dropdown_base_view;
+        return R.layout.sg_dropdown_base_view;
     }//名称修改
 
     protected void addInnerContent() {

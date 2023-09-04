@@ -29,7 +29,7 @@ class SGAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent.context)
-            .inflate(R.layout._sg_simple_item, parent, false)
+            .inflate(R.layout.sg_simple_item, parent, false)
         return ViewHolder(itemView, mClickListener!!)
     }
 

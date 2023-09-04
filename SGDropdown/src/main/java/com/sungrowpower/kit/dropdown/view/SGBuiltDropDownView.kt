@@ -100,7 +100,7 @@ class SGBuiltDropDownView(context: Context) : SGDropDownBaseView(context) {
     }
 
     override fun getImplLayoutId(): Int {
-        return R.layout._sg_simple_drop_down
+        return R.layout.sg_simple_drop_down
     }
 
     override fun onCreate() {
