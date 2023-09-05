@@ -31,8 +31,6 @@ public abstract class SGDropDownBaseView extends SGBaseView {
     public SGDropDownBaseView(@NonNull Context context) {
         super(context);
         sgDropDownContainer = findViewById(R.id.attachDropDownContainer);
-        Log.i("content-->==-", findViewById(R.id.attachDropDownContainer).getId() + "");
-
     }
 
     @Override
@@ -64,7 +62,6 @@ public abstract class SGDropDownBaseView extends SGBaseView {
             shadowBgAnimator.targetView = getDropDownContentView();
         }
 //        getDropDownImplView().setVisibility(INVISIBLE);
-        Log.i("content-->", sgDropDownContainer.getChildCount() + "==" + getDropDownImplView().getId() + "==" + getDropDownContentView().getId());
         SGDropDownUtils.applyDropDownSize((ViewGroup) getDropDownContentView(), getMaxWidth(), getMaxHeight(),
                 getDropDownWidth(), getDropDownHeight(), new Runnable() {//Runnable 对象中的方法会在 View 的 measure、layout 等事件完成后触发。确保测量的宽度和高度可能与视图绘制完成后的真实的宽度和高度一致
                     @Override

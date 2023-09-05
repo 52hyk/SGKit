@@ -58,7 +58,9 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
     private final int touchSlop;
     public DropDownStatus dropDownStatus = DropDownStatus.Dismiss;
     protected boolean isCreated = false;
+    //是否更新软键盘弹出模式
     private boolean hasModifySoftMode = false;
+    //软键盘弹出模式
     private int preSoftMode = -1;
     private boolean hasMoveUp = false;
     protected Handler handler = new Handler(Looper.getMainLooper());
