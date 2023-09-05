@@ -8,5 +8,10 @@ import android.view.View;
  * 作者:hyk
  */
 public interface OnItemClickListener {
+     /**
+      * 点击item的时候的回调
+      * @param view
+      * @param position
+      */
      void onItemClick(View view, int position);
 }

@@ -86,7 +86,7 @@ public class SGDropDown {
 
 
         /**
-         * 设置弹窗依附的View，Attach弹窗必须设置这个
+         * 设置弹窗依附的View，弹窗必须设置这个
          *
          * @param atView
          * @return

@@ -38,13 +38,22 @@ public abstract class SGDropDownBaseView extends SGBaseView {
     @Override
     final protected int getInnerLayoutId() {
         return R.layout.sg_dropdown_base_view;
-    }//名称修改
+    }
 
+    /**
+     * 将数据层添加到阴影层
+     */
     protected void addInnerContent() {
         View contentView = LayoutInflater.from(getContext()).inflate(getImplLayoutId(), sgDropDownContainer, false);
         sgDropDownContainer.addView(contentView);
     }
 
+    /**
+     * 初始化dropDown
+     * 1：把数据层添加到阴影层
+     * 2：指定阴影动画的目标View
+     * 3：设置弹出层的高度
+     */
     @Override
     protected void initDropDownContent() {
         if (sgDropDownContainer.getChildCount() == 0) {
@@ -54,7 +63,6 @@ public abstract class SGDropDownBaseView extends SGBaseView {
         if (sgDropDownInfoBean.getHasShadowBg()) {
             shadowBgAnimator.targetView = getDropDownContentView();
         }
-
 //        getDropDownImplView().setVisibility(INVISIBLE);
         Log.i("content-->", sgDropDownContainer.getChildCount() + "==" + getDropDownImplView().getId() + "==" + getDropDownContentView().getId());
         SGDropDownUtils.applyDropDownSize((ViewGroup) getDropDownContentView(), getMaxWidth(), getMaxHeight(),
@@ -66,14 +74,24 @@ public abstract class SGDropDownBaseView extends SGBaseView {
                 });
     }
 
+    /**
+     * 初始化以及开始动画
+     */
     private void initAndStartAnimation() {
         initAnimator();
         doShowAnimation();
         doAfterShow();
     }
 
-    public boolean isShowUp;
+    public boolean isShowUp;//弹框是否向上弹出出
 
+    /**
+     * 1：设置阴影层的高度以及位置(在触摸View的上方直接把触摸View的rect.top设置成阴影层的height,
+     * 如果在触摸层View的下方把触摸view的rect.bottom设置成阴影层的topMargin)
+     * 2：通过Gravity 设置弹出层在FrameLayout的Top or BOTTOM
+     * 3：设置数据层的高度
+     * 4：对阴影层执行动画
+     */
     public void doAttach() {
         if (sgDropDownInfoBean.getAtView() == null) {
             throw new IllegalArgumentException("atView must not be null for DropDownView！");
@@ -139,12 +157,21 @@ public abstract class SGDropDownBaseView extends SGBaseView {
         });
     }
 
+    /**
+     * 对数据层执行平移动画
+     * 通过isShowUp 判断动画执行的方向
+     * @return
+     */
     @Override
     protected DropDownAnimator getDropDownAnimator() {
         return new TranslateAnimator(getDropDownImplView(), getAnimationDuration(), isShowUp ?
                 SGDropDownAnimation.TranslateFromBottom : SGDropDownAnimation.TranslateFromTop);
     }
 
+    /**
+     * 获取屏幕的宽度
+     * @return
+     */
     @Override
     protected int getMaxWidth() {
         return SGDropDownUtils.getAppWidth(getContext());

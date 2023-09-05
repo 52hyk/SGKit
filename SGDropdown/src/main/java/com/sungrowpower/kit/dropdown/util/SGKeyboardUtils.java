@@ -79,6 +79,11 @@ public final class SGKeyboardUtils {
         listenerArray.append(dropDownView.getId(), onGlobalLayoutListener);
     }
 
+    /**
+     * 注销监听
+     * @param window
+     * @param dropDownView
+     */
     public static void removeLayoutChangeListener(Window window, SGBaseView dropDownView){
         final View contentView = window.findViewById(android.R.id.content);
         if (contentView == null) {

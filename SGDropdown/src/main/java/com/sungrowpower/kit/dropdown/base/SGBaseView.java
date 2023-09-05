@@ -73,6 +73,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
         View contentView = LayoutInflater.from(context).inflate(getInnerLayoutId(), this, false);
         // 事先隐藏，等测量完毕恢复，避免影子跳动现象。
         contentView.setAlpha(0);
+        //把阴影层加进来
         addView(contentView);
     }
 
@@ -131,7 +132,10 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
         init();
     }
 
-
+    /**
+     * 1：添加宿主生命周期的监听
+     * 2：把当前的FrameLayout添加到顶级视图中
+     */
     private void attachToHost() {
         if (sgDropDownInfoBean == null) {
             throw new IllegalArgumentException("如果弹窗对象是复用的，则不要设置isDestroyOnDismiss(true)");
@@ -153,18 +157,30 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
         decorView.addView(this);
 
     }
-    //获取顶级视图
+
+    /**
+     * 获取顶级视图
+     * @return
+     */
     protected View getWindowDecorView() {
         if (getHostWindow() == null) {
             return null;
         }
         return (ViewGroup) getHostWindow().getDecorView();
     }
-    //获取根视图
+
+    /**
+     * 获取根视图
+     * @return
+     */
     public View getActivityContentView() {
         return ((Activity) getContext()).getWindow().getDecorView().findViewById(android.R.id.content);
     }
-    //获取在当前窗口的x坐标
+
+    /**
+     * 获取在当前窗口的x坐标
+     * @return
+     */
     protected int getActivityContentLeft() {
         if (!SGDropDownUtils.isLandscape(getContext())) {
             return 0;
@@ -201,7 +217,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
             }
         }
         initTask();
-        //添加监听
+        //添加点击返回键监听
         addOnUnhandledKeyListener(this);
 
     }
@@ -209,7 +225,10 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
         ViewCompat.removeOnUnhandledKeyEventListener(view, this);
         ViewCompat.addOnUnhandledKeyEventListener(view, this);
     }
-    //初始化任务
+
+    /**
+     * 初始化任务
+     */
     public void initTask(){
         if (getHostWindow() == null) {
             return;
@@ -220,7 +239,10 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
         beforeShow();
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_START);
     }
-    //初始化动画
+
+    /**
+     * 初始化动画
+     */
     protected void initAnimator() {
         getDropDownContentView().setAlpha(1f);
         // 优先使用自定义的动画器
@@ -245,6 +267,9 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
         }
     }
 
+    /**
+     * 从顶级试图中移除当前的FrameLayout
+     */
     private void detachFromHost() {
         if (sgDropDownInfoBean != null) {
             ViewGroup decorView = (ViewGroup) getParent();
@@ -253,7 +278,10 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
             }
         }
     }
-    //从活动中获取窗口
+    /**
+     * 从活动中获取窗口
+     * @return
+     */
     public Window getHostWindow() {
         if (sgDropDownInfoBean != null) {
             return ((Activity) getContext()).getWindow();
@@ -261,6 +289,9 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
         return null;
     }
 
+    /**
+     * 等动画执行完相关操作
+     */
     protected void doAfterShow() {
         handler.removeCallbacks(doAfterShowTask);
         handler.postDelayed(doAfterShowTask, getAnimationDuration());
@@ -290,7 +321,9 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
         return processKeyEvent(event.getKeyCode(), event);
     }
 
-
+    /**
+     * 弹框消失or隐藏输入框
+     */
     public void dismissOrHideSoftInput() {
         if (SGKeyboardUtils.sDecorViewInvisibleHeightPre == 0) {
             dismiss();
@@ -299,7 +332,12 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
         }
     }
 
-
+    /**
+     * 点击返回键响应事件
+     * @param keyCode
+     * @param event
+     * @return
+     */
     protected boolean processKeyEvent(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP && sgDropDownInfoBean != null) {
             if (sgDropDownInfoBean.getDismissOnBackPressed() &&
@@ -429,17 +467,25 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
     /**
      * 获取内容View，本质上DropDownView显示的内容都在这个View内部。
      * 而且我们对DropDownView执行的动画，也是对它执行的动画
-     *
+     *  也可以理解为阴影层
      * @return
      */
     public View getDropDownContentView() {
         return getChildAt(0);
     }
 
+    /**
+     * 可以理解为数据层View
+     * @return
+     */
     public View getDropDownImplView() {
         return ((ViewGroup) getDropDownContentView()).getChildAt(0);
     }
 
+    /**
+     * 获取动画时长
+     * @return
+     */
     public int getAnimationDuration() {
         if (sgDropDownInfoBean == null) {
             return 0;
@@ -452,6 +498,10 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
         //return sgDropDownInfoBean.getAnimationDuration() >= 0 ? sgDropDownInfoBean.getAnimationDuration() : GlobalBean.getAnimationDuration() + 1;
     }
 
+    /***
+     * 获取阴影层背景颜色
+     * @return
+     */
     public int getShadowBgColor() {
         return sgDropDownInfoBean.getShadowBgColor();
 
@@ -603,6 +653,9 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
         destroy();
     }
 
+    /**
+     * 释放资源
+     */
     public void destroy() {
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY);
         if (sgDropDownInfoBean != null) {
@@ -625,6 +678,12 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
 
     }
 
+    /**
+     * View从Window上分离
+     * 1：注销软键盘监听
+     * 2：释放资源
+     * 3：注销生命周期的监听
+     */
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
@@ -653,6 +712,10 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
         hasMoveUp = false;
     }
 
+    /**
+     * 透传
+     * @param event
+     */
     private void passClickThrough(MotionEvent event) {
         if (sgDropDownInfoBean != null && sgDropDownInfoBean.isClickThrough()) {
                 getActivityContentView().dispatchTouchEvent(event);

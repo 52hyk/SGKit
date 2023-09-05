@@ -277,7 +277,11 @@ public class SGDropDownUtils {
         return null;
     }
 
-
+    /**
+     * 获取当前view的可视区域，坐标系使用DecorView的坐标系
+     * @param view
+     * @return
+     */
     public static Rect getViewRect(View view) {
         Rect rect = new Rect();
         view.getGlobalVisibleRect(rect);

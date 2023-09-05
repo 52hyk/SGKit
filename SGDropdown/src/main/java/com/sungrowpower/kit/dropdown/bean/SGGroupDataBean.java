@@ -8,8 +8,13 @@ import java.util.List;
  * 作者:hyk
  */
 public class SGGroupDataBean {
+    //分组的名称
     private String title;
+
+    //分组的数据
     private List<SGSimpleDataBean> childData;
+
+    //是否分组
     private boolean isGroup;
 
     public boolean isGroup() {
