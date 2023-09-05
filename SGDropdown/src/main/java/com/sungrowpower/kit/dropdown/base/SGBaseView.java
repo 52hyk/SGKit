@@ -2,6 +2,7 @@ package com.sungrowpower.kit.dropdown.base;
 
 
 import static com.sungrowpower.kit.dropdown.enums.SGDropDownAnimation.NoAnimation;
+import static com.sungrowpower.kit.dropdown.util.SGKeyboardUtils.showSoftInput;
 
 import android.app.Activity;
 import android.app.Application;
@@ -16,6 +17,8 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
@@ -83,6 +86,12 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
         return lifecycleRegistry;
     }
 
+
+    /**
+     * 显示弹框的入口
+     * 判断弹窗是否正在显示或者已经显示过
+     * @return
+     */
     public SGBaseView show() {
 
         Activity activity = SGDropDownUtils.context2Activity(this);
@@ -102,7 +111,12 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
         return this;
     }
 
-    public void attachTask(){
+    /**
+     * 把当前的FrameLayout添加到顶级视图中
+     * 注册软键盘监听
+     * 初始化操作
+     */
+    public void attachTask() {
         // 1. add dropDownView to its host.
         attachToHost();
         //2. 注册对话框监听器
@@ -140,7 +154,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
         if (sgDropDownInfoBean == null) {
             throw new IllegalArgumentException("如果弹窗对象是复用的，则不要设置isDestroyOnDismiss(true)");
         }
-        if (sgDropDownInfoBean.getHostLifecycle()!= null) {
+        if (sgDropDownInfoBean.getHostLifecycle() != null) {
             sgDropDownInfoBean.getHostLifecycle().addObserver(this);
         } else {
             if (getContext() instanceof FragmentActivity) {
@@ -160,6 +174,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
 
     /**
      * 获取顶级视图
+     *
      * @return
      */
     protected View getWindowDecorView() {
@@ -171,6 +186,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
 
     /**
      * 获取根视图
+     *
      * @return
      */
     public View getActivityContentView() {
@@ -179,6 +195,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
 
     /**
      * 获取在当前窗口的x坐标
+     *
      * @return
      */
     protected int getActivityContentLeft() {
@@ -221,7 +238,8 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
         addOnUnhandledKeyListener(this);
 
     }
-    protected void addOnUnhandledKeyListener(View view){
+
+    protected void addOnUnhandledKeyListener(View view) {
         ViewCompat.removeOnUnhandledKeyEventListener(view, this);
         ViewCompat.addOnUnhandledKeyEventListener(view, this);
     }
@@ -229,7 +247,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
     /**
      * 初始化任务
      */
-    public void initTask(){
+    public void initTask() {
         if (getHostWindow() == null) {
             return;
         }
@@ -238,6 +256,8 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
         }
         beforeShow();
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_START);
+        setFocusAndProcessBackPress();
+
     }
 
     /**
@@ -278,8 +298,10 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
             }
         }
     }
+
     /**
      * 从活动中获取窗口
+     *
      * @return
      */
     public Window getHostWindow() {
@@ -297,6 +319,90 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
         handler.postDelayed(doAfterShowTask, getAnimationDuration());
     }
 
+    /**
+     * 强制获取焦点
+     * 如果设置弹窗获取焦点，就会循环遍历所有的EditText，
+     * 并且让第一个获取焦点弹出软键盘
+     */
+    public void setFocusAndProcessBackPress() {
+        if (sgDropDownInfoBean != null && sgDropDownInfoBean.isRequestFocus()) {
+            setFocusableInTouchMode(true);
+            setFocusable(true);
+
+            addOnUnhandledKeyListener(this);
+
+            //let all EditText can process back pressed.
+            ArrayList<EditText> list = new ArrayList<>();
+            SGDropDownUtils.findAllEditText(list, (ViewGroup) getDropDownContentView());
+            if (list.size() > 0) {
+                preSoftMode = getHostWindow().getAttributes().softInputMode;
+
+                getHostWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+                hasModifySoftMode = true;
+
+                for (int i = 0; i < list.size(); i++) {
+                    final EditText et = list.get(i);
+                    addOnUnhandledKeyListener(et);
+                    if (i == 0) {
+                        if (sgDropDownInfoBean.isAutoFocusEditText()) {
+                            et.setFocusable(true);
+                            et.setFocusableInTouchMode(true);
+                            et.requestFocus();
+                            if (sgDropDownInfoBean.getAutoOpenSoftInput()) {
+                                showSoftInput(et);
+                            }
+                        } else {
+                            if (sgDropDownInfoBean.getAutoOpenSoftInput()) {
+                                showSoftInput(this);
+                            }
+                        }
+                    }
+                }
+            } else {
+                if (sgDropDownInfoBean.getAutoOpenSoftInput()) {
+                    showSoftInput(this);
+                }
+            }
+        }
+    }
+
+    /**
+     * 设置获取焦点的view
+     * @param focusView
+     */
+    protected void showSoftInput(View focusView) {
+        if (sgDropDownInfoBean != null) {
+            if (showSoftInputTask == null) {
+                showSoftInputTask = new ShowSoftInputTask(focusView);
+            } else {
+                handler.removeCallbacks(showSoftInputTask);
+            }
+            handler.postDelayed(showSoftInputTask, 10);
+        }
+    }
+    private ShowSoftInputTask showSoftInputTask;
+
+    /**
+     * 弹出软键盘
+     */
+    static class ShowSoftInputTask implements Runnable {
+        View focusView;
+
+        public ShowSoftInputTask(View focusView) {
+            this.focusView = focusView;
+        }
+
+        @Override
+        public void run() {
+            if (focusView != null) {
+                SGKeyboardUtils.showSoftInput(focusView);
+            }
+        }
+    }
+
+    /**
+     * 动画执行完毕后的任务
+     */
     protected Runnable doAfterShowTask = new Runnable() {
         @Override
         public void run() {
@@ -334,6 +440,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
 
     /**
      * 点击返回键响应事件
+     *
      * @param keyCode
      * @param event
      * @return
@@ -467,7 +574,8 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
     /**
      * 获取内容View，本质上DropDownView显示的内容都在这个View内部。
      * 而且我们对DropDownView执行的动画，也是对它执行的动画
-     *  也可以理解为阴影层
+     * 也可以理解为阴影层
+     *
      * @return
      */
     public View getDropDownContentView() {
@@ -476,6 +584,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
 
     /**
      * 可以理解为数据层View
+     *
      * @return
      */
     public View getDropDownImplView() {
@@ -484,6 +593,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
 
     /**
      * 获取动画时长
+     *
      * @return
      */
     public int getAnimationDuration() {
@@ -589,7 +699,7 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
                 SGKeyboardUtils.hideSoftInput(SGBaseView.this);
             }
             onDismiss();
-           // SGDropDown.longClickPoint = null;
+            // SGDropDown.longClickPoint = null;
             if (sgDropDownInfoBean.getSgDropDownCallback() != null) {
                 sgDropDownInfoBean.getSgDropDownCallback().onDismiss(SGBaseView.this);
             }
@@ -659,9 +769,9 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
     public void destroy() {
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY);
         if (sgDropDownInfoBean != null) {
-            sgDropDownInfoBean.setAtView (null);
+            sgDropDownInfoBean.setAtView(null);
             sgDropDownInfoBean.setSgDropDownCallback(null);
-            sgDropDownInfoBean.setHostLifecycle (null);
+            sgDropDownInfoBean.setHostLifecycle(null);
             if (sgDropDownInfoBean.getCustomAnimator() != null && sgDropDownInfoBean.getCustomAnimator().targetView != null) {
                 sgDropDownInfoBean.getCustomAnimator().targetView.animate().cancel();
             }
@@ -714,11 +824,12 @@ public abstract class SGBaseView extends FrameLayout implements LifecycleObserve
 
     /**
      * 透传
+     *
      * @param event
      */
     private void passClickThrough(MotionEvent event) {
         if (sgDropDownInfoBean != null && sgDropDownInfoBean.isClickThrough()) {
-                getActivityContentView().dispatchTouchEvent(event);
+            getActivityContentView().dispatchTouchEvent(event);
         }
     }
 
